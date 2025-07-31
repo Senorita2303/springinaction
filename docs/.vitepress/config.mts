@@ -1068,7 +1068,7 @@ export default defineConfig({
           ],
         },
         socialLinks: [
-          { icon: 'github', link: 'https://github.com/vastsa/FileCodeBox' },
+          { icon: 'github', link: 'https://github.com/Senorita2303/springinaction' },
         ],
         footer: {
           message: 'Released under the MIT License.',
@@ -2134,7 +2134,7 @@ export default defineConfig({
           ],
         },
         socialLinks: [
-          { icon: 'github', link: 'https://github.com/vastsa/FileCodeBox' },
+          { icon: 'github', link: 'https://github.com/Senorita2303/springinaction' },
         ],
         footer: {
           message: 'Released under the MIT License.',
@@ -2157,7 +2157,7 @@ export default defineConfig({
 
     // 社交链接
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vastsa/FileCodeBox' },
+      { icon: 'github', link: 'https://github.com/Senorita2303/springinaction' },
     ],
 
     // 页脚

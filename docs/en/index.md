@@ -17,7 +17,7 @@ hero:
       link: https://share.lanol.cn
     - theme: alt
       text: View on GitHub
-      link: https://github.com/vastsa/FileCodeBox
+      link: https://github.com/Senorita2303/springinaction
 
 features:
   - icon: 🚀
