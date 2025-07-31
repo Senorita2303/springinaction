@@ -1,10 +1,10 @@
-## 6.2 创建自己的配置属性
+## 6.2 Creating your own configuration properties
 
-正如前面提到的，配置属性只不过是指定来接受 Spring 环境抽象配置的 bean 的属性。没有提到的是如何指定这些 bean 来使用这些配置。
+As I mentioned earlier, configuration properties are nothing more than properties of beans that have been designated to accept configurations from Spring’s environment abstraction. What I didn’t mention is how those beans are designated to consume those configurations.
 
-为了支持配置属性的属性注入，Spring Boot 提供了 `@ConfigurationProperties` 注释。当放置在任何 Spring bean 上时，它指定可以从 Spring 环境中的属性注入到该 bean 的属性。
+To support property injection of configuration properties, Spring Boot provides the `@ConfigurationProperties` annotation. When placed on any Spring bean, it specifies that the properties of that bean can be injected from properties in the Spring environment.
 
-为了演示 `@ConfigurationProperties` 是如何工作的，假设已经将以下方法添加到 OrderController 中，以列出经过身份验证的用户之前的订单：
+To demonstrate how `@ConfigurationProperties` works, suppose that you’ve added the following method to `OrderController` to list the authenticated user’s past orders:
 
 ```java
 @GetMapping
@@ -18,15 +18,15 @@ public String ordersForUser(
 }
 ```
 
-除此之外，还需要向 OrderRepository 添加了必要的 `findByUserOrderByPlacedAtDesc()` 方法：
+Along with that, you’ve also added the next necessary `findByUserOrderByPlacedAtDesc()` method to `OrderRepository`:
 
 ```java
 List<Order> findByUserOrderByPlacedAtDesc(User user);
 ```
 
-请注意，此存储库方法是用 OrderByPlacedAtDesc 子句命名的。OrderBy 部分指定一个属性，通过该属性对结果排序 —— 在本例中是 placedAt 属性。最后的 Desc 让排序按降序进行。因此，返回的订单列表将按时间倒序排序。
+Notice that this repository method is named with a clause of `OrderByPlacedAtDesc`. The `OrderBy` portion specifies a property by which the results will be ordered—in this case, the `placedAt` property. The `Desc` at the end causes the ordering to be in descending order. Therefore, the list of orders returned will be sorted from most recent to least recent.
 
-如前所述，在用户下了一些订单之后，这个控制器方法可能会很有用。但对于最狂热的 taco 鉴赏家来说，它可能会变得有点笨拙。在浏览器中显示的一些命令是有用的；一长串没完没了的订单只是噪音。假设希望将显示的订单数量限制为最近的 20 个订单，可以更改 `ordersForUser()`：
+As written, this controller method may be useful after the user has placed a handful of orders, but it could become a bit unwieldy for the most avid of taco connoisseurs. A few orders displayed in the browser are useful; a never-ending list of hundreds of orders is just noise. Let’s say that you want to limit the number of orders displayed to the most recent 20 orders. You can change `ordersForUser()` as follows:
 
 ```java
 @GetMapping
@@ -41,20 +41,20 @@ public String ordersForUser(
 }
 ```
 
-随着这个改变，OrderRepository 跟着需要变为：
+along with the corresponding changes to `OrderRepository`, shown next:
 
 ```java
 List<TacoOrder> findByUserOrderByPlacedAtDesc(
       User user, Pageable pageable);
 ```
 
-这里，已经更改了 `findByUserOrderByPlacedAtDesc()` 方法的签名，以接受可分页的参数。可分页是 Spring Data 通过页码和页面大小选择结果子集的方式。在 `ordersForUser()` 控制器方法中，构建了一个 PageRequest 对象，该对象实现了 Pageable 来请求第一个页面（page zero），页面大小为 20，以便为用户获得最多 20 个最近下的订单。
+Here you’ve changed the signature of the `findByUserOrderByPlacedAtDesc()` method to accept a `Pageable` as a parameter. `Pageable` is Spring Data’s way of selecting some subset of the results by a page number and page size. In the `ordersForUser()` controller method, you constructed a `PageRequest` object that implemented `Pageable` to request the first page (page zero) with a page size of 20 to get up to 20 of the most recently placed orders for the user.
 
-虽然这工作得非常好，但它让我感到有点不安，因为已经硬编码了页面大小。如果后来发现 20 个订单太多，而决定将其更改为 10 个订单，该怎么办？因为它是硬编码的，所以必须重新构建和重新部署应用程序。
+Although this works fantastically, it leaves me a bit uneasy that you’ve hardcoded the page size. What if you later decide that 20 is too many orders to list, and you decide to change it to 10? Because it’s hardcoded, you’d have to rebuild and redeploy the application.
 
-可以使用自定义配置属性来设置页面大小，而不是硬编码页面大小。首先，需要向 OrderController 添加一个名为 pageSize 的新属性，然后在 OrderController 上使用 `@ConfigurationProperties` 注解 ，如下面的程序清单所示。
+Rather than hardcode the page size, you can set it with a custom configuration property. First, you need to add a new property called `pageSize` to `OrderController`, and then annotate `OrderController` with `@ConfigurationProperties` as shown in the next listing.
 
-**程序清单 6.1 在 OrderController 中使用配置属性**
+**Listing 6.1 Enabling configuration properties in OrderController**
 ```java
 @Controller
 @RequestMapping("/orders")
@@ -82,9 +82,9 @@ public class OrderController {
 }
 ```
 
-程序清单 6.1 中最重要的变化是增加了 `@ConfigurationProperties` 注解。其 prefix 属性设置为 taco。这意味着在设置 pageSize 属性时，需要使用一个名为 taco.orders.pageSize 的配置属性。
+The most significant change made in listing 6.1 is the addition of the `@ConfigurationProperties` annotation. Its prefix attribute is set to `taco.orders`, which means that when setting the pageSize property, you need to use a configuration property named `taco.orders.pageSize`.
 
-新的 pageSize 属性默认为 20。但是可以通过设置 taco.orders.pageSize 属性轻松地将其更改为想要的任何值。例如，可以在 application.yml 中设置此属性：
+The new `pageSize` property defaults to 20, but you can easily change it to any value you want by setting a `taco.orders.pageSize` property. For example, you could set this property in application.yml like this:
 
 ```yaml
 taco:
@@ -92,12 +92,12 @@ taco:
     pageSize: 10
 ```
 
-或者，如果需要在生产环境中进行快速更改，可以通过设置 taco.orders.pageSize 属性作为环境变量来重新构建和重新部署应用程序：
+Or, if you need to make a quick change while in production, you can do so without having to rebuild and redeploy the application by setting the `taco.orders.pageSize` property as an environment variable as follows:
 
 ```bash
 $ export TACO_ORDERS_PAGESIZE=10
 ```
 
-可以设置配置属性的任何方法，都可以用来调整最近订单页面的大小。接下来，我们将研究如何在属性持有者中设置配置数据。
+Any means by which a configuration property can be set can be used to adjust the page size of the recent orders page. Next, we’ll look at how to set configuration data in property holders.
 
 

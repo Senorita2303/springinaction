@@ -1,8 +1,8 @@
-## 11.2 使用 Reactor
+## 11.2 Getting started with Reactor
 
-响应式编程需要我们从与命令式编程完全不同的角度去思考。响应式编程是通过直接建立一个用于数据流通的管道，而不是描述一系列需要进行的步骤。作为数据流通的管道，它可以被改变或以某种方式被使用。
+Reactive programming requires us to think in a very different way from imperative programming. Rather than describe a set of steps to be taken, reactive programming means building a pipeline through which data will flow. As data passes through the pipeline, it can be altered or used in some way.
 
-例如，假设您想到利用一个人的名字，把它的所有字母变为大写，然后用它来创建一个问候语，最后将它打印出来。在命令式编程模型中，代码会是这个样子：
+For example, suppose you want to take a person’s name, change all of the letters to uppercase, use it to create a greeting message, and then finally print it. In an imperative programming model, the code would look something like this:
 
 ```java
 String name = "Craig";
@@ -11,9 +11,9 @@ String greeting = "Hello, " + capitalName + "!";
 System.out.println(greeting);
 ```
 
-在命令式编程中，每一行为一步，一步接着一步，同时绝对是在同一个线程中。每一步都会阻塞直到完成才能进行下一步动作。
+In the imperative model, each line of code performs a step, one right after the other, and definitely in the same thread. Each step blocks the executing thread from moving to the next step until complete.
 
-相反，函数式的响应式代码可以以下面这种方式达到目的：
+In contrast, functional, reactive code could achieve the same thing like this:
 
 ```java
 Mono.just("Craig")
@@ -22,16 +22,16 @@ Mono.just("Craig")
     .subscribe(System.out::println);
 ```
 
-不要太担心这个例子中的细节；我们很快将讨论所有关于 `just()`、`map()` 和 `subscribe()` 的操作。就目前而言，要了解的是，虽然响应式的例子似乎仍然遵循一步一步的模式，但是这确实是一个用于数据流的管道。在管道的每个阶段，数据被以某种方式修改了，但是不能知道哪一步操作被哪一个线程执行了的。它们可能在同一个线程也可能不是。
+Don’t worry too much about the details of this example; we’ll talk all about the `just()`, `map()`, and `subscribe()` operations soon enough. For now, it’s important to understand that although the reactive example still seems to follow a step-by-step model, it’s really a pipeline that data flows through. At each phase of the pipeline, the data is tweaked somehow, but no assumption can be made about which thread any of the operations are performed on. They may be the same thread . . . or they may not be.
 
-例子中的 Mono 是 Reactor 的两个核心类型之一，另一个是 Flux。两者都是响应式流的 Publisher 的实现。Flux 表示零个、一个或多个（可能是无限个）数据项的管道。Mono 特定用于已知的数据返回项不多于一个的响应式类型。
+The `Mono` in the example is one of Reactor’s two core types. `Flux` is the other. Both are implementations of Reactive Streams’ Publisher. A `Flux` represents a pipeline of zero, one, or many (potentially infinite) data items. A `Mono` is a specialized reactive type that’s optimized for when the dataset is known to have no more than one data item.
 
-> Reactor 与 RxJava
+> Reactor vs RxJava (ReactiveX)
 >
-> 如果您已经熟悉 RxJava 或 ReactiveX，您可能会认为 Mono 和 Flux 听起来很像 Observable 和 Single。事实上，它们在语义上近似相等，甚至提供许多相同的操作。
+> If you’re already familiar with RxJava or ReactiveX, you may be thinking that `Mono` and `Flux` sound a lot like `Observable` and `Single`. In fact, they’re approximately equivalent semantically. They even offer many of the same operations.
 >
-> 尽管我们在本书中重点讨论 Reactor，但可以在 Reactor 和 RxJava 类型之间进行转换。此外，您将在下面的章节中看到 Spring 还可以使用 RxJava 的类型。
+> Although we focus on Reactor in this book, you may be happy to know that it’s possible to covert between Reactor and RxJava types. Moreover, as you’ll see in the following chapters, Spring can also work with RxJava types.
 
-在前面的例子中实际上有三个 Mono。`just()` 操作创建了第一个。当 Mono 发出一个值时，该值将被赋予大写操作的 `map()` 并用于创建另一个 Mono。当第二个 Mono 发布其数据时，被赋予第二个 `map()` 操作来执行一些字符串连接，其结果用于创建第三个 Mono。最后，对 Mono 的 `subscribe()` 进行调用，接收数据并打印它。
+The previous example actually contains three `Mono` objects. The `just()` operation creates the first one. When the `Mono` emits a value, that value is given to the `map()` operation to be capitalized and used to create another `Mono`. When the second `Mono` publishes its data, it’s given to the second `map()` operation to do some `String` concatenation, the results of which are used to create the third `Mono`. Finally, the call to `subscribe()` subscribes to the `Mono`, receives the data, and prints it.
 
 

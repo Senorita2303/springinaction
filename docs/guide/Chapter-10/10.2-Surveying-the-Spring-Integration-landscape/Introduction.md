@@ -1,18 +1,24 @@
-## 10.2 探索 Spring Integration
+## 10.2 Surveying the Spring Integration landscape
 
-Spring Integration 涵盖了许多集成场景。试图将所有这些内容都包含在一个章节中，就像试图将大象装进一个信封一样。我将展示一张 Spring Integration 大象的照片，而不是对 Spring Integration 进行全面的讨论，以便让您了解它是如何工作的。然后，将创建一个向 Taco Cloud 应用程序添加功能的集成流。
+Spring Integration covers a lot of ground with a multitude of integration scenarios. Trying to include all of it in a single chapter would be like trying to fit an elephant in an envelope. Instead of a comprehensive treatment of Spring Integration, I’ll present a photograph of the Spring Integration elephant to give you some idea of how it works. Then you’ll create one more integration flow that adds functionality to the Taco Cloud application.
 
-集成流由以下一个或多个组件组成。在编写更多代码之前，我们将简要地了解一下这些组件在集成流中所扮演的角色：
+An integration flow is composed of one or more of the following components. Before you write any more code, we’ll take a brief look at the role each of these components plays in an integration flow:
 
-* _Channels_ —— 将信息从一个元素传递到另一个元素。
-* _Filters_ —— 有条件地允许基于某些标准的消息通过流。
-* _Transformers_ —— 更改消息值或将消息有效负载从一种类型转换为另一种类型。
-* _Routers_ —— 直接将信息发送到几个渠道之一，通常是基于消息头。
-* _Splitters_ —— 将收到的信息分成两条或多条，每条都发送到不同的渠道。
-* _Aggregators_ —— 与分离器相反，它将来自不同渠道的多条信息组合成一条信息。
-* _Service activators_ —— 将消息传递给某个 Java 方法进行处理，然后在输出通道上发布返回值。
-* _Channel adapters_ —— 将通道连接到某些外部系统或传输。可以接受输入，也可以向外部系统写入。
-* _Gateways_ —— 通过接口将数据传递到集成流。
+* _Channels_ —— Passes messages from one element to another
+* _Filters_ —— Conditionally allows messages to pass through the flow based on some
+criteria
+* _Transformers_ —— Changes message values and/or converts message payloads from
+one type to another
+* _Routers_ —— Directs messages to one of several channels, typically based on message
+headers
+* _Splitters_ —— Splits incoming messages into two or more messages, each sent to different channels
+* _Aggregators_ —— The opposite of a splitter; combines multiple messages coming in
+from separate channels into a single message
+* _Service activators_ —— Hands a message off to some Java method for processing, and
+then publishes the return value on an output channel
+* _Channel adapters_ —— Connects a channel to some external system or transport; can
+either accept input or write to the external system
+* _Gateways_ —— Passes data into an integration flow via an interface
 
-在定义文件写入集成流时，您已经看到了其中的一些组件。FileWriterGateway 接口是将应用程序提交的文本写入文件的网关。还定义了一个转换器来将给定的文本转换为大写；然后声明一个服务网关，它执行将文本写入文件的任务。这个流有两个通道：textInChannel 和 fileWriterChannel，它们将其他组件相互连接起来。现在，按照承诺快速浏览一下集成流组件。
+You’ve already seen a few of these components in play when you defined the filewriting integration flow. The `FileWriterGateway` interface was the gateway through which an application submitted text to be written to a file. You also defined a transformer to convert the given text to uppercase; then you declared a service gateway that performed the task of writing the text to a file. And the flow had two channels, `textInChannel` and `fileWriterChannel`, that connected the other components with each other. Now, a quick tour of the integration flow components, as promised.
 

@@ -1,16 +1,22 @@
-## 15.1 介绍 Actuator
+## 15.1 Introducing Actuator
 
-在机器设备中， Actuator 指驱动器，是负责控制和移动机器的机械装置。在 Spring Boot 应用程序中，Spring Boot Actuator 扮演同样的角色，使我们能够看到正在运行的应用程序的内部。在某种程度上，控制应用程序的行为。
+In a machine, an actuator is a component that’s responsible for controlling and moving a mechanism. In a Spring Boot application, the Spring Boot Actuator plays that
+same role, enabling us to see inside of a running application and, to some degree,
+control how the application behaves.
 
-使用 Actuator 公开的 endpoint，我们可以获取正在运行的 Spring Boot 应用程序的一些情况：
+Using endpoints exposed by Actuator, we can ask things about the internal state of
+a running Spring Boot application, such as the following:
 
-* 应用程序环境中有哪些配置属性可用？
-* 应用程序中各种包的日志记录级别是什么？
-* 应用程序现在消耗了多少内存？
-* 给定的 HTTP endpoint 被请求了多少次？
-* 应用程序及其协作的其他服务的健康状况如何？
+* What configuration properties are available in the application environment?
+* What are the logging levels of various packages in the application?
+* How much memory is being consumed by the application?
+* How many times has a given HTTP endpoint been requested?
+* What is the health of the application and any external services it coordinates
+with?
 
-要在 Spring Boot 应用程序中启用 Actuator，只需添加 Actuator 的依赖。在 Spring Boot 应用程序 pom.xml 文件中，添加如下部分：
+To enable Actuator in a Spring Boot application, you simply need to add Actuator’s
+starter dependency to your build. In any Spring Boot application Maven pom.xml file,
+the following `<dependency>` entry does the trick:
 
 ```xml
 <dependency>
@@ -19,29 +25,29 @@
 </dependency>
 ```
 
-一旦 Actuator 依赖添加到了项目构建中，应用程序就有了几个现成的 endpoint，包括表 16.1 中所描述的这些。
+Once the Actuator starter is part of the project build, the application will be equipped
+with several out-of-the-box Actuator endpoints, including those described in table 15.1.
 
-**表 15.1：窥视 Spring Boot 应用程序内部，并操纵其运行状态的 Actuator endpoint**
+**Table 15.1：Actuator endpoints for peeking inside and manipulating the state of a running Spring Boot application**
 
-| HTTP 方法 | 路径 | 描述 | 是否默认启用 |
+| HTTP method | Path | Description | 是否默认启用 |
 | :--- | :--- | :--- | :--- |
-| GET | /auditevents | 生成已触发的任何审核事件的报告。 | 否 |
-| GET | /beans | 描述 Spring 应用程序上下文中的所有 bean。 | 否 |
-| GET | /conditions | 对于在应用程序上下文中创建的 bean，自动配置条件校验通过或失败的报告。 | 否 |
-| GET | /configprops | 描述所有配置属性以及当前值。 | 否 |
-| GET, POST, DELETE | /env | 生成 Spring 应用程序可用的所有属性源及其属性的报告。 | 否 |
-| GET | /env/{toMatch} | 描述单个环境属性的值。 | 否 |
-| GET | /health | 返回应用程序的聚合运行状况和（可能）外部相关应用程序的运行状况。 | 是 |
-| GET | /heapdump | 下载堆转储信息。 | 否 |
-| GET | /httptrace | 生成最近 100 个请求的跟踪记录。 | 否 |
-| GET | /info | 返回开发人员自定义的应用程序信息。 | 是 |
-| GET | /loggers | 生成应用程序中包的列表，及其配置的有效日志级别。 | 否 |
-| GET，POST | /loggers/{name} | 返回某个 logger 的有效日志记录级别，并可以通过 POST 请求设置日志级别。 | 否 |
-| GET | /mappings | 生成关于所有 HTTP 映射及其相应处理方法的报告。 | 否 |
-| GET | /metrics | 返回所有度量指标类别的列表。 | 否 |
-| GET | /metrics/{name} | 返回某度量的多维值的集合。 | 否 |
-| GET | /scheduledtasks | 列出所有计划任务 | 否。 |
-| GET | /threaddump | 返回所有应用程序线程的报告。 | 否 |
+| `GET` | /auditevents | Produces a report of any audit events that have been fired | 否 |
+| `GET` | /beans | Describes all the beans in the Spring application context | 否 |
+| `GET` | /conditions | Produces a report of autoconfiguration conditions that either passed or failed, leading to the beans created in the application context | 否 |
+| `GET` | /configprops | Describes all configuration properties along with the current values | 否 |
+| `GET`, `POST`, `DELETE` | /env | Produces a report of all property sources and their properties available to the Spring application | 否 |
+| `GET` | /env/{toMatch} | Describes the value of a single environment property | 否 |
+| `GET` | /health | Returns the aggregate health of the application and (possibly) the health of external dependent applications | 是 |
+| `GET` | /heapdump | Downloads a heap dump | 否 |
+| `GET` | /httptrace | Produces a trace of the most recent 100 requests | 否 |
+| `GET` | /info | Returns any developer-defined information about the application | 是 |
+| `GET` | /loggers | Produces a list of packages in the application along with their configured and effective logging levels | 否 |
+| `GET`，`POST` | /loggers/{name} | Returns the configured and effective logging level of a given logger; the effective logging level can be set with a POST request | 否 |
+| `GET` | /mappings | Produces a report of all HTTP mappings and their corresponding handler methods | 否 |
+| `GET` | /metrics | Returns a list of all metrics categories | 否 |
+| `GET` | /metrics/{name} | Returns a multidimensional set of values for a given metric | 否 |
+| `GET` | /scheduledtasks | Lists all scheduled tasks | 否。 |
+| `GET` | /threaddump | Returns a report of all application threads | 否 |
 
-除了基于 HTTP 的 endpoint，表 15.1 中的所有 Actuator 的 endpoint，除 /heapdump 以外，同时暴露为 JMX MBean。我们将在第 17 章讨论 JMX 的 Actuator。
-
+In addition to HTTP endpoints, all of the Actuator endpoints in table 15.1, with the lone exception of /heapdump, are also exposed as JMX MBeans. We’ll look at the JMX side of Actuator in chapter 17.

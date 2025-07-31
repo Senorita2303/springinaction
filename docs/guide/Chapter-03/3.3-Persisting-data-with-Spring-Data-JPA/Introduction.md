@@ -1,6 +1,5 @@
-## 3.3 使用 Spring Data JPA 持久化数据
+## 3.3 Persisting data with Spring Data JPA
 
-虽然 Spring Data JDBC 可以轻松地持久化数据，但 Java Persistence API（JPA）也是在关系数据库中处理数据的另一个常用选项。Spring Data JPA 提供了一个类似 JDBC 的 JPA 方式来持久化数据。
+Whereas Spring Data JDBC makes easy work of persisting data, the Java Persistence API (JPA) is another popular option for working with data in a relational database. Spring Data JPA offers an approach to persistence with JPA similar to what Spring Data JDBC gave us for JDBC.
 
-为了了解 Spring Data 是如何工作的，需要将本章前面介绍的基于 jdbc 的存储库替换为 Spring Data JPA 创建的存储库。但是首先，需要将 Spring Data JPA 添加到项目构建中。
-
+To see how Spring Data works, you’re going to start over, replacing the JDBC-based repositories from earlier in this chapter with repositories created by Spring Data JPA. But first, you need to add Spring Data JPA to the project build.

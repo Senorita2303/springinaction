@@ -1,10 +1,10 @@
-## 5.2 配置身份验证
+## 5.2 Configuring authentication
 
-多年来，有几种配置 Spring Security 的方法，包括冗长的基于 xml 的配置。幸运的是，Spring Security 的几个最新版本都支持基于 Java 的配置，这种配置更容易读写。
+Over the years, several ways of configuring Spring Security have existed, including lengthy XML configuration. Fortunately, several recent versions of Spring Security have supported Java configuration, which is much easier to read and write.
 
-在本章结束之前，已经在基于 Java 的 Spring Security 配置中配置了所有 Taco Cloud 安全需求。但是在开始之前，可以通过编写下面清单中所示的基本配置类来简化它。
+Before this chapter is finished, you’ll have configured all of your Taco Cloud security needs in a Java configuration for Spring Security. But to get started, you’ll ease into it by writing the configuration class shown in the following listing.
 
-**清单 5.1 Spring Security 的基本配置类**
+**Listing 5.1 A barebones configuration class for Sprin Security**
 ```java
 package tacos.security;
 import org.springframework.context.annotation.Bean;
@@ -23,20 +23,19 @@ public class SecurityConfig {
 }
 ```
 
-这个基本的安全配置做了什么？嗯，不是很多，但是它确实离需要的安全功能更近了一步。其实不多。主要的事情它只是声明了一个 PasswordEncoder bean，我们将在创建新用户和登录验证用户身份时使用。在本例中，我们使用的是 BCryptPasswordEncoder，它是
-Spring Security 提供的密码编码器之一，包括：
+What does this barebones security configuration do for you? Not much, actually. The main thing it does is declare a `PasswordEncoder` bean, which we’ll use both when creating new users and when authenticating users at login. In this case, we’re using `BCryptPasswordEncoder`, one of a handful of password encoders provided by Spring Security, including the following
 
-* BCryptPasswordEncoder —— 应用 bcrypt 加强哈希加密
-* NoOpPasswordEncoder —— 不应用任何编码
-* Pbkdf2PasswordEncoder —— 应用 PBKDF2 加密
-* SCryptPasswordEncoder —— 应用 scrypt 哈希加密
-* StandardPasswordEncoder —— 应用 SHA-256 哈希加密
+* _BCryptPasswordEncoder_ —— Applies bcrypt strong hashing encryption
+* _NoOpPasswordEncoder_ —— Applies no encoding
+* _Pbkdf2PasswordEncoder_ —— Applies PBKDF2 encryption
+* _SCryptPasswordEncoder_ —— Applies Scrypt hashing encryption
+* _StandardPasswordEncoder_ —— Applies SHA-256 hashing encryption
 
-无论您使用哪种密码编码器，重要的是要密码在数据库中永远不会被解密。相反，用户在登录时输入的密码使用相同的算法加密，然后将其与数据库中的编码密码进行比较。比较在 PasswordEncoder 的 `matches()` 方法中执行。
+No matter which password encoder you use, it’s important to understand that the password in the database is never decoded. Instead, the password that the user enters at login is encoded using the same algorithm, and it’s then compared with the encoded password in the database. That comparison is performed in the `PasswordEncoder’s matches()` method.
 
-除了密码编码器之外，我们还将在这个配置类中填充更多的 bean 以定义应用程序的安全性细节。我们将首先配置用户存储，可以处理多个用户身份验证。
+In addition to the password encoder, we’ll fill in this configuration class with more beans to define the specifics of security for our application. We’ll start by configuring a user store that can handle more than one user.
 
-为了配置用于身份验证的用户存储，您需要声明 UserDetailsService bean。UserDetailsService 接口相对简单，只有一个方法必须实现。以下是 UserDetailsService 接口：
+To configure a user store for authentication purposes, you’ll need to declare a `UserDetailsService` bean. The `UserDetailsService` interface is relatively simple, including only one method that must be implemented. Here’s what `UserDetailsService` looks like:
 
 ```java
 public interface UserDetailsService {
@@ -47,16 +46,16 @@ public interface UserDetailsService {
 
 ```
 
-`loadUserByUsername()` 方法接受用户名并使用它查找 UserDetails 对象，如果找不到给定用户名的用户，则会抛出UsernameNotFoundException。
+The `loadUserByUsername()` method accepts a username and uses it to look up a `UserDetails` object. If no user can be found for the given username, then it will throw a `UsernameNotFoundException`.
 
-事实证明，Spring Security 提供了几个 UserDetailsService 实现，可以开箱即用。包括：
+As it turns out, Spring Security offers several out-of-the-box implementations of `UserDetailsService`, including the following:
 
-* 一个内存用户存储
-* 基于 JDBC 的用户存储
-* 由 LDAP 支持的用户存储
+* An in-memory user store
+* A JDBC user store
+* An LDAP user store
 
-或者，您可以定制自己的实现，以满足特殊安全需求。
+Or, you can also create your own implementation to suit your application’s specific security needs.
 
-现在，让我们先尝试 UserDetailsService 的内存用户存储。
+To get started, let’s try out the in-memory implementation of `UserDetailsService`.
 
 

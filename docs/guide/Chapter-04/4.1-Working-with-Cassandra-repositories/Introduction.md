@@ -1,13 +1,13 @@
-## 4.1 使用 Cassandra Repository
+## 4.1 Working with Cassandra Repository
 
-Cassandra 是一个分布式、高性能、高可用、最终一致、分区行存储的 NoSQL 数据库。
+Cassandra is a distributed, high-performance, always available, eventually consistent, partitioned-column-store, NoSQL database.
 
-这些词描述了 Cassandra 的主要特点，每一个都准确的说明了 Cassandra 的一种能力。简单地说，Cassandra 以数据行的方式处理数据，这些数据被写入到表中，这些表分区后，存储到多个节点上。没有一个节点存储所有数据，且任何给定的行，都是以跨多个节点的多个复本存储的，这种方式就消除了单点故障。
+That’s a mouthful of adjectives to describe a database, but each one accurately speaks to the power of working with Cassandra. To put it in simpler terms, Cassandra deals in rows of data written to tables, which are partitioned across one-to-many distributed nodes. No single node carries all the data, but any given row may be replicated across multiple nodes, thus eliminating any single point of failure.
 
-Spring Data Cassandra 为 Cassandra 提供了自动 Repository 支持。这和为关系数据库提供支持的 Spring Data JPA 有很大不同。此外，Spring Data Cassandra 提供了新的注解，用于将应用程序实体类型映射到后台数据库结构上。
+Spring Data Cassandra provides automatic repository support for the Cassandra database that’s quite similar to—and yet quite different from—what’s offered by Spring Data JPA for relational databases. In addition, Spring Data Cassandra offers annotations for mapping application domain types to the backing database structures.
 
-在我们进一步探索 Cassandra 之前，必须始终牢记一点。就是尽管 Cassandra 与 Oracle、SQL Server 等关系型数据库有许多相似的概念，但 Cassandra 不是一个关系型数据库。 Cassandra 在很多方面与关系型数据库不同，我将试图解释 Cassandra 的特质，以及通过 Spring Data 使用它。我鼓励您阅读 Cassandra [`(http://cassandra.apache.org/doc/latest/)`](http://cassandra.apache.org/doc/latest/) 的官方文档，以彻底全面的了解为什么 Cassandra 如此大受欢迎。
+Before we explore Cassandra any further, it’s important to understand that although Cassandra shares many concepts similar to relational databases like Oracle and SQL Server, Cassandra isn’t a relational database and is in many ways quite a different beast. I’ll explain the idiosyncrasies of Cassandra as they pertain to working with Spring Data. But I encourage you to read Cassandra’s own documentation [http://cassandra.apache.org/doc/latest/](http://cassandra.apache.org/doc/latest/) for a thorough understanding of what makes it tick.
 
-让我们从在 Taco Cloud 项目中启用 Spring Data Cassandra 开始。
+Let’s get started by enabling Spring Data Cassandra in the Taco Cloud project.
 
 

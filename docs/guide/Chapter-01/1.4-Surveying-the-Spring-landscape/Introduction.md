@@ -1,5 +1,3 @@
-## 1.4  俯瞰 Spring 风景线
+## 1.4 Khảo sát hệ sinh thái Spring
 
-要了解 Spring 的风景线，只需查看完整版 Spring Initializr web 表单上的大量复选框列表即可。它列出了 100 多个依赖项选择，所以我不会在这里全部列出或者提供一个屏幕截图。但我鼓励您们去看看。与此同时，我将提到一些亮点。
-
-
+Để hình dung được toàn cảnh hệ sinh thái Spring, bạn chỉ cần nhìn vào danh sách checkbox khổng lồ trên phiên bản đầy đủ của biểu mẫu Spring Initializr trên web. Nó liệt kê hơn 100 tùy chọn dependency, vì vậy tôi sẽ không cố gắng liệt kê hết chúng ở đây hay chụp ảnh màn hình làm gì. Nhưng tôi khuyến khích bạn nên tự mình khám phá qua.

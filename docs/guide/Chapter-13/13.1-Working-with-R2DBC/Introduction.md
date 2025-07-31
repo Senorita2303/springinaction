@@ -1,10 +1,11 @@
-## 13.1 使用 R2DBC
+## 13.1 Working with R2DBC
 
-响应式关系型数据库连接（通常称为 R2DBC）是一种使用响应类型处理关系数据新选择。它实际上是一个 JDBC 的响应式替代方案，支持针对传统关系型数据库，如 MySQL、PostgreSQL、H2 和 Oracle 的非阻塞持久化。因为它是建立在响应式基础上的，与 JDBC 有很大不同，是一个独立的规范，与 Java SE 无关。
+Reactive Relational Database Connectivity, or R2DBC [https://r2dbc.io/](https://r2dbc.io/) as it is commonly known, is a relatively new option for working with relational data using reactive types. It is effectively a reactive alternative to JDBC, enabling nonblocking persistence against conventional relational databases such as MySQL, PostgreSQL, H2, and Oracle. Because it’s built on Reactive Streams, it is quite different from JDBC and is a separate specification, unrelated to Java SE.
 
-Spring Data R2DBC 是 Spring Data 的一个子项目。它支持 R2DBC，与我们在第 3 章中看到的 Spring Data JDBC 非常相似。与 Spring Data JDBC 不同的是，Spring Data R2DBC 并不要求严格遵守领域驱动设计概念。事实上，您很快就会看到，使用 Spring Data R2DBC 通过聚合根持久化数据，需要比使用 Spring Data JDBC 要多做一些工作。
+Spring Data R2DBC is a subproject of Spring Data that offers automatic repository support for R2DBC, much the same as Spring Data JDBC, which we looked at in chapter 3. Unlike Spring Data JDBC, however, Spring Data R2DBC doesn’t require strict adherence to domain-driven design concepts. In fact, as you’ll soon see, attempting to persist data through an aggregate root requires a bit more work with Spring Data
+R2DBC than with Spring Data JDBC.
 
-要使用 Spring Data R2DBC，您需要在项目的构建中添加一个 starter 依赖项。对于 Maven 构建的项目，依赖项如下所示：
+To use Spring Data R2DBC, you’ll need to add a starter dependency to your project’s build. For a Maven-built project, the dependency looks like this:
 
 ```xml
 <dependency>
@@ -13,9 +14,9 @@ Spring Data R2DBC 是 Spring Data 的一个子项目。它支持 R2DBC，与我�
 </dependency>
 ```
 
-或者，如果您使用 Initializr 配置工程，请在创建项目时勾选“Spring Data R2DBC”选择框。
+Or, if you’re using the Initializr, select the Spring Data R2DBC check box when creating your project.
 
-您还需要一个关系数据库以便进行数据持久化，以及相应的 R2DBC 驱动。我们将使用内存数据库 H2。因此，我们需要增加两个依赖项：H2 数据库库和 H2 R2DBC 驱动。依赖项如下所示：
+You’ll also need a relational database to persist data to, along with a corresponding R2DBC driver. For our project, we’ll be using an in-memory H2 database. Therefore, we need to add two dependencies: the H2 database library itself and the H2 R2DBC driver. The Maven dependencies follow:
 
 ```xml
 <dependency>
@@ -30,6 +31,6 @@ Spring Data R2DBC 是 Spring Data 的一个子项目。它支持 R2DBC，与我�
 </dependency>
 ```
 
-如果您使用不同的数据库，则需要配置相关依赖项以添加相应的 R2BDC 驱动程序。
+If you’re using a different database, then you’ll need to add the corresponding R2BDC driver dependency for the database of your choice.
 
-现在，依赖项已经就位，让我们看看 Spring Data R2DBC 是如何工作的。让我们从定义实体类开始。
+Now that the dependencies are in place, let’s see how Spring Data R2DBC works. Let’s start by defining the domain entities.

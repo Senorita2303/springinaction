@@ -1,8 +1,8 @@
-## 6.3 使用 profile 进行配置
+## 6.3 Configuring with profiles
 
-当应用程序部署到不同的运行时环境时，通常会有一些配置细节不同。例如，数据库连接的细节在开发环境中可能与在 QA 环境中不一样，在生产环境中可能还不一样。在一个环境中唯一配置属性的一种方法是使用环境变量来指定配置属性，而不是在 application.properties 或 application.yml 中定义它们。
+When applications are deployed to different runtime environments, usually some configuration details differ. The details of a database connection, for instance, are likely not the same in a development environment as in a quality assurance environment, and they are different still in a production environment. One way to configure properties uniquely in one environment over another is to use environment variables to specify configuration properties instead of defining them in application.properties and application.yml.
 
-例如，在开发期间，可以依赖于自动配置的嵌入式 H2 数据库。但在生产中，可以将数据库配置属性设置为环境变量，如下所示：
+For instance, during development you can lean on the autoconfigured embedded H2 database. But in production, you can set database configuration properties as environment variables like this:
 
 ```bash
 % export SPRING_DATASOURCE_URL=jdbc:mysql://localhost/tacocloud
@@ -10,11 +10,11 @@
 % export SPRING_DATASOURCE_PASSWORD=tacopassword
 ```
 
-尽管这样做是可行的，但是将一两个以上的配置属性指定为环境变量就会变得有点麻烦。此外，没有跟踪环境变量更改的好方法，也没有在出现错误时轻松回滚更改的好方法。
+Although this will work, it’s somewhat cumbersome to specify more than one or two configuration properties as environment variables. Moreover, there’s no good way to track changes to environment variables or to easily roll back changes if there’s a mistake.
 
-相反，我更喜欢利用 Spring profile 文件。profile 文件是一种条件配置类型，其中根据运行时激活的 profile 文件应用或忽略不同的 bean、配置类和配置属性。
+Instead, I prefer to take advantage of Spring profiles. Profiles are a type of conditional configuration where different beans, configuration classes, and configuration properties are applied or ignored based on what profiles are active at run time.
 
-例如，假设出于开发和调试的目的，希望使用嵌入式 H2 数据库，并且希望将 Taco Cloud 代码的日志级别设置为 DEBUG。但是在生产中，需要使用一个外部 MySQL 数据库，并将日志记录级别设置为 WARN。在开发环境中，很容易不设置任何数据源属性并获得自动配置的 H2 数据库。至于 DEBUG 级别的日志记录，可以在 application.yml 中设置 logging.level.tacos 属性。
+For instance, let’s say that for development and debugging purposes, you want to use the embedded H2 database, and you want the logging levels for the Taco Cloud code to be set to `DEBUG`. But in production, you want to use an external MySQL database and set the logging levels to `WARN`. In the development situation, it’s easy enough to not set any data source properties and get the autoconfigured H2 database. And as for debug-level logging, you can set the `logging.level.tacos` property for the tacos base package to `DEBUG` in application.yml as follows:
 
 ```yaml
 logging:
@@ -22,6 +22,6 @@ logging:
     tacos: DEBUG
 ```
 
-这正是开发目的所需要的。但是，如果要将此应用程序部署到生产环境中，而不需要对 application.yml 进行进一步更改，仍然可以获得对于 tacos 包的调试日志和嵌入式 H2 数据库。需要的是定义一个具有适合生产的属性的 profile 文件。
+This is precisely what you need for development purposes. But if you were to deploy this application in a production setting with no further changes to application.yml, you’d still have debug logging for the tacos package and an embedded H2 database. What you need is to define a profile with properties suited for production.
 
 

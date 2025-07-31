@@ -1,17 +1,17 @@
-# 第 9 章 发送异步消息
+# Chapter 9. Sending messages asynchronously
 
-本章内容：
+This chapter covers
 
-* 异步消息
-* 使用 JMS、RabbitMQ 和 Kafka 发送消息
-* 从 Broker 拉取消息
-* 监听消息
+* Asynchronous messaging
+* Sending messages with JMS, RabbitMQ, and Kafka
+* Pulling messages from a broker
+* Listening for messages
 
-现在是星期五下午 4 点 55 分。您还有几分钟就要开始期待已久的假期了。虽然您有足够的时间开车去机场赶飞机，但是在您打包好行李准备离开的时候，您需要确保您的老板和同事们知道您当前工作的状态，这样下周一他们可以从您中断的地方接着做。不幸的是，您的一些同事已经提前离开去过周末了，并且您的老板一直在开会。您该怎么做呢？
+It’s 4:55 p.m. on Friday. You’re minutes away from starting a much-anticipated vacation. You have just enough time to drive to the airport and catch your flight. But before you pack up and head out, you need to be sure your boss and colleagues know the status of the work you’ve been doing so that on Monday they can pick up where you left off. Unfortunately, some of your colleagues have already skipped out for the weekend, and your boss is tied up in a meeting. What do you do?
 
-最实用的办法就是，向老板和同事发一封简短的电子邮件，详细说明您的工作进展情况，并承诺寄张明信片。这样做既能传达您的工作的进度，又能赶上飞机。您不知道他们在哪里，也不知道他们什么时候会读这封邮件，但您知道他们最终会回到自己的办公桌上读到这封邮件。与此同时，您正在去机场的路上。
+The most practical way to communicate your status and still catch your plane is to send a quick email to your boss and your colleagues, detailing your progress and promising to send a postcard. You don’t know where they are or when they’ll read the email, but you do know they’ll eventually return to their desks and read it. Meanwhile, you’re on your way to the airport.
 
-_同步_ 通信有它的适用场景，这是我们在 REST 中所看到的。但这并不是开发人员可以使用的惟一的应用程序间通信方式。_异步_ 消息传递是一种间接地将消息从一个应用程序发送到另一个应用程序而无需等待响应的方式。这种间接方式解耦了相互通信的应用程序，并带来了更好的伸缩性。
+_Synchronous_ communication, which is what we’ve seen with REST, has its place. But it’s not the only style of interapplication communication available to developers. Asynchronous messaging is a way of indirectly sending messages from one application to another without waiting for a response. This indirection affords looser coupling and greater scalability between the communicating applications.
 
-在本章中，将使用异步消息传递，把订单从 Taco Cloud 网站发送到另一个独立应用程序 Taco Cloud 厨房，在那里将准备 tacos。我们分别考虑 Spring 为异步消息传递提供的三个选项：Java 消息服务（JMS）、RabbitMQ 和高级消息队列协议（AMQP）以及 Apache Kafka。除了基本的消息发送和接收之外，我们还将了解 Spring 对消息驱动 POJO 的支持：一种类似于 EJB 的消息驱动 bean（MDB）的消息接收方式。
+In this chapter, we’re going to use asynchronous messaging to send orders from the Taco Cloud website to a separate application in the Taco Cloud kitchens where the tacos will be prepared. We’ll consider three options that Spring offers for asynchronous messaging: the Java Message Service (JMS), RabbitMQ and Advanced Message Queueing Protocol (AMQP), and Apache Kafka. In addition to the basic sending and receiving of messages, we’ll look at Spring’s support for message-driven POJOs: a way to receive messages that resembles Enterprise JavaBeans’ message-driven beans (MDBs).
 

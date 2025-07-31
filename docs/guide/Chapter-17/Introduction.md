@@ -1,13 +1,12 @@
-# 第 17 章 使用 JMX 监控 Spring
+# Chapter 17. Monitoring Spring with JMX
 
-本章内容
+This chapter covers
 
-* 使用 Actuator 端点 MBean
-* 将 Spring Bean 公开为 MBean
-* 发布通知
+* Working with Actuator endpoint MBeans
+* Exposing Spring beans as MBeans
+* Publishing notifications
 
-十多年来，Java 管理扩展（JMX）一直是监视和管理 Java 应用程序的标准方法。通过公开托管组件即 MBean（托管bean），外部 JMX 客户端可以执行调用、检查属性和监视来自 MBeans 的事件。
+For over a decade and a half, Java Management Extensions (JMX) has been the standard means of monitoring and managing Java applications. By exposing managed components known as MBeans (managed beans), an external JMX client can manage an application by invoking operations, inspecting properties, and monitoring events from MBeans.
 
-我们开始探索 Spring 和 JMX，先看看 Actuaotr 端点是如何暴露为 MBean 的。
-
+We’ll start exploring Spring and JMX by looking at how Actuator endpoints are exposed as MBeans.
 

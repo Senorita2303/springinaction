@@ -1,8 +1,8 @@
-## 13.2 使用 MongoDB 响应式保存文档
+## 13.2 Persisting document data reactively with MongoDB
 
-在第 4 章中，我们使用 Spring Data MongoDB 定义了基于 MongoDB 文档型数据库的文档数据持久化。在本节中，我们将使用 Spring Data 对 MongoDB 的响应式支持。
+In chapter 4, we used Spring Data MongoDB to define document-based persistence against a MongoDB document database. In this section, we’re going to revisit MongoDB persistence using Spring Data’s reactive support for MongoDB.
 
-首先，您需要使用 Spring Data Reactive MongoDB starter 创建一个项目。实际上，这是使用 Initalizr 创建项目时要选择的复选框的名称。或者，您可以使用以下依赖项手动将其添加到 Maven 构建中：
+To get started, you’ll need to create a project with the Spring Data Reactive MongoDB starter. That is, in fact, the name of the check box to select when creating the project with the Inita
 
 ```xml
 <dependency>
@@ -11,6 +11,6 @@
 </dependency>
 ```
 
-在第 4 章中，我们还借助于 Flapdoodle 嵌入式 MongoDB 数据库进行测试。不幸的是，以响应式持久化时，Flapdoodle 的表现不是很好。在运行测试时，您需要运行一个实际的 Mongo 数据库，并侦听端口 27017。
+In chapter 4, we also leaned on the Flapdoodle embedded MongoDB database for testing. Unfortunately, Flapdoodle doesn’t behave quite as well when fronted with reactive repositories. When it comes to running the tests, you’ll need to have an actual Mongo database running and listening on port 27017.
 
-现在，我们已经准备好开始为响应式 MongoDB 持久化编写代码了。我们先从创建文档类型开始。
+Now we’re ready to start writing code for reactive MongoDB persistence. We’ll start with the document types that make up our domain.

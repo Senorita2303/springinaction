@@ -1,22 +1,22 @@
-## 2.1 展示信息
+## 2.1 Displaying information
 
-从根本上说，Taco Cloud 是一个可以在线订购玉米卷的地方。但除此之外，Taco Cloud 还希望让顾客能够表达自己的创意，从丰富的配料中设计定制的玉米卷。
+Fundamentally, Taco Cloud is a place where you can order tacos online. But more than that, Taco Cloud wants to enable its customers to express their creative side and design custom tacos from a rich palette of ingredients.
 
-因此，Taco Cloud web应用程序需要一个页面来显示玉米卷制作艺术家可以从中选择的配料。选择的原料可能随时改变，所以不应该硬编码到 HTML 页面中。相反，应该从数据库中获取可用配料的列表，并将其提交给页面以显示给客户。
+Therefore, the Taco Cloud web application needs a page that displays the selection of ingredients for taco artists to choose from. The ingredient choices may change at any time, so they shouldn’t be hardcoded into an HTML page. Rather, the list of available ingredients should be fetched from a database and handed over to the page to be displayed to the customer.
 
-在 Spring web 应用程序中，获取和处理数据是控制器的工作。视图的工作是将数据渲染成 HTML 并显示在浏览器中。将创建以下组件来支持 Taco 创建页面：
+In a Spring web application, it’s a controller’s job to fetch and process data. And it’s a view’s job to render that data into HTML that will be displayed in the browser. You’re going to create the following components in support of the taco creation page:
 
-* 一个定义玉米卷成分特性的领域实体类
-* 一个 Spring MVC 控制器类，它获取成分信息并将其传递给视图
-* 一个视图模板，在用户的浏览器中呈现一个成分列表
+* A domain class that defines the properties of a taco ingredient
+* A Spring MVC controller class that fetches ingredient information and passes it along to the view
+* A view template that renders a list of ingredients in the user’s browser
 
-这些组件之间的关系如图 2.1 所示。
+The relationship between these components is illustrated in figure 2.1.
 
 ![](../../assets/2.1.png)
-**图 2.1 典型 Spring MVC 请求流程** <br/>
+**Figure 2.1 A typical Spring MVC request flow** <br/>
 
-由于本章主要讨论 Spring 的 web 框架，所以我们将把数据库的内容推迟到第 3 章。现在，控制器将单独负责向视图提供组件。在第 3 章中，将重写控制器，使其与从数据库中获取配料数据的存储库进行协作。
+Because this chapter focuses on Spring’s web framework, we’ll defer any of the database stuff to chapter 3. For now, the controller is solely responsible for providing the ingredients to the view. In chapter 3, you’ll rework the controller to collaborate with a repository that fetches ingredients data from a database.
 
-在编写控制器和视图之前，让我们先确定表示配料的域类型。这将为开发 web 组件奠定基础。
+Before you write the controller and view, let’s hammer out the domain type that represents an ingredient. This will establish a foundation on which you can develop your web components.
 
 

@@ -1,14 +1,14 @@
-# 第 10 章 集成 Spring
+# Chapter 10. Integrating Spring
 
-本章内容：
+This chapter covers
 
-* 实时数据处理
-* 定义集成流程
-* 使用 Spring Integration 的 Java DSL 定义
-* 集成电子邮件、文件系统和其他外部系统
+* Processing data in real time
+* Defining integration flows
+* Using Spring Integrations's Java DSL definition
+* Integrating with emails, filesystems, and other external systems
 
-我在旅行中遇到的最令人沮丧的事情之一就是在长途飞行中，飞机上的互联网连接很差或者根本不存在。我喜欢利用我的飞行时间完成一些工作，包括写这本书。在需要获取库或查找 Java 文档时，如果没有网络连接，那就尴尬了，也完成不了多少工作。在这种场合下，我学会了带本纸质书来读。
+One of the most frustrating things I encounter as I travel is being on a long flight and having a poor or nonexistent in-flight internet connection. I like to use my air time to get some work done, including writing many of the pages of this book. If there’s no network connection, I’m at a disadvantage if I need to fetch a library or look up a Javadoc, and I’m not able to get much work done. I’ve learned to pack a book to read for those occasions.
 
-正如我们需要连接到互联网来提高生产力一样，许多应用程序也必须连接到外部系统来执行它们的工作。应用程序可能需要读取或发送电子邮件、与外部 API 交互或对写入数据库的数据作出响应。而且，由于数据是从这些外部系统获取或写入的，应用程序可能需要以某种方式处理数据，以便将其转换到或从应用程序自己的领域。
+Just as we need to connect to the internet to be productive, many applications must connect to external systems to perform their work. An application may need to read or send emails, interact with an external API, or react to data being written to a database. And, as data is ingested from or written to these external systems, the application may need to process data in some way to translate it to or from the application’s own domain.
 
-在本章中，将看到如何使用 Spring Integration 的通用集成模式。Spring Integration 是由 Gregor Hohpe 和 Bobby Woolf 在_《企业级集成模式》_一书中编目的许多集成模式的实现。每个模式都被实现为一个组件，消息通过该组件传输管道中的数据。使用 Spring 配置，可以将这些组件组装到数据流经的管道中。让我们从定义一个简单的集成流开始，它引入了 Spring Integration 的许多特性。
+In this chapter, you’ll see how to employ common integration patterns with Spring Integration. Spring Integration is a ready-to-use implementation of many of the integration patterns that are catalogued in _Enterprise Integration Patterns_ by Gregor Hohpe and Bobby Woolf (Addison-Wesley, 2003). Each pattern is implemented as a component through which messages ferry data in a pipeline. Using Spring configuration, you can assemble these components into a pipeline through which data flows. Let’s get started by defining a simple integration flow that introduces many of the features and characteristics of working with Spring Integration.

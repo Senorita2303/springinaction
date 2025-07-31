@@ -1,12 +1,12 @@
-# 第 16 章 管理 Spring
+# Chapter 16. Administering Spring
 
-本章内容
+This chapter covers
 
-* 设置 Spring Boot Admin
-* 注册客户端应用程序
-* 使用 Actuator 端点
-* 保护 Admin 服务器的安全
+* Setting up Spring Boot Admin
+* Registering client applications
+* Working with Actuator endpoints
+* Securing the Admin server
 
-俗话说，一图胜千言。对于众多的应用使用者来说，一个对用户友好的 Web 界面抵得上一千次 API 调用。别误解我，我是个命令行迷，非常喜欢使用 curl 和 HTTPie 来进行 REST API 调用。但是，有时手动键入命令行以调用 REST，然后目视检查返回结果，效率可能低于只需单击链接并在 web 浏览器中读取结果。
+A picture is worth a thousand words (or so they say), and for many application users, a user-friendly web application is worth a thousand API calls. Don’t get me wrong, I’m a command-line junkie and a big fan of using `curl` and HTTPie to consume REST APIs. But sometimes, manually typing the command line to invoke a REST endpoint and then visually inspecting the results can be less efficient than simply clicking a link and reading the results in a web browser
 
-在上一章中，我们讨论了 Spring Boot Actuator。这些 HTTP 端点返回 JSON 响应数据，可以任意使用它们。在本章中，我们将了解如何创建底层基于 Actuator 的前端用户界面（UI）。使 Actuator 更易于使用，且可以实时捕获难以直接从 Actuator 获取的数据。
+In the previous chapter, we explored all of the HTTP endpoints exposed by the Spring Boot Actuator. As HTTP endpoints that return JSON responses, there’s no limit to how those can be used. In this chapter, we’ll see how to put a frontend user interface (UI) on top of the Actuator to make it easier to use, as well as capture live data that would be difficult to consume from Actuator directly.

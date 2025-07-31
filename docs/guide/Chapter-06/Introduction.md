@@ -1,18 +1,17 @@
-# 第 6 章 使用配置属性
+# Chapter 6. Working with configuration properties
 
-本章内容：
+This chapter covers
 
-* 微调自动配置 bean
-* 将配置属性应用于应用程序组件
-* 使用 Spring 配置文件
+* Fine-tuning autoconfigured beans
+* Applying configuration properties to application components
+* Working with Spring profiles
 
-您还记得 iPhone 第一次出现的时候吗？一块由金属和玻璃制成的小平板几乎不符合人们对电话的认知。然而，它开创了现代智能手机时代，改变了我们交流的一切方式。尽管在很多方面，触控手机都比上一代的翻盖手机更简单、功能更强大，但在 iPhone 第一次发布时，很难想象一个只有一个按钮的设备怎么能用来打电话。
+Do you remember when the iPhone first came out? A small slab of metal and glass hardly fit the description of what the world had come to recognize as a phone. And yet, it pioneered the modern smartphone era, changing everything about how we communicate. Although touch phones are in many ways easier and more powerful than their predecessor, the flip phone, when the iPhone was first announced, it was hard to imagine how a device with a single button could be used to place calls.
 
-在某些方面，Spring Boot 自动配置是这样的。自动配置大大简化了 Spring 应用程序的开发。但是，在使用 Spring XML 配置中设置属性值和调用 bean 实例上 setter 方法十年之后，如何在没有显式配置的 bean 上设置属性并不是很明显。
+In some ways, Spring Boot autoconfiguration is like this. Autoconfiguration greatly simplifies Spring application development. But after a decade of setting property values in Spring XML configuration and calling setter methods on bean instances, it’s not immediately apparent how to set properties on beans for which there’s no explicit configuration.
 
-幸运的是，Spring Boot 提供了一种配置属性的方法。配置属性不过是 Spring 应用程序上下文中 `@ConfigurationProperties` bean 上的属性。可以从几个属性源（包括 JVM 系统属性、命令行参数和环境变量）之一进行设置。我们将在第 6.2 节中看到，如何在我们自己的 bean 上使用 `@ConfigurationProperties`。但是 Spring Boot 本身提供了几个 `@ConfigurationProperties` 注解的 bean，我们先
-配置它们。
+Fortunately, Spring Boot provides a way to set property values on application components with configuration properties. Configuration properties are nothing more than properties on `@ConfigurationProperties`-annotated beans in the Spring application context. Spring will inject values from one of several property sources—including JVM system properties, command-line arguments, and environment variables—into the bean properties. We’ll see how to use `@ConfigurationProperties` on our own beans in section 6.2. But Spring Boot itself provides several `@ConfigurationProperties`-annotated beans that we’ll configure first.
 
-在本章中，将从实现 Taco Cloud 应用程序中的新功能中后退一步，以研究配置属性。在接下来的章节中，您学到的东西无疑会对您以后的学习很有帮助。我们将首先了解如何使用配置属性来微调 Spring Boot 自动配置的内容。
+In this chapter, you’re going to take a step back from implementing new features in the Taco Cloud application to explore configuration properties. What you take away will no doubt prove useful as you move forward in the chapters that follow. We’ll start by seeing how to employ configuration properties to fine-tune what Spring Boot automatically configures.
 
 

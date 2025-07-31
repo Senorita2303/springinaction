@@ -1,6 +1,6 @@
-## 16.3 保护 Admin 服务端
+## 16.3 Securing the Admin server
 
-正如我们在前一章中所讨论的那样，Actuator 的端点是不应该随便使用的。端点暴露的应用程序详细信息，只有管理员才应该看见。此外，一些端点允许修改配置，这当然不应该随便暴露给任何人。
+As we discussed in the previous chapter, the information exposed by the Actuator’s endpoints isn’t intended for general consumption. They contain information that exposes details about an application that only an application administrator should see. Moreover, some of the endpoints allow changes that certainly shouldn’t be exposed to just anyone.
 
-正如安全性对 Actuator 非常重要一样，它对 Admin 服务端也同样重要。此外，如果 Actuator 端点需要身份验证，则 Admin 服务端需要知道，能够访问这些端点的凭据。让我们看看如何为 Admin 服务端添加一点安全性。我们将从要求身份验证开始。
+Just as security is important to the Actuator, it’s also important to the Admin server. What’s more, if the Actuator endpoints require authentication, then the Admin server needs to know the credentials to be able to access those endpoints. Let’s see how to add a little security to the Admin server. We’ll start by requiring authentication.
 

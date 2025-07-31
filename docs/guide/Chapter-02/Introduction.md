@@ -1,14 +1,14 @@
-# 第 2 章 开发 Web 应用程序
+# Chapter 2. Developing web applications
 
-本章内容：
+This chapter covers:
 
-* 在浏览器中展示模型数据
-* 处理和验证表单输入
-* 选择视图模板库
+* Presenting model data in the browser
+* Processing and validating form input
+* Choosing a view template library
 
-第一印象很重要：好的房屋门面能够让购房者进入房子之前被吸引；一辆车的喷漆工作将会比引擎盖下的东西吸引更多的人；文学作品中充满了一见钟情的故事。内在的东西很重要，但外在的 —— 先看到的 —— 才是重要的。
+First impressions are important. Curb appeal can sell a house long before the home buyer enters the door. A car’s cherry red paint job will turn more heads than what’s under the hood. And literature is replete with stories of love at first sight. What’s inside is important, but what’s outside — what’s seen first — is also important.
 
-使用 Spring 构建的应用程序将执行各种操作，包括处理数据、从数据库中读取信息以及与其他应用程序进行交互。但是应用程序用户得到的第一印象来自于用户界面。在许多应用程序中，UI 界面是在浏览器中显示的 web 应用程序。
+The applications you’ll build with Spring will do all kinds of things, including crunching data, reading information from a database, and interacting with other applications. But the first impression your application users will get comes from the user interface. And in many applications, that UI is a web application presented in a browser.
 
-在第 1 章中，创建了第一个 Spring MVC 控制器来显示应用程序主页。但是 Spring MVC 能做的远不止简单地显示静态内容。在本章中，将开发 Taco Cloud 应用程序的第一个主要功能 —— 设计自定义 Taco 的能力。在此过程中，将深入研究 Spring MVC，并了解如何显示模型数据和处理表单输入。
+In chapter 1, you created your first Spring MVC controller to display your application home page. But Spring MVC can do far more than simply display static content. In this chapter, you’ll develop the first major bit of functionality in your Taco Cloud application—the ability to design custom tacos. In doing so, you’ll dig deeper into Spring MVC, and you’ll see how to display model data and process form input.
 

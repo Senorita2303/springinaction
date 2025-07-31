@@ -1,14 +1,14 @@
-### 3.2 使用 Spring Data JDBC
+### 3.2 Working with Spring Data JDBC
 
-Spring Data 项目是一个相当大的一揽子项目，由几个子项目组成，其中大多数是聚焦在对各种不同数据库类型进行持久化。一些最流行的 Spring Data 项目包括：
+The Spring Data project is a rather large umbrella project comprising several subprojects, most of which are focused on data persistence with a variety of different database types. A few of the most popular Spring Data projects include these:
 
-* Spring Data JDBC —— 针对关系数据库的 JDBC 持久化
-* Spring Data JPA —— 针对关系数据库的 JPA 持久化
-* Spring Data MongoDB —— Mongo 文档数据库的持久化
-* Spring Data Neo4j —— 持久化到 Neo4j 图形数据库
-* Spring Data Redis —— 持久化到 Redis 键值存储数据库
-* Spring Data Cassandra —— 持久化到 Cassandra 列存储数据库
+* _Spring Data JDBC_ —— JDBC persistence against a relational database
+* _Spring Data JPA_ —— JPA persistence against a relational database
+* _Spring Data MongoDB_ —— Persistence to a Mongo document database
+* _Spring Data Neo4j_ —— Persistence to a Neo4j graph database
+* _Spring Data Redis_ —— Persistence to a Redis key-value store
+* _Spring Data Cassandra_ —— Persistence to a Cassandra column store database
 
-Spring Data 为所有这些项目提供的最有趣、最有用的特性之一是，基于 Repository 规范接口自动创建 Repository 的能力。因此，Spring Data 项目的持久化几乎没有持久化逻辑，只涉及编写一个或多个 Repository 接口。
+One of the most interesting and useful features provided by Spring Data for all of these projects is the ability to automatically create repositories, based on a repository specification interface. Consequently, persistence with Spring Data projects has little or no persistence logic and involves writing only one or more repository interfaces.
 
-让我们看看如何将 Spring Data JDBC 应用到我们的项目中，以简化 JDBC 的数据持久化。首先，需要将 Spring Data JDBC 添加到项目构建中。
+Let’s see how to apply Spring Data JDBC to our project to simplify data persistence with JDBC. First, you’ll need to add Spring Data JDBC to the project build.

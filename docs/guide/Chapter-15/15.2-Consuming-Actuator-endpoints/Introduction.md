@@ -1,10 +1,10 @@
-## 15.2 使用 Actuator 端点
+## 15.2 Consuming Actuator endpoints
 
-Actuator 可以通过表 15.1 中列出的 HTTP 端点，提供一个有关正在运行的应用程序的，有趣和有用的名副其实的宝库。 作为 HTTP 端点，它们可以像任何 REST API 一样使用，使用您熟悉的任何 HTTP 客户端，包括 Spring 的 RestTemplate 和 WebClient，来自基于浏览器的 JavaScript 应用程序，或者简单地使用 curl 命令行客户端。
+Actuator can bestow a veritable treasure trove of interesting and useful information about a running application by way of the HTTP endpoints listed in table 15.1. As HTTP endpoints, these can be consumed like any REST API, using whatever HTTP client you wish, including Spring’s `RestTemplate` and `WebClient`, from a JavaScript application, or simply with the `curl` command-line client.
 
-为了探索 Actuator 端点，您将在本章中使用 curl 命令行客户端。 在第 16 章中，我将向您介绍 Spring Boot Admin，它在应用程序的 Actuator 端点之上构建出了一个用户友好的 Web 应用程序。
+For the sake of exploring Actuator endpoints, we’ll use the `curl` command-line client in this chapter. In chapter 16, I’ll introduce you to Spring Boot Admin, which layers a user-friendly web application on top of an application’s Actuator endpoints.
 
-为了解 Actuator 都提供了哪些端点，可以对 Actuator 基本路径发送 GET 请求，这将返回所有端点的 HATEOAS 链接。 使用 curl 向 `/actuator` 发出请求，您可能会得到类似这样的响应（为了节省篇幅而进行了删节）：
+To get some idea of what endpoints Actuator has to offer, a `GET` request to Actuator’s base path will provide HATEOAS links for each of the endpoints. Using `curl` to make a request to /actuator, you might get a response something like this (abridged to save space):
 
 ```bash
 $ curl localhost:8081/actuator
@@ -31,7 +31,7 @@ $ curl localhost:8081/actuator
 }
 ```
 
-因为不同的库可能会贡献自己额外的 Actuator 端点，并且因为某些端点可能不会被暴露，所以实际结果可能因应用程序而异。
+Because different libraries may contribute additional Actuator endpoints of their own, and because some endpoints may be not be exported, the actual results may vary from application to application.
 
-不论差异如何，从 Actuator 的基本路径返回的这些链接，都明确展示了 Actuator 所提供的端点。让我们开始探索 Actuator, 从提供应用程序的基本信息的两个端点 `/health` 和 `/info` 开始。
+In any event, the set of links returned from Actuator’s base path serve as a map to all that Actuator has to offer. Let’s begin our exploration of the Actuator landscape with the two endpoints that provide essential information about an application: the /health and /info endpoints.
 

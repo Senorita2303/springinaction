@@ -1,7 +1,7 @@
-## 4.2 编写 MongoDB Repository
+## 4.2 Writing MongoDB repositories
 
-MongoDB 是另一个著名的 NoSQL 数据库。Cassandra 是一个行存储数据库，MongoDB 一般被认为是一个文档数据库。更具体地说，MongoDB 以 BSON（Binary JSON）格式存储文档数据，并且提供了大致类似于其他数据库的数据查询方式。
+MongoDB is a another well-known NoSQL database. Whereas Cassandra is a columnstore database, MongoDB is considered a document database. More specifically, MongoDB stores documents in BSON (Binary JSON) format, which can be queried for and retrieved in a way that’s roughly similar to how you might query for data in any other database.
 
-与 Cassandra 一样，关键一点是理解 MongoDB 不是关系型数据库。管理 MongoDB 服务器集群，以及为 MongoDB 进行数据建模，都需要与处理其他类型数据库不同的思维方式。
+As with Cassandra, it’s important to understand that MongoDB isn’t a relational database. The way you manage your MongoDB server cluster, as well as how you model your data, requires a different mindset than when working with other kinds of databases.
 
-与使用 Spring Data 结合 JPA 或 Cassandra 一样，使用 MongoDB 结合 Spring Data 也没有什么显著的不同。您需要使用注解，将实体类型映射到文档结构上。您将编写同样遵循相同编程模型的接口。当然，在做这些事情之前，您必须在项目中启用 Spring Data MongoDB。
+That said, working with MongoDB and Spring Data isn’t dramatically different from how you might use Spring Data for working with JPA or Cassandra. You’ll annotate your domain classes with annotations that map the domain type to a document structure. And you’ll write repository interfaces that very much follow the same programming model as those you’ve seen for JPA and Cassandra. Before you can do any of that, though, you must enable Spring Data MongoDB in your project.

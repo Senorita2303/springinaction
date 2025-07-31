@@ -1,28 +1,28 @@
-## 9.2 使用 RabbitMQ 和 AMQP
+## 9.2 Working with RabbitMQ and AMQP
 
-RabbitMQ 可以说是 AMQP 最优秀的实现，它提供了比 JMS 更高级的消息路由策略。JMS 消息使用接收方将从中检索它们的目的地的名称来寻址，而 AMQP 消息使用交换器的名称和路由键来寻址，它们与接收方正在监听的队列解耦。交换器和队列之间的这种关系如图 9.2 所示。
+As arguably the most prominent implementation of AMQP, RabbitMQ offers a more advanced message-routing strategy than JMS. Whereas JMS messages are addressed with the name of a destination from which the receiver will retrieve them, AMQP messages are addressed with the name of an exchange and a routing key, which are decoupled from the queue to which the receiver is listening. This relationship between an exchange and queues is illustrated in figure 9.2.
 
 ![](../../assets/9.2.png)
-**图 9.2 发送到 RabbitMQ 交换器的消息被路由到一个或多个队列，依据键和绑定关系。** <br/>
+**Figure 9.2 Messages sent to a RabbitMQ exchange are routed to one or more queues, based on routing keys and bindings.** <br/>
 
-当消息到达 RabbitMQ broker 时，它将转到它所寻址的交换器。交换器负责将其路由到一个或多个队列，具体取决于交换器的类型、交换器与队列之间的绑定以及消息的路由键的值。
+When a message arrives at the RabbitMQ broker, it goes to the exchange for which it was addressed. The exchange is responsible for routing it to one or more queues, depending on the type of exchange, the binding between the exchange and queues, and the value of the message’s routing key.
 
-有几种不同的交换方式，包括以下几种：
+There are several different kinds of exchanges, including the following:
 
-* _Default_ —— 一种特殊的交换器，通过 broker 自动创建。它将消息路由到与消息的路由键的值同名的队列中。所有的队列将会自动地与交换器绑定。
-* _Direct_ —— 路由消息到消息路由键的值与绑定值相同的队列。
-* _Topic_ —— 将消息路由到一个或多个队列，其中绑定键（可能包含通配符）与消息的路由键匹配。
-* _Fanout_ —— 将消息路由到所有绑定队列，而不考虑绑定键或路由键。
-* _Headers_ —— 与 topic 交换器类似，只是路由基于消息头值而不是路由键。
-* _Dead letter_ —— 对无法交付的消息（意味着它们不匹配任何已定义的交换器与队列的绑定）的全部捕获。
+* _Default_ —— A special exchange that’s automatically created by the broker. It routes messages to queues whose name is the same as the message’s routing key. All queues will automatically be bound to the default exchange.
+* _Direct_ —— Routes messages to a queue whose binding key is the same as the message’s routing key.
+* _Topic_ —— Routes a message to one or more queues where the binding key (which may contain wildcards) matches the message’s routing key.
+* _Fanout_ —— Routes messages to all bound queues without regard for binding keys or routing keys.
+* _Headers_ —— Similar to a topic exchange, except that routing is based on message header values rather than routing keys.
+* _Dead letter_ —— A catchall for any messages that are undeliverable (meaning they don’t match any defined exchange-to-queue binding).
 
-最简单的交换形式是 Default 和 Fanout，因为它们大致对应于 JMS 队列和主题。但是其他交换允许定义更灵活的路由方案。
+The simplest forms of exchanges are default and fanout—these roughly correspond to a JMS queue and topic. But the other exchanges allow you to define more flexible routing schemes.
 
-需要理解的最重要的一点是，消息是用路由键发送到交换器的，它们是从队列中使用的。它们如何从一个交换到一个队列取决于绑定定义以及什么最适合相应的情况。
+The most important thing to understand is that messages are sent to exchanges with routing keys and they’re consumed from queues. How they get from an exchange to a queue depends on the binding definitions and what best suits your use cases.
 
-使用哪种交换类型以及如何定义从交换到队列的绑定与 Spring 应用程序中消息的发送和接收方式关系不大。因此，我们将重点讨论如何编写使用 RabbitMQ 发送和接收消息的代码。
+Which exchange type you use and how you define the bindings from exchanges to queues has little bearing on how messages are sent and received in your Spring applications. Therefore, we’ll focus on how to write code that sends and receives messages with Rabbit.
 
->**注意**
->有关如何最好地将队列绑定到交换器的更详细讨论，请参见 Gavin Roy 的 _《RabbitMQ in Depth》_ （Manning, 2017），或由 Alvaro Videla 和 Jason J.W. Williams 合著的 _《RabbitMQ 实战》_ （Manning, 2012）。
+>**NOTE**
+>For a more detailed discussion on how best to bind queues to exchanges, see RabbitMQ in Depth by Gavin Roy (Manning, 2017) or RabbitMQ in Action by Alvaro Videla and Jason J. W. Williams (Manning, 2012).
 
 

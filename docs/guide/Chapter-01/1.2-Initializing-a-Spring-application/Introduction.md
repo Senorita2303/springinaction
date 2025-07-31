@@ -1,21 +1,22 @@
-## 1.2 初始化 Spring 应用程序
+## 1.2 Initializing a Spring application
 
-在本书的学习过程中，将创建 Taco Cloud，这是一个在线应用程序，用于订购由真人制作的最美味的食物 - 玉米饼。 当然，将使用 Spring、Spring Boot 以及各种相关的库和框架来实现此目标。
+Thông qua cuốn sách này, bạn sẽ tạo ra Taco Cloud, một ứng dụng trực tuyến để đặt món ăn tuyệt vời nhất do người đàn ông tạo ra. Tất nhiên, bạn sẽ sử dụng Spring, Spring Boot, và một loạt các thư viện và khung liên quan để đạt được
+mục tiêu này.
 
-你能找到多个方法去初始化一个Spring应用。尽管我可以指导您逐步完成手动创建项目目录结构和定义构建规范的步骤，但这却浪费了时间，最好花费更多时间编写应用程序代码。因此，将依靠 Spring Initializr 来引导应用程序的创建。
+Bạn sẽ tìm thấy một số tùy chọn để khởi tạo ứng dụng Spring.Mặc dù tôi có thể hướng dẫn bạn qua các bước tạo cấu trúc thư mục dự án theo cách thủ công và xác định thông số kỹ thuật của bản dựng, nhưng việc lãng phí thời gian tốt hơn để viết mã ứng dụng. Do đó, bạn sẽ dựa vào Spring Initializr để khởi động ứng dụng của mình.
 
-Spring Initializr 既是一个基于浏览器的 Web 应用程序，又是一个 REST API，它们可以生成一个基本的 Spring 项目结构，可以使用所需的任何功能充实自己。 使用 Spring Initializr 的几种方法如下：
+Spring Initializr vừa là một ứng dụng web dựa trên trình duyệt vừa là một API REST, có thể tạo ra một cấu trúc dự án Spring xương mà bạn có thể xác định với bất kỳ chức năng nào bạn muốn. Một số cách để sử dụng Spring Initializr như sau:
 
-* 从 Web 应用程序 [http://start.spring.io](http://start.spring.io) 创建
-* 使用 `curl` 命令从命令行创建
-* 使用 Spring Boot 命令行接口从命令行创建
-* 使用 Spring Tool Suite 创建一个新项目的时候
-* 使用 IntelliJ IDEA 创建一个新项目的时候
-* 使用 NetBeans 创建一个新项目的时候
+* Từ ứng dụng web tại [http://start.spring.io](http://start.spring.io)
+* Từ dòng lệnh sử dụng lệnh `curl`
+* Từ dòng lệnh sử dụng giao diện dòng lệnh Spring Boot
+* Khi tạo một dự án mới với Spring Tool Suite
+* Khi tạo một dự án mới với IntelliJ IDEA
+* Khi tạo một dự án mới với Apache NetBeans
 
-我没有在本章中花费数页来讨论这些选项中的每一个，而是在附录中收集了这些详细信息。在本章以及整本书中，将展示如何使用 Spring Tool Suite 中对 Spring Initializr 的支持来创建一个新项目。
+Thay vì dành một vài trang của chương này để nói về từng tùy chọn này, tôi đã thu thập những chi tiết đó trong phụ lục. Trong chương này và trong suốt cuốn sách này, tôi sẽ chỉ cho bạn cách tạo một dự án mới bằng cách sử dụng tùy chọn yêu thích của tôi: Hỗ trợ Spring Initializr trong Spring Tool Suite.
 
-顾名思义，Spring Tool Suite 是一个绝佳的 Spring 开发环境，还提供了 Eclipse、Visual Studio Code、Theia IDE 的扩展插件。您可以下载 Spring Tool Suite 的可运行二进制文件，地址：[https://spring.io/tools](https://spring.io/tools)。 Spring Tool Suite 提供了一个方便的 Spring Boot Dashboard 功能，可以在 IDE 中轻松启动、重启和或停止 Spring 应用程序。
+Như tên gọi của nó, Spring Tool Suite là một môi trường phát triển Spring tuyệt vời dưới dạng các tiện ích mở rộng cho Eclipse, Visual Studio Code hoặc Theia iDE. Bạn có thể tải xuống các tệp nhị phân sẵn có của Spring Tool Suite [tại https://spring.io/tools](https://spring.io/tools). Spring Tool Suite cung cấp tính năng Bảng điều khiển Spring Boot tiện dụng
+giúp dễ dàng khởi động, khởi động lại và dừng các ứng dụng Spring Boot từ iDE.
 
-如果您不是 Spring Tool Suite 用户，您仍然可以使用相关功能。请跳至附录，选择最适合您的 Initializr 选项代替后续章节中的安装说明。但是您要知道，在本书中，我偶尔还会引用特定于 Spring Tool Suite 的功能，例如 Spring Boot Dashboard。如果您不使用 Spring Tool Suite，则需要调整这些说明以适合您的 IDE。
-
+Nếu bạn không phải là người dùng Spring Tool Suite, điều đó không sao; chúng ta vẫn có thể là bạn bè. Chuyển sang phụ lục và thay thế tùy chọn Initializr phù hợp nhất với bạn cho các hướng dẫn trong các phần sau. Nhưng hãy biết rằng trong suốt cuốn sách này, đôi khi tôi có thể tham khảo các tính năng cụ thể của Spring Tool Suite, chẳng hạn như Spring Boot Dashboard.Nếu bạn không sử dụng Spring Tool Suite, bạn sẽ cần điều chỉnh các hướng dẫn đó để phù hợp với iDE của mình.

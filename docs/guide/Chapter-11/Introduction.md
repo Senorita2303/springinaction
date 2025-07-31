@@ -1,21 +1,21 @@
-# 第 11 章 Reactor 介绍
+# Chapter 11. Introducing Reactor
 
-本章内容
+This chapter covers
 
-* 理解响应式编程
-* Reactor 项目
-* 响应式的操作数据
+* Understanding reactive programming
+* Project Reactor
+* Operating on data reactively
 
-您曾经是否订阅过报纸或杂志呢？互联网已经大幅度削减了传统出版物的用户群，但有当订阅的报纸是与当天发生的事件跟上的最佳途径之一的时候，传统媒体还是有一定机会的。您可以每个清晨细数投递来的报纸上的实事，在早餐或在上班路上进行阅读。
+Have you ever held a subscription for a newspaper or a magazine? The internet has certainly taken a bite out of the subscriber base of traditional publications, but there was a time when a newspaper subscription was one of the best ways to keep up with the events of the day. You could count on a fresh delivery of current events every morning, to read during breakfast or on the way to work.
 
-现在假设在订阅然后付费后，好几天去了，都没有收到任何报纸。又过了几天，您致电报纸销售处问道，为什么还没有收到您每日的报纸。试想一下，如果他们解释说，“您订阅的是整整一年的报纸，一年的报纸现在尚未全部完成，但是放心，当全年的报纸都准备完成后，您一定会得到所有的报纸。”这样您该会有多吃惊。
+Now suppose that if, after paying for your subscription, several days go by and no papers have been delivered. A few more days go by, and you call the newspaper sales office to ask why you haven’t yet received your daily paper. Imagine your surprise if they explain, “You paid for a full year of newspapers. The year hasn’t completed yet. You’ll certainly receive them all once the full year of newspapers is ready.”
 
-值得庆幸的是，不是所有的订阅都是这样工作的。报纸还有一定的时效性。在出版后，它们被尽快的投递出去，这样保证了当报纸被阅读时，内容仍然是最新的。此外，当您正在阅读最新的内容时，本报记者正在写后续的新故事，同时印刷机也在并行的出版下一个版本。
+Thankfully, that’s not at all how subscriptions work. Newspapers have a certain timeliness to them. They’re delivered as quickly as possible after publication so that they can be read while their content is still fresh. Moreover, as you’re reading the latest issue, newspaper reporters are writing new stories for future editions, and the presses are fired up producing the next edition—all in parallel.
 
-当我们开发应用程序时，有两种风格的代码我们可以写：命令式和响应式：
+As we develop application code, we can write two styles of code—imperative and reactive, which are described as follows:
 
-* _同步式_ 的代码很像是假想的荒谬的报纸订阅的情况。这是一套串行任务，每次运行一个，完成前一个任务后再完成后一个。数据是批量进行处理的，在前面的任务没有完成批量数据处理前，不能将工作移交到下一个任务。
-* _响应式_ 的代码很像是真正的报纸订阅的情况。定义一组任务去处理数据，但这些任务可并行运行。每个任务处理这些数据的一个子集，当它处理另外一个子集的时候，把处理完成的数据交给下一个任务。
+* _Imperative_ code is a lot like that absurd hypothetical newspaper subscription. It’s a serial set of tasks, each running one at a time, each after the previous task. Data is processed in bulk and can’t be handed over to the next task until the previous task has completed its work on the bulk of data.
+* _Reactive_ code is a lot like a real newspaper subscription. A set of tasks is defined to process data, but those tasks can run in parallel. Each task can process subsets of the data, handing it off to the next task in line while it continues to work on another subset of the data.
 
-在本章中，我们将暂时离开 Taco Cloud 应用程序，来探索 Reactor 项目。Reactor 是响应式编程的一个库，这个库是 Spring 家族的一部分。而且，因为它是 Spring 对响应式编程支持的基础，在使用 Spring 建立响应式 controller 和 repository 之前，很重要的一步是让您理解 Reactor。在我们开始理解 Reactor 之前，让我们来快速浏览响应式编程的要领。
+In this chapter, we’re going to step away from the Taco Cloud application temporarily to explore Project Reactor [https://projectreactor.io/](https://projectreactor.io/). Reactor is a library for reactive programming that’s part of the Spring family of projects. And because it serves as the foundation of Spring’s support for reactive programming, it’s important that you understand Reactor before we look at building reactive controllers and repositories with Spring. Before we start working with Reactor, though, let’s quickly examine the essentials of reactive programming.
 

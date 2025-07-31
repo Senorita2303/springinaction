@@ -1,8 +1,8 @@
-## 10.1 声明简单的集成流
+## 10.1 Declaring a simple integration flow
 
-一般来说，Spring Integration 支持创建集成流，应用程序可以通过这些集成流接收或发送数据到应用程序本身的外部资源。应用程序可以与之集成的一种资源是文件系统。因此，在 Spring Integration 的众多组件中，有用于读写文件的通道适配器。
+Generally speaking, Spring Integration enables the creation of integration flows through which an application can receive or send data to some resource external to the application itself. One such resource that an application may integrate with is the filesystem. Therefore, among Spring Integration’s many components are channel adapters for reading and writing files.
 
-为了熟悉 Spring Integration，将创建一个向文件系统写入数据的集成流。首先，需要将 Spring Integration 添加到项目构建中。对于 Maven，必要的依赖关系如下：
+To get your feet wet with Spring Integration, you’re going to create an integration flow that writes data to the filesystem. To get started, you need to add Spring Integration to your project build. For Maven, the necessary dependencies follow:
 
 ```xml
 <dependency>
@@ -15,13 +15,13 @@
 </dependency>
 ```
 
-第一个依赖项是 Spring Integration 的 Spring Boot starter。无论 Spring Integration 流可能与什么集成，这种依赖关系都是开发 Spring Integration 流所必需的。与所有 Spring Boot starter 依赖项一样，它也存在于 Initializr 的复选框表单中。
+The first dependency is the Spring Boot starter for Spring Integration. This dependency is essential to developing a Spring Integration flow, regardless of what the flow may integrate with. Like all Spring Boot starter dependencies, it’s available as a check box in the Initializr1 form.
 
-第二个依赖项是 Spring Integration 的文件端点模块。此模块是用于与外部系统集成的二十多个端点模块之一。我们将在第 10.2.9 节中更多地讨论端点模块。但是，就目前而言，要知道文件端点模块提供了将文件从文件系统提取到集成流或将数据从流写入文件系统的能力。
+The second dependency is for Spring Integration’s file endpoint module. This module is one of over two dozen endpoint modules used to integrate with external systems. We’ll talk more about the endpoint modules in section 10.2.9. But, for now, know that the file endpoint module offers the ability to ingest files from the filesystem into an integration flow and/or to write data from a flow to the filesystem.
 
-接下来，需要为应用程序创建一种将数据发送到集成流的方法，以便将数据写入文件。为此，将创建一个网关接口，如下面所示。
+Next you need to create a way for the application to send data into an integration flow so that it can be written to a file. To do that, you’ll create a gateway interface, such as the one shown next.
 
-**程序清单 10.1 消息网关接口，用于将方法转换为消息**
+**Listing 10.1 Message gateway interface to transform method invocations into messages**
 ```java
 package sia6;
 
@@ -39,17 +39,17 @@ public interface FileWriterGateway {
 }
 ```
 
-尽管它是一个简单的 Java 接口，但是关于 FileWriterGateway 还有很多要说的。首先会注意到它是由 @MessagingGateway 注解的。这个注解告诉 Spring Integration 在运行时生成这个接口的实现 —— 类似于 Spring Data 如何自动生成存储库接口的实现。当需要编写文件时，代码的其他部分将使用这个接口。
+Although it’s a simple Java interface, there’s a lot to be said about `FileWriterGateway`. The first thing you’ll notice is that it’s annotated with `@MessagingGateway`. This annotation tells Spring Integration to generate an implementation of this interface at run time—similar to how Spring Data automatically generates implementations of repository interfaces. Other parts of the code will use this interface when they need to write a file.
 
-@MessagingGateway 的 defaultRequestChannel 属性表示，对接口方法的调用产生的任何消息都应该发送到给定的消息通道。在本例中，声明从 `writeToFile()` 调用产生的任何消息都应该发送到名为 textInChannel 的通道。
+The `defaultRequestChannel` attribute of `@MessagingGateway` indicates that any messages resulting from a call to the interface methods should be sent to the given message channel. In this case, you state that any messages that result from a call to `writeToFile()` should be sent to the channel whose name is `textInChannel`.
 
-对于 `writeToFile()` 方法，它接受一个文件名作为字符串，另一个字符串包含应该写入文件的文本。关于此方法签名，值得注意的是 filename 参数使用 @Header 进行了注解。在本例中，@Header 注解指示传递给 filename 的值应该放在消息头中（指定为 FileHeaders），解析为 file_name 的文件名，而不是在消息有效负载中。另一方面，数据参数值则包含在消息有效负载中。
+As for the `writeToFile()` method, it accepts a filename as a `String`, and another `String` that will contain the text should be written to a file. What’s notable about this method signature is that the `filename` parameter is annotated with `@Header`. In this case, the `@Header` annotation indicates that the value passed to `filename` should be placed in a message header (specified as `FileHeaders.FILENAME`, which is a constant in the `FileHeaders` class that is equal to the value `"file_name"`) rather than in the message payload. The data parameter value, on the other hand, is carried in the message payload.
 
-现在已经有了一个消息网关，还需要配置集成流。尽管添加到构建中的 Spring Integration starter 依赖项支持 Spring Integration 的基本自动配置，但仍然需要编写额外的配置来定义满足应用程序需求的流。声明集成流的三个配置选项包括：
+Now that you’ve created a message gateway, you need to configure the integration flow. Although the Spring Integration starter dependency that you added to your build enables essential autoconfiguration for Spring Integration, it’s still up to you to write additional configurations to define flows that meet the needs of the application. Three configuration options for declaring integration flows follow:
 
-* XML 配置
-* Java 配置
-* 使用 DSL 进行 Java 配置
+* XML configuration
+* Java configuration
+* Java configuration with a DSL
 
-我们将对 Spring Integration 的这三种风格的配置进行讲解，从最原始的 XML 配置开始。
+We’ll take a look at all three of these configuration styles for Spring Integration, starting with the old-timer, XML configuration.
 

@@ -1,10 +1,8 @@
-## 1.3 编写 Spring 应用程序
+## 1.3 Viết một ứng dụng Spring
 
-因为才刚刚开始，所以我们将从对 Taco Cloud 应用程序的一个相对较小的更改开始，但是这个更改将展示 Spring 的很多优点。在刚刚开始的时候，添加到 Taco Cloud 应用程序的第一个功能是主页，这似乎是合适的。当您添加主页，您将创建两个代码构件：
+Vì bạn mới bắt đầu, chúng ta sẽ bắt đầu với một thay đổi tương đối nhỏ đối với ứng dụng Taco Cloud, nhưng một thay đổi sẽ thể hiện rất nhiều điểm mạnh của Spring. Có vẻ hợp lý khi khi bạn mới bắt đầu, tính năng đầu tiên bạn thêm vào ứng dụng Taco Cloud sẽ là một trang chủ. Khi bạn thêm trang chủ, bạn sẽ tạo ra hai thành phần mã sau:
 
-* 一个处理主页请求的控制器类
-* 一个视图模板，定义了主页的外观
+* Một lớp controller để xử lý các yêu cầu cho trang chủ
+* Một mẫu giao diện (view template) định nghĩa giao diện của trang chủ
 
-因为测试很重要，所以还将编写一个简单的测试类来测试主页。但首先…我们来写这个控制器。
-
-
+Và bởi vì kiểm thử là quan trọng, bạn cũng sẽ viết một lớp kiểm thử đơn giản để kiểm thử trang chủ. Nhưng trước hết... hãy viết controller đó.

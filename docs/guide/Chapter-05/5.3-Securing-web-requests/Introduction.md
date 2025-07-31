@@ -1,8 +1,8 @@
-## 5.3 保护 web 请求
+## 5.3 Securing web requests
 
-Taco Cloud 的安全需求应该要求用户在设计 tacos 或下订单之前进行身份验证。但是主页、登录页面和注册页面应该对未经身份验证的用户可用。
+The security requirements for Taco Cloud should require that a user be authenticated before designing tacos or placing orders. But the home page, login page, and registration page should be available to unauthenticated users.
 
-要配置这些安全规则，需要声明一个 SecurityFilterChain bean。下面的方法添加了 `@Bean` 注解，这是一个最简化的 （不太实用） SecurityFilterChain 类：
+To configure these security rules, we’ll need to declare a `SecurityFilterChain` bean. The following `@Bean` method shows a minimal (but not useful) `SecurityFilterChain` bean declaration:
 
 ```java
 @Bean
@@ -11,15 +11,16 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 }
 ```
 
-这个 `filterChain()` 方法接受 HttpSecurity 对象，充当的生成器，用于 web 级别安全配置。一旦安全配置通过 HttpSecurity 对象完成设置，调用 `build()` 方法将创建并返回一个 SecurityFilterChain 对象。
+The `filterChain()` method accepts an `HttpSecurity` object, which acts as a builder that can be used to configure how security is handled at the web level. Once security configuration is set up via the `HttpSecurity` object, a call to `build()` will create a `SecurityFilterChain` that is returned from the bean method.
 
-可以配置 HttpSecurity 的属性包括：
+The following are among the many things you can configure with HttpSecurity:
 
-* 在允许服务请求之前，需要满足特定的安全条件
-* 配置自定义登录页面
-* 使用户能够退出应用程序
-* 配置跨站请求伪造保护
+* Requiring that certain security conditions be met before allowing a request to
+be served
+* Configuring a custom login page
+* Enabling users to log out of the application
+* Configuring cross-site request forgery protecti
 
-拦截请求以确保用户拥有适当的权限是配置 HttpSecurity 要做的最常见的事情之一。让我们确保 Taco Cloud 的客户满足这些要求。
+Intercepting requests to ensure that the user has proper authority is one of the most common things you’ll configure `HttpSecurity` to do. Let’s ensure that your Taco Cloud customers meet those requirements.
 
 

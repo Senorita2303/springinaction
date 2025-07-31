@@ -1,16 +1,16 @@
-# 第 8 章 保护 REST 服务
+# Chapter 8. Securing REST
 
-本章内容：
+This chapter covers
 
-* 使用 OAuth 2 保护 API
-* 创建授权服务器
-* 将资源服务器添加到 API
-* 使用 OAuth 2 安全 API
+* Securing APIs with OAuth 2
+* Creating an authorization server
+* Adding a resource server to an API
+* Consuming OAuth 2–secured APIs
 
-您有没有使用过代客泊车服务？这是一个简单的概念。当您去去商店、酒店、剧院或餐厅，把车钥匙递给门口的服务人员，他们会给您找个停车位。然后，当您回来时，他们会把您的车还给您。大概是因为我看了太多次“春天不是读书天”电影，我总是不愿意把我的车钥匙交给一个陌生人，怕他们不能替我好好保管我的车。
+Have you ever taken advantage of valet parking? It’s a simple concept: you hand your car keys to a valet near the entrance of a store, hotel, theater, or restaurant, and they deal with the hassle of finding a parking space for you. And then they return your car to you when you ask for it. Maybe it’s because I’ve seen _Ferris Bueller’s Day Off_ too many times, but I’m always reluctant to hand my car keys to a stranger and hope that they take good care of my vehicle for me.
 
-尽管如此，代客泊车涉及到信任他人照看您的汽车。许多的较新的汽车提供“代客泊车钥匙”，这是一种只能用来打开车门和启动发动机的特殊钥匙。这样，您授予的信任的数量在范围上是有限的。泊车人员不能用专用钥匙打开手套箱或行李箱。
+Nonetheless, valet parking involves granting trust to someone to take care of your car. Many newer cars provide a “valet key,” a special key that can be used only to open the car doors and start the engine. This way the amount of trust that you are granting is limited in scope. The valet cannot open the glove compartment or the trunk with the valet key.
 
-在分布式应用程序中，软件系统之间的信任至关重要。即使是在一个简单的情况下，当客户端应用程序使用后端 API 时，重要的是客户端是可信的，并且任何其他未授权人试图使用 API 都将被阻止。和泊车人员一样，您授予客户的信任仅限于履行其职责所需的功能。
+In a distributed application, trust is critical between software systems. Even in a simple situation where a client application consumes a backend API, it’s important that the client is trusted and anyone else attempting to use that same API is blocked out. And, like the valet, the amount of trust you grant to a client should be limited to only the functions necessary for the client to do its job.
 
-保护 REST API 与保护基于浏览器的 web 应用程序不同。在本章中，我们将研究 OAuth2，一个专门为 API 创建的授权规范。在此过程中，我们将了解 Spring Security 对 OAuth2 的支持。首先，让我们先看看 OAuth 2 是如何工作的。
+Securing a REST API is different from securing a browser-based web application. In this chapter, we’re going to look at OAuth 2, an authorization specification created specifically for API security. In doing so, we’ll look at Spring Security’s support for OAuth 2. But first, let’s set the stage by seeing how OAuth 2 works.

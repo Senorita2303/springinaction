@@ -1,16 +1,16 @@
-# 第 14 章 使用 RSocket
+# Chapter 14. Working with RSocket
 
-本章内容：
-* 使用 RSocket 进行响应式网络通信
-* 使用 RSocket 的四种通信模型
-* 在 WebSocket 上进行 RSocket 传输
+This chapter covers
+* Reactive network communication with RSocket
+* Working with each of RSocket’s four communication models
+* Transporting RSocket over WebSocket
 
-曾经有一段时期，在电话和现代电子技术出现之前，与远在他乡的朋友和家人最好的沟通方式是写一封信，然后把信投到邮箱里。这不是一种快速的沟通方式，需要几天甚至几周才能收到回信。但这是一种有效的方式，而且是唯一的选择。
+There was a time, before telephones and modern electronics, when the best way to communicate with friends and family that live far away involved writing a letter and dropping it in the mail. It wasn’t a quick form of communication, taking several days or even weeks before you’d receive a response, but it was effective and truly the only option available.
 
-多亏了亚历山大·格雷厄姆·贝尔（Alexander Graham Bell）发明了电话。电话提供了一种与远方朋友和家人交流的新方式，这是一种近实时的异步通信方式。电话发展得相当快，从贝尔先生的第一项发明开始有一段时间了，但它仍然是一种保持联系的流行方式，几乎没有人再写信了。
+Thanks to Alexander Graham Bell, the telephone offered a new way to talk with distant friends and family, giving near-real-time, synchronous communication The telephone has evolved quite a bit since Mr. Bell’s first invention, but it’s still a popular means of keeping in touch, making letter-writing nearly a lost art.
 
-当涉及到应用程序之间的通信时，由 HTTP 和 REST 服务提供的`请求/响应`模式非常常见，但也有其局限性。就像写信一样，`请求/响应`要先发送消息，然后等待响应。这种模式不容易提供异步通信。在异步通信模式中，服务器可能会以数据流进行响应，或允许开放双向通道，客户端和服务器可以在该通道上相互反复发送数据。
+When it comes to communication between applications, the request-response model offered by HTTP and REST services is quite common, but it has limitations. Much like letter-writing, request-response involves sending a message and then waiting for a response. It doesn’t easily allow for asynchronous communication in which a server might respond with a stream of responses or allow for an open bidirectional channel on which a client and server can repeatedly send data to each other.
 
-在本章中，我们将介绍 RSocket。这是一种相对较新的应用程序间协议，不仅仅提供简单的`请求/响应`通信模式。因为它天然是响应式的，所以它可以比阻塞式的 HTTP 请求更高效。
+In this chapter, we’re going to look at RSocket, a relatively new protocol for interapplication communication that allows for more than simple request-response communication. And because it’s reactive in nature, it can be far more efficient than blocking HTTP requests.
 
-在此过程中，我们将了解如何使用 Spring 开发 RSocket 通信。首先，让我们深入了解 RSocket 与基于 HTTP 的通信有哪些区别。
+Along the way, we’ll see how to develop RSocket communication in Spring. But first, let’s take a high-level look at RSocket to see what makes it different from HTTPbased communication.

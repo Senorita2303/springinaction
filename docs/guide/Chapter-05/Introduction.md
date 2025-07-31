@@ -1,15 +1,15 @@
-# 第 5 章 Spring 安全
+# Chapter 5. Securing Spring
 
-本章内容：
+This chapter covers
 
-* 自动配置 Spring Security
-* 自定义用户存储
-* 自定义登录页面
-* 防御 CSRF 攻击
-* 了解你的用户
+* Autoconfiguring Spring Security
+* Defining custom user storage
+* Customizing the login page
+* Securing against CSRF attacks
+* Knowing your user
 
-你有没有注意到电视情景喜剧里的大多数人都不锁门？在《_Leave it to Beaver_》的时代，人们不锁门并不是什么稀罕事。但是，在我们关心隐私和安全的今天，我们却看到电视上的人物能够畅通无阻地进入他们的公寓和家中，这似乎很疯狂。
+Have you ever noticed that most people in television sitcoms don’t lock their doors? In the days of _Leave It to Beaver_, it wasn’t so unusual for people to leave their doors unlocked. But it seems crazy that at a time when we’re concerned with privacy and security, we see television characters enabling unhindered access to their apartments and homes.
 
-信息可能是我们现在拥有的最有价值的东西；骗子们正在寻找通过潜入不安全的应用程序来窃取我们的数据和身份的方法。作为软件开发人员，我们必须采取措施保护应用程序中的信息。无论是用用户名与密码保护的电子邮件帐户，还是用交易密码保护的经济帐户，安全性都是大多数应用程序的一个重要方面。
+Information is probably the most valuable item we now have; crooks are looking for ways to steal our data and identities by sneaking into unsecured applications. As software developers, we must take steps to protect the information that resides in our applications. Whether it’s an email account protected with a username-password pair or a brokerage account protected with a trading PIN, security is a crucial aspect of most applications.
 
 

@@ -1,27 +1,27 @@
-## 11.1 理解响应式编程
+## 11.1 Understanding reactive programming
 
-响应式编程是对命令式编程进行替代的一个范例。这种替代的存在是因为响应式编程解决了命令式编程的限制。通过了解这些限制，可以更好地把握响应式模式的好处。
+Reactive programming is a paradigm that’s an alternative to imperative programming.
+This alternative exists because reactive programming addresses a limitation in imperative programming. By understanding these limitations, you can better grasp the benefits of the reactive model.
 
-> 注意：响应式编程不是银弹。不应该从这章或是其他任何对于响应式编程的讨论中，推断出命令式编程是魔鬼而响应式编程是天使。与作为一个开发人员学习的任何东西一样，响应式编程在某些地方很合适，在某些地方完全没有，应该对症下药。
+> NOTE：Reactive programming isn’t a silver bullet. In no way should you infer from this chapter or any other discussion of reactive programming that imperative programming is evil and that reactive programming is your savior. Like anything you learn as a developer, reactive programming is a perfect fit in some use cases, and it’s ill-fitted in others. An ounce of pragmatism is advised.
 
-如果和许多开发者一样，都是从命令式编程起步的。很自然地，现在您所写的大多数代码都是命令式的。命令式编程是非常直观的，现在的学生在他们学校的 STEM 课程中很轻松地学习它，它很强大，以至于它构成了大部分的代码，驱动着最大的企业。
+If you’re like me and many developers, you cut your programming teeth with imperative programming. There’s a good chance that most (or all) of the code you write today is still imperative in nature. Imperative programming is intuitive enough that young students are learning it with ease in their school’s STEM programs, and it’s powerful enough that it makes up the bulk of code that drives the largest enterprises.
 
-这个想法很简单：您写的代码就是一行接一行的指令，按照它们的顺序一次一条地出现。一个任务被执行，程序就需要等到它执行完了，才能执行下一个任务。每一步，数据都需要完全获取到了才能被处理，因此它需要作为一个整体来处理。
+The idea is simple: you write code as a list of instructions to be followed, one at a time, in the order that they’re encountered. A task is performed and the program waits for it to complete before moving on to the next task. At each step along the way, the data that’s to be processed must be fully available so that it can be processed as a whole.
 
-这样做还行吧...直到它不得行了。当正在执行的任务被阻塞了，特别是它是一个 IO 任务，例如将数据写入到数据库或从远程服务器获取数据，那么调用该任务的线程将无法做任何事情，直到任务完成。说穿了，阻塞的线程就是一种浪费。
+This is fine . . . until it isn’t. While a task is being performed—and especially if it’s an I/O task, such as writing data to a database or fetching data from a remote server — the thread that invoked that task is blocked, unable to do anything else until the task completes. To put it bluntly, blocked threads are wasteful.
 
-大多数编程语言，包括 Java，支持并发编程。在 Java 中启动另一个线程并将其发送到执行某项工作的分支上是相当容易的，而调用线程则继续执行其他工作。尽管很容易创建线程，但这些线程可能最终会阻塞自己。在管理在多线程里面的并发是很具有挑战性的。更多的线程意味着更高的复杂度。
+Most programming languages, including Java, support concurrent programming. It’s fairly easy to fire up another thread in Java and send it on its way to perform some work while the invoking thread carries on with something else. But although it’s easy to create threads, those threads are likely to end up blocked themselves. Managing concurrency in multiple threads is challenging. More threads mean more complexity.
 
-相反，响应式编程是函数式和声明式的。响应式编程涉及描述通过该数据流的 pipeline 或 stream，而不是描述的一组按顺序执行的步骤。响应式流处理数据时只要数据是可用的就进行处理，而不是需要将数据作为一个整体进行提供。事实上，输入数据可以是无穷的（例如，一个地点的实时温度数据的恒定流）。
+In contrast, reactive programming is functional and declarative in nature. Rather than describe a set of steps that are to be performed sequentially, reactive programming involves describing a pipeline or stream through which data flows. Rather than requiring the data to be available and processed as a whole, a reactive stream processes data as it becomes available. In fact, the incoming data may be endless (a constant stream of a location’s real-time temperature data, for instance).
 
->注意：如果您是 Java 函数式编程新手，您可能想看看由 Pierre-Yves Saumont 《Java 函数式编程》（Manning，2017），
-或者 Micha Pachta的 《Grokking Functional Programming》（Manning，2021）。
+> NOTE：If you’re new to functional programming in Java, you may want to have a look at _Functional Programming in Java_ by Pierre-Yves Saumont (Manning, 2017), or _Grokking Functional Programming_ by Michał Płachta (Manning, 2021).
 
-应用于一个真实世界的类比就是，将命令式编程看做一个装水的气球，响应式编程看做花园里面的水管。两者都是在炎热的夏天让您的朋友惊喜并沉浸其中的方式。但是它们的执行风格是不同的：
+To apply a real-world analogy, consider imperative programming as a water balloon and reactive programming as a garden hose. Both are suitable ways to surprise and soak an unsuspecting friend on a hot summer day. But they differ in their execution style as follows:
 
-* 一个水气球一次能携带的它的有效载荷，在撞击的那一刻浸湿了它预定的目标。然而，水球的容量是有限的，如果您想用水泡更多的人（或把同一个人淋得更湿），您唯一的选择就是增加水球的数量。
-* 一根花园水龙带将其有效载荷作为一股水流从水龙头流向喷嘴。花园水龙头接的水带的容量可能是有限的，但在打水仗的过程中水是源源不断的。只要水从水龙头进入软管，就会一直通过软管然后从喷嘴喷出。同一个花园软管是很容易扩展的，您和朋友们可以玩得更尽兴。
+* A water balloon carries its payload all at once, soaking its intended target at the moment of impact. The water balloon has a finite capacity, however, and if you wish to soak more people (or the same person to a greater extent), your only choice is to scale up by increasing the number of water balloons.
+* A garden hose carries its payload as a stream of water that flows from the spigot to the nozzle. The garden hose’s capacity may be finite at any given point in time, but it’s unlimited over the course of a water battle. As long as water is entering the hose from the spigot, it will continue to flow through the hose and spray out of the nozzle. The same garden hose is easily scalable to soak as many friends as you wish.
 
-命令式编程就类似打水仗中的水球，本质上没有什么问题，但是拿着类似响应式编程的水管的人，在可扩展性和性能方面是有优势的。
+There’s nothing inherently wrong with water balloons (or imperative programming), but the person holding the garden hose (or applying reactive programming) has an advantage in regard to scalability and performance.
 
 

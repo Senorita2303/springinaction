@@ -1,21 +1,20 @@
-# 第 4 章 处理非关系型数据
+# Chapter 4. Working with nonrelational data
 
-本章内容：
+This chapter covers
 
-* 将数据持久化到 Cassandra
-* Cassandra 中的数据建模
-* 在 MongoDB 中使用文档数据
+* Persisting data to Cassandra
+* Data modeling in Cassandra
+* Working with document data in MongoDB
 
-丰富多彩的生活才乐趣横生。
+They say that variety is the spice of life.
 
-您可能有最喜欢冰淇淋的味道。您最喜欢的某种口味，通常是因为这比其他更能满足您的欲望。但是大多数人，尽管有自己喜欢的口味，还会不时尝试其他不同的口味。
+You probably have a favorite flavor of ice cream. It’s that one flavor that you choose the most often because it satisfies that creamy craving more than any other. But most people, despite having a favorite flavor, try different flavors from time to time to mix things up.
 
-数据库就像冰淇淋。几十年来，关系型数据库一直是用户最喜欢的类型。但是现在比以往任何时候都有更多的选择。所谓的“NoSQL”数据库提供了不同的概念和结构。尽管选择可能仍然在某种程度上取决于您的喜爱好，但有些数据库更适合于保存其他类型的数据。
+Databases are like ice cream. For decades, the relational database has been the favorite flavor for storing data. But these days, we have more options available than ever before. So-called “NoSQL” databases [https://aws.amazon.com/nosql/](https://aws.amazon.com/nosql/) offer different concepts and structures in which data can be stored. And although the choice may still be somewhat based on taste, some databases are better suited for persisting different kinds of data than others.
 
-幸运的是，Spring Data 支持了许多 NoSQL 数据库，包括 MongoDB、Cassandra、Couchbase、Neo4j、Redis 等等。而且幸运的是，
-无论选择哪个数据库，编程模型几乎是相同的。
+Fortunately, Spring Data has you covered for many of the NoSQL databases, including MongoDB, Cassandra, Couchbase, Neo4j, Redis, and many more. And fortunately, the programming model is nearly identical, regardless of which database you choose.
 
-本章没有足够的篇幅涵盖 Spring Data 支持的所有数据库类型。但为了让您了解 Spring Data 的其他“风味”，我们将研究两种流行的 NoSQL 数据库，Cassandra 和 MongoDB，并了解如何创建 Repository 进行数据持久化。让我们先看看如何使用 Spring Data 创建Cassandra Repository。
+There’s not enough space in this chapter to cover all of the databases that Spring Data supports. But to give you a sample of Spring Data’s other “flavors,” we’ll look at two popular NoSQL databases, Cassandra and MongoDB, and see how to create repositories to persist data to them. Let’s start by looking at how to create Cassandra repositories with Spring Data.
 
 
 

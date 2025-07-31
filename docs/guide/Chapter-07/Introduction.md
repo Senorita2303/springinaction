@@ -1,21 +1,21 @@
-# 第 7 章 创建 REST 服务
+# Chapter 7. Creating REST services
 
-本章内容：
+This chapter covers
 
-* 在 Spring MVC 中定义 REST 端点
-* 自动生成基于存储库的 REST 端点
-* 消费 REST API
+* Defining REST endpoints in Spring MVC
+* Automatic repository-based REST endpoints
+* Consuming REST APIs
 
-“浏览器已死！现在呢？”
+“The web browser is dead. What now?
 
-大约十多年前，我听到有人说，web 浏览器正接近濒死状态，可能会被其他东西取代。但这是怎么回事呢？什么有可能取代几乎无处不在的 web 浏览器呢？如果不使用 web 浏览器，我们将如何消费越来越多的网站和在线服务？这的确是一个疯子的胡言乱语！
+Several years ago, I heard someone suggest that the web browser was nearing legacy status and that something else would take over. But how could this be? What could possibly dethrone the near-ubiquitous web browser? How would we consume the growing number of sites and online services if not with a web browser? Surely these were the ramblings of a madman!
 
-快进到今天，很明显，web 浏览器并没有消失，但它不再是上网的主要方式。移动设备、平板电脑、智能手表和语音设备现在都很常见，甚至许多基于浏览器的应用程序实际上都在运行 JavaScript 应用程序，而不是让浏览器成为服务器呈现内容的无声终端。
+Fast-forward to the present day, and it’s clear that the web browser hasn’t gone away. But it no longer reigns as the primary means of accessing the internet. Mobile devices, tablets, smart watches, and voice-based devices are now commonplace. And even many browser-based applications are actually running JavaScript applications rather than letting the browser be a dumb terminal for server-rendered content.
 
-有了如此多的客户端选项，许多应用程序采用了一种常见的设计：将用户界面推近客户端，而服务器公开一个 API，通过该 API，所有类型的客户端都可以与后端进行交互。
+With such a vast selection of client-side options, many applications have adopted a common design where the user interface is pushed closer to the client and the server exposes an API through which all kinds of clients can interact with the backend functionality.
 
-在本章中，将使用 Spring 为 Taco Cloud 应用程序提供 REST API。将使用在第 2 章中所学到的关于 Spring MVC 的知识，使用 Spring MVC 控制器创建 RESTful 端点。还将自动公开第 3 章和第 4 章中中定义的 Spring Data 存储库的 REST 端点。最后，我们将研究测试和保护这些端点的方法。
+In this chapter, you’re going to use Spring to provide a REST API for the Taco Cloud application. You’ll use what you learned about Spring MVC in chapter 2 to create RESTful endpoints with Spring MVC controllers. You’ll also automatically expose REST endpoints for the Spring Data repositories you defined in chapters 3 and 4. Finally, we’ll look at ways to test and secure those endpoints.
 
-但首先，将从编写一些新的 Spring MVC 控制器开始，这些控制器公开带有 REST 端点的后端功能，以供丰富的 web 前端使用。
+But first, you’ll start by writing a few new Spring MVC controllers that expose backend functionality with REST endpoints to be consumed by a rich web frontend.
 
 

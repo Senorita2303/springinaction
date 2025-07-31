@@ -1,6 +1,6 @@
-## 15.3 自定义 Actuator
+## 15.3 Customizing Actuator
 
-Actuator 的最大特点之一是可定制，以满足特定应用程序的需求。一些端点本身允许定制，同时，Actuator 本身允许您创建自定义端点。
+One of the greatest features of Actuator is that it can be  customized to meet the specific needs of an application. A few of the endpoints themselves allow for customization. Meanwhile, Actuator itself allows you to create custom endpoints.
 
-让我们看一些定制 Actuator 的方法，首先是添加信息到 `/info` 端点。
+Let’s look at a few ways that Actuator can be customized, starting with ways to add information to the /info endpoint.
 

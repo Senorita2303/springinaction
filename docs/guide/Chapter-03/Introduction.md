@@ -1,15 +1,15 @@
-# 第 3 章 处理数据
+# Chapter 3. Working with data
 
-本章内容：
+This chapter covers
+* Using Spring's JdbcTemplate
+* Creating Spring Data JDBC repositories
+* Declaring JPA repositories with Spring Data
 
-* 使用 Spring JdbcTemplate
-* 创建 Spring Data JDBC Repository
-* 使用 Spring Data 声明 JPA Repository
+Most applications offer more than just a pretty face. Although the user interface may provide interaction with an application, it’s the data it presents and stores that
+separates applications from static websites.
 
-大多数应用程序提供的不仅仅是一张漂亮的脸。虽然用户界面可能提供与应用程序的交互，但它所呈现和存储的数据将应用程序与静态网站区分开来。
+In the Taco Cloud application, you need to be able to maintain information about ingredients, tacos, and orders. Without a database to store this information, the application wouldn’t be able to progress much further than what you developed in chapter 2.
 
-在 Taco Cloud 应用程序中，需要能够维护关于 ingredients、tacos 和 orders 的信息。如果没有一个数据库来存储这些信息，应用程序将无法比在第 2 章中开发的应用程序取得更大的进展。
-
-在本章中，将向 Taco Cloud 应用程序添加数据持久化操作。首先使用 Spring 对 JDBC（Java Database Connectivity）的支持来消除样板代码。然后，将重新使用 JPA（Java Persistence API）处理数据存储库，从而消除更多代码。
+In this chapter, you’re going to add data persistence to the Taco Cloud application. You’ll start by using Spring support for JDBC (Java Database Connectivity) to eliminate boilerplate code. Then you’ll rework the data repositories to work with JPA (Java Persistence API), eliminating even more code.
 
 

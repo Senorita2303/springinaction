@@ -1,62 +1,61 @@
-## 7.3 使用 REST 服务
+## 7.3 Consuming REST services
 
-您是否曾经去看电影，当电影开始的时候，您发现只有您一个人在电影院？从本质上说，这是一次私人观影的美妙经历。您可以选择任何您想要的座位，和屏幕上的人物交谈，甚至可以打开您的手机发推特谈论它，而不会有人因为破坏了他们的观影体验而生气。最棒的是，也没有其他人会为您毁了这部电影！
+Have you ever gone to a movie and, as the movie starts, discovered that you were the only person in the theater? It certainly is a wonderful experience to have what is essentially a private viewing of a movie. You can pick whatever seat you want, talk back to the characters onscreen, and maybe even open your phone and tweet about it without anyone getting angry for disrupting their movie-watching experience. And the best part is that nobody else is there ruining the movie for you, either!
 
-这种情况在我身上并不常见。但当它出现的时候，我在想如果我没有出现会发生什么。他们还会放映这部电影吗？英雄还会拯救世界吗？电影结束后，工作人员还会打扫影院吗？
+This hasn’t happened to me often. But when it has, I have wondered what would have happened if I hadn’t shown up. Would they still have shown the film? Would the hero still have saved the day? Would the theater staff still have cleaned the theater after the movie was over?
 
-没有观众的电影就像没有客户端的 API。它已经准备好接受和提供数据了，但是如果 API 从未被调用过，那么它真的是一个 API 吗？就像薛定谔的猫一样，在我们向它发出请求之前，我们无法知道 API 是活动的还是返回 HTTP 404 响应。
+A movie without an audience is kind of like an API without a client. It’s ready to accept and provide data, but if the API is never invoked, is it really an API? Like Schrödinger’s cat, we can’t know if the API is active or returning HTTP 404 responses until we issue a request to it.
 
-Spring 应用程序既提供 API，又向另一个应用程序的 API 发出请求，这种情况并不少见。事实上，在微服务的世界里，这正变得越来越普遍。因此，花点时间看看如何使用 Spring 与 REST API 交互是值得的。
+It’s not uncommon for Spring applications to both provide an API and make requests to another application’s API. In fact, this is becoming prevalent in the world of microservices. Therefore, it’s worthwhile to spend a moment looking at how to use Spring to interact with REST APIs.
 
-Spring 应用程序可以通过以下方式使用 REST API：
+A Spring application can consume a REST API with the following:
 
-* RestTemplate —— 一个由 Spring 核心框架提供的简单、同步 REST 客户端。
-* _Traverson_ —— 可感知超链接的同步 REST 客户端，由 Spring HATEOAS 提供，灵感来自同名的 JavaScript 库。
-* WebClient —— 一个响应式、异步 REST 客户端。
+* _RestTemplate_ —— A straightforward, synchronous REST client provided by the core Spring Framework.
+* _Traverson_ —— A wrapper around Spring’s `RestTemplate`, provided by Spring HATEOAS, to enable a hyperlink-aware, synchronous REST client. Inspired from a JavaScript library of the same name.
+* _WebClient_ —— A reactive, asynchronous REST client.
 
-现在，我们将主要关注 RestTemplate。在第 12 章讨论 Spring 的响应式 web 框架之前，我将推迟讨论 WebClient。如果您有兴趣
-编写支持超链接的客户端，请查看以下位置的 Traverson 文档：[https://docs.spring.io/spring-hateoas/docs/current/reference/html/#client](https://docs.spring.io/spring-hateoas/docs/current/reference/html/#client)。
+For now, we’ll focus on creating clients with `RestTemplate`. I’ll defer discussion of `WebClient` until we cover Spring’s reactive web framework in chapter 12. And if you’re interested in writing hyperlink-aware clients, check out the Traverson documentation at [https://docs.spring.io/spring-hateoas/docs/current/reference/html/#client](https://docs.spring.io/spring-hateoas/docs/current/reference/html/#client)。
 
-从客户的角度来看，与 REST 资源进行交互需要做很多工作 —— 主要是单调乏味的样板文件。使用低级 HTTP 库，客户端需要创建一个客户端实例和一个请求对象，执行请求，解释响应，将响应映射到域对象，并处理过程中可能抛出的任何异常。不管发送什么 HTTP 请求，所有这些样板文件都会重复。
+There’s a lot that goes into interacting with a REST resource from the client’s perspective—mostly tedium and boilerplate. Working with low-level HTTP libraries, the client needs to create a client instance and a request object, execute the request, interpret the response, map the response to domain objects, and handle any exceptions that may be thrown along the way. And all of this boilerplate is repeated, regardless of what HTTP request is sent.
 
-为了避免这样的样板代码，Spring 提供了 RestTemplate。正如 JDBCTemplate 处理使用 JDBC 糟糕的那部分一样，RestTemplate 使你不必为调用 REST 资源而做单调的工作。
+To avoid such boilerplate code, Spring provides `RestTemplate`. Just as `JdbcTemplate` handles the ugly parts of working with JDBC, `RestTemplate` frees you from dealing with the tedium of consuming REST resources.
 
-RestTemplate 提供了 41 个与 REST 资源交互的方法。与其检查它提供的所有方法，不如只考虑 12 个惟一的操作，每个操作都有重载，以形成 41 个方法的完整集合。表 7.2 描述了 12 种操作。
+`RestTemplate` provides 41 methods for interacting with REST resources. Rather than examine all of the methods that it offers, it’s easier to consider only a dozen unique operations, each overloaded to equal the complete set of 41 methods. The 12 operations are described in table 7.2.
 
-**表 7.2 RestTemplate 定义的 12 个唯一操作，每一个都重载了，共提供41种方法（未完待续）**
+**Table 7.2 `RestTemplate` defines 12 unique operations, each of which is overloaded, providing a total of 41 methods.**
 
-| 方法 | 描述 |
+| Method | Description |
 | :--- | :--- |
-| delete(...) | 对指定 URL 上的资源执行 HTTP DELETE请求 |
-| exchange(...) | 对 URL 执行指定的 HTTP 方法，返回一个 ResponseEntity，其中包含从响应体映射的对象 |
-| execute(...) | 对 URL 执行指定的 HTTP 方法，返回一个映射到响应体的对象 |
-| getForEntity(...) | 发送 HTTP GET 请求，返回一个 ResponseEntity，其中包含从响应体映射的对象 |
-| getForObject(...) | 发送 HTTP GET 请求，返回一个映射到响应体的对象 |
-| headForHeaders(...) | 发送 HTTP HEAD 请求，返回指定资源 URL 的 HTTP 请求头 |
-| optionsForAllow(...) | 发送 HTTP OPTIONS 请求，返回指定 URL 的 Allow 头信息 |
-| patchForObject(...) | 发送 HTTP PATCH 请求，返回从响应主体映射的结果对象 |
-| postForEntity(...) | 将数据 POST 到一个 URL，返回一个 ResponseEntity，其中包含从响应体映射而来的对象 |
-| postForLocation(...) | 将数据 POST 到一个 URL，返回新创建资源的 URL |
-| postForObject(...) | 将数据 POST 到一个 URL，返回从响应主体映射的对象 |
-| put(...) | 将资源数据 PUT 到指定的URL |
+| `delete(...)` | Performs an HTTP `DELETE` request on a resource at a specified URL |
+| `exchange(...)` | Executes a specified HTTP method against a URL, returning a `ResponseEntity` containing an object mapped from the response body |
+| `execute(...)` | Executes a specified HTTP method against a URL, returning an object mapped from the response body |
+| `getForEntity(...)` | Sends an HTTP `GET` request, returning a `ResponseEntity` containing an object mapped from the response body |
+| `getForObject(...)` | Sends an HTTP `GET` request, returning an object mapped from a response body |
+| `headForHeaders(...)` | Sends an HTTP `HEAD` request, returning the HTTP headers for the specified resource URL |
+| `optionsForAllow(...)` | Sends an HTTP `OPTIONS` request, returning the `Allow` header for the specified URL |
+| `patchForObject(...)` | Sends an HTTP `PATCH` request, returning the resulting object mapped from the response body |
+| `postForEntity(...)` | `POSTs` data to a URL, returning a `ResponseEntity` containing an object mapped from the response body |
+| `postForLocation(...)` | `POSTs` data to a URL, returning the URL of the newly created resource |
+| `postForObject(...)` | `POSTs` data to a URL, returning an object mapped from the response body |
+| `put(...)` | `PUTs` resource data to the specified URL |
 
-除了 TRACE 之外，RestTemplate 对于每个标准 HTTP 方式至少有一个方法。此外，`execute()` 和 `exchange()` 为使用任何 HTTP 方式发送请求提供了低层的通用方法。
+With the exception of `TRACE`, `RestTemplate` has at least one method for each of the standard HTTP methods. In addition, `execute()` and `exchange()` provide lower-level, general-purpose methods for sending requests with any HTTP method.
 
-表 7.2 中的大多数方法都被重载为三种方法形式：
+Most of the methods in table 7.2 are overloaded into the following three method forms:
 
-* 一种是接受一个 String 作为 URL 规范，在一个变量参数列表中指定 URL 参数。
-* 一种是接受一个 String 作为 URL 规范，其中的 URL 参数在 `Map<String, String>`; 中指定。
-* 一种是接受 java.net.URI 作为 URL 规范，不支持参数化 URL。
+* One accepts a `String` URL specification with URL parameters specified in a variable argument list.
+* One accepts a `String` URL specification with URL parameters specified in a `Map<String,String>`.
+* One accepts a `java.net.URI` as the URL specification, with no support for parameterized URLs.
 
-一旦了解了 RestTemplate 提供的 12 个操作以及每种变体的工作方式，就可以很好地编写调用资源的 REST 客户端了。
+Once you get to know the 12 operations provided by RestTemplate and how each of the variant forms works, you’ll be well on your way to writing resource-consuming REST clients.
 
-要使用 RestTemplate，需要创建一个实例：
+To use RestTemplate, you’ll either need to create an instance at the point you need it, as follows:
 
 ```java
 RestTemplate rest = new RestTemplate();
 ```
 
-或是将它声明为一个 bean，在需要它的时候将其注入：
+or you can declare it as a bean and inject it where you need it, as shown next:
 
 ```java
 @Bean
@@ -65,4 +64,4 @@ public RestTemplate restTemplate() {
 }
 ```
 
-让我们通过查看支持四种主要 HTTP 方法（GET、PUT、DELETE 和 POST）的操作来探寻 RestTemplate 的操作。我们将从 `getForObject()` 和 `getForEntity()` —— GET 方法开始。
+Let’s survey `RestTemplate`’s operations by looking at those that support the four primary HTTP methods: `GET`, `PUT`, `DELETE`, and `POST`. We’ll start with `getForObject()` and `getForEntity()` — the `GET` methods.

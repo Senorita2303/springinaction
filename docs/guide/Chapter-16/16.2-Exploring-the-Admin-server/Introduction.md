@@ -1,10 +1,10 @@
-## 16.2 深入 Admin 服务端
+## 16.2 Exploring the Admin server
 
-一旦您将所有 Spring Boot 应用程序都注册为 Admin 客户端，就可以在 Admin 服务端就查看到大量信息，这就可以确定每个应用程序内都发生了什么。这些信息包括：
+Once you’ve registered all of the Spring Boot applications as Admin server clients, the Admin server makes a wealth of information available for seeing what’s going on inside each application, including the following:
 
-* 一般健康信息
-* 通过 Micrometer 和 `/metrics` 端点发布的度量指标
-* 环境属性信息
-* 包和类的日志记录级别
+* General health and information
+* Any metrics published through Micrometer and the /metrics endpoint
+* Environment properties
+* Logging levels for packages and classes
 
-事实上，几乎所有 Actuator 公开的内容，都可以在 Admin 服务端界面中查看，而且显示格式更人性化。这包括图形化界面和过滤器，以帮助定位所需信息。Admin 服务端显示的信息量，比我们在本章中将要讨论的内容要丰富得多。让我用这一章的其余部分来介绍 Admin 服务端的一些亮点。
+In fact, almost anything that the Actuator exposes can be viewed in the Admin server, albeit in a much more human-friendly format. This includes graphs and filters to help distill the information. The amount of information presented in the Admin server is far richer than the space we’ll have in this chapter to cover it in detail. But let me use the rest of this section to share a few of the highlights of the Admin server.
