@@ -1,8 +1,8 @@
-## 10.1 Declaring a simple integration flow
+## 10.1 Khai báo một luồng tích hợp đơn giản
 
-Generally speaking, Spring Integration enables the creation of integration flows through which an application can receive or send data to some resource external to the application itself. One such resource that an application may integrate with is the filesystem. Therefore, among Spring Integration’s many components are channel adapters for reading and writing files.
+Nói chung, Spring Integration cho phép tạo ra các luồng tích hợp (integration flow) thông qua đó một ứng dụng có thể nhận hoặc gửi dữ liệu tới một tài nguyên bên ngoài ứng dụng. Một tài nguyên như vậy mà ứng dụng có thể tích hợp là hệ thống tập tin (filesystem). Do đó, trong số nhiều thành phần của Spring Integration có các bộ điều hợp kênh (channel adapter) để đọc và ghi tập tin.
 
-To get your feet wet with Spring Integration, you’re going to create an integration flow that writes data to the filesystem. To get started, you need to add Spring Integration to your project build. For Maven, the necessary dependencies follow:
+Để bắt đầu làm quen với Spring Integration, bạn sẽ tạo một luồng tích hợp ghi dữ liệu vào hệ thống tập tin. Để bắt đầu, bạn cần thêm Spring Integration vào cấu hình xây dựng dự án. Với Maven, các phụ thuộc cần thiết như sau:
 
 ```xml
 <dependency>
@@ -15,13 +15,14 @@ To get your feet wet with Spring Integration, you’re going to create an integr
 </dependency>
 ```
 
-The first dependency is the Spring Boot starter for Spring Integration. This dependency is essential to developing a Spring Integration flow, regardless of what the flow may integrate with. Like all Spring Boot starter dependencies, it’s available as a check box in the Initializr1 form.
+Phụ thuộc đầu tiên là Spring Boot starter cho Spring Integration. Phụ thuộc này là thiết yếu để phát triển một luồng Spring Integration, bất kể luồng đó tích hợp với cái gì. Như tất cả các starter của Spring Boot, nó có sẵn dưới dạng một ô chọn trong biểu mẫu Initializr¹.
 
-The second dependency is for Spring Integration’s file endpoint module. This module is one of over two dozen endpoint modules used to integrate with external systems. We’ll talk more about the endpoint modules in section 10.2.9. But, for now, know that the file endpoint module offers the ability to ingest files from the filesystem into an integration flow and/or to write data from a flow to the filesystem.
+Phụ thuộc thứ hai là cho mô-đun endpoint file của Spring Integration. Đây là một trong hơn hai chục mô-đun endpoint được dùng để tích hợp với các hệ thống bên ngoài. Chúng ta sẽ nói nhiều hơn về các mô-đun endpoint trong mục 10.2.9. Nhưng hiện tại, hãy biết rằng mô-đun endpoint file cung cấp khả năng nhận tập tin từ hệ thống tập tin vào luồng tích hợp và/hoặc ghi dữ liệu từ một luồng ra hệ thống tập tin.
 
-Next you need to create a way for the application to send data into an integration flow so that it can be written to a file. To do that, you’ll create a gateway interface, such as the one shown next.
+Tiếp theo, bạn cần tạo một cách để ứng dụng gửi dữ liệu vào một luồng tích hợp sao cho dữ liệu đó có thể được ghi ra tập tin. Để làm điều đó, bạn sẽ tạo một interface gateway, như minh họa dưới đây.
 
-**Listing 10.1 Message gateway interface to transform method invocations into messages**
+**Liệt kê 10.1 Giao diện message gateway để chuyển lời gọi phương thức thành thông điệp**
+
 ```java
 package sia6;
 
@@ -39,17 +40,16 @@ public interface FileWriterGateway {
 }
 ```
 
-Although it’s a simple Java interface, there’s a lot to be said about `FileWriterGateway`. The first thing you’ll notice is that it’s annotated with `@MessagingGateway`. This annotation tells Spring Integration to generate an implementation of this interface at run time—similar to how Spring Data automatically generates implementations of repository interfaces. Other parts of the code will use this interface when they need to write a file.
+Mặc dù chỉ là một interface Java đơn giản, `FileWriterGateway` lại mang nhiều ý nghĩa. Điều đầu tiên bạn sẽ chú ý là interface này được đánh dấu bằng `@MessagingGateway`. Annotation này báo cho Spring Integration tạo ra một hiện thực của interface này tại thời gian chạy — tương tự như cách Spring Data tự động tạo ra hiện thực của các interface repository. Các phần khác của mã sẽ sử dụng interface này khi cần ghi ra tập tin.
 
-The `defaultRequestChannel` attribute of `@MessagingGateway` indicates that any messages resulting from a call to the interface methods should be sent to the given message channel. In this case, you state that any messages that result from a call to `writeToFile()` should be sent to the channel whose name is `textInChannel`.
+Thuộc tính `defaultRequestChannel` của `@MessagingGateway` cho biết rằng bất kỳ thông điệp nào sinh ra từ lời gọi các phương thức của interface này nên được gửi đến kênh thông điệp được chỉ định. Trong trường hợp này, bạn chỉ ra rằng các thông điệp kết quả từ việc gọi `writeToFile()` nên được gửi đến kênh có tên là `textInChannel`.
 
-As for the `writeToFile()` method, it accepts a filename as a `String`, and another `String` that will contain the text should be written to a file. What’s notable about this method signature is that the `filename` parameter is annotated with `@Header`. In this case, the `@Header` annotation indicates that the value passed to `filename` should be placed in a message header (specified as `FileHeaders.FILENAME`, which is a constant in the `FileHeaders` class that is equal to the value `"file_name"`) rather than in the message payload. The data parameter value, on the other hand, is carried in the message payload.
+Về phương thức `writeToFile()`, nó nhận vào một tên tập tin dưới dạng `String`, và một `String` khác chứa nội dung văn bản cần ghi ra tập tin. Điều đáng chú ý trong chữ ký phương thức này là tham số `filename` được chú thích bằng `@Header`. Trong trường hợp này, annotation `@Header` chỉ ra rằng giá trị được truyền vào `filename` sẽ được đặt vào phần header của thông điệp (được xác định là `FileHeaders.FILENAME`, là một hằng số trong lớp `FileHeaders`, có giá trị `"file_name"`), thay vì trong payload của thông điệp. Ngược lại, giá trị của tham số `data` sẽ được chứa trong payload của thông điệp.
 
-Now that you’ve created a message gateway, you need to configure the integration flow. Although the Spring Integration starter dependency that you added to your build enables essential autoconfiguration for Spring Integration, it’s still up to you to write additional configurations to define flows that meet the needs of the application. Three configuration options for declaring integration flows follow:
+Giờ đây bạn đã tạo một message gateway, tiếp theo là cấu hình luồng tích hợp. Mặc dù phụ thuộc starter Spring Integration mà bạn đã thêm vào build sẽ kích hoạt autoconfiguration thiết yếu cho Spring Integration, bạn vẫn cần viết thêm các cấu hình để định nghĩa các luồng phù hợp với nhu cầu của ứng dụng. Có ba tùy chọn cấu hình để khai báo các luồng tích hợp:
 
-* XML configuration
-* Java configuration
-* Java configuration with a DSL
+* Cấu hình bằng XML
+* Cấu hình bằng Java
+* Cấu hình Java sử dụng DSL
 
-We’ll take a look at all three of these configuration styles for Spring Integration, starting with the old-timer, XML configuration.
-
+Chúng ta sẽ xem xét cả ba kiểu cấu hình này của Spring Integration, bắt đầu với kiểu cũ — cấu hình bằng XML.

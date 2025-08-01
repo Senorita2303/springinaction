@@ -1,24 +1,17 @@
-## 10.2 Surveying the Spring Integration landscape
+## 10.2 Khảo sát hệ sinh thái Spring Integration
 
-Spring Integration covers a lot of ground with a multitude of integration scenarios. Trying to include all of it in a single chapter would be like trying to fit an elephant in an envelope. Instead of a comprehensive treatment of Spring Integration, I’ll present a photograph of the Spring Integration elephant to give you some idea of how it works. Then you’ll create one more integration flow that adds functionality to the Taco Cloud application.
+Spring Integration bao phủ rất nhiều khía cạnh với vô số kịch bản tích hợp. Cố gắng đưa tất cả vào một chương sẽ giống như cố nhét một con voi vào phong bì vậy. Thay vì trình bày toàn diện về Spring Integration, tôi sẽ đưa ra một bức ảnh toàn cảnh về “con voi” Spring Integration để bạn có cái nhìn tổng quan về cách nó hoạt động. Sau đó, bạn sẽ tạo thêm một luồng tích hợp nữa để bổ sung chức năng cho ứng dụng Taco Cloud.
 
-An integration flow is composed of one or more of the following components. Before you write any more code, we’ll take a brief look at the role each of these components plays in an integration flow:
+Một luồng tích hợp được cấu thành từ một hoặc nhiều thành phần sau. Trước khi bạn viết thêm bất kỳ dòng mã nào, chúng ta sẽ điểm qua ngắn gọn vai trò của từng thành phần trong luồng tích hợp:
 
-* _Channels_ —— Passes messages from one element to another
-* _Filters_ —— Conditionally allows messages to pass through the flow based on some
-criteria
-* _Transformers_ —— Changes message values and/or converts message payloads from
-one type to another
-* _Routers_ —— Directs messages to one of several channels, typically based on message
-headers
-* _Splitters_ —— Splits incoming messages into two or more messages, each sent to different channels
-* _Aggregators_ —— The opposite of a splitter; combines multiple messages coming in
-from separate channels into a single message
-* _Service activators_ —— Hands a message off to some Java method for processing, and
-then publishes the return value on an output channel
-* _Channel adapters_ —— Connects a channel to some external system or transport; can
-either accept input or write to the external system
-* _Gateways_ —— Passes data into an integration flow via an interface
+* _Channels_ —— Truyền thông điệp từ thành phần này sang thành phần khác
+* _Filters_ —— Cho phép thông điệp đi qua luồng dựa trên một số điều kiện nhất định
+* _Transformers_ —— Thay đổi giá trị thông điệp và/hoặc chuyển đổi phần nội dung (payload) của thông điệp từ kiểu này sang kiểu khác
+* _Routers_ —— Chuyển hướng thông điệp đến một trong nhiều kênh, thường dựa trên header của thông điệp
+* _Splitters_ —— Tách thông điệp đầu vào thành hai hoặc nhiều thông điệp, mỗi thông điệp được gửi đến các kênh khác nhau
+* _Aggregators_ —— Ngược lại với splitter; kết hợp nhiều thông điệp đến từ các kênh riêng biệt thành một thông điệp duy nhất
+* _Service activators_ —— Gửi một thông điệp đến một phương thức Java nào đó để xử lý, sau đó đăng kết quả trả về lên một kênh đầu ra
+* _Channel adapters_ —— Kết nối một kênh với hệ thống hoặc giao thức bên ngoài; có thể nhận dữ liệu đầu vào hoặc ghi ra hệ thống bên ngoài
+* _Gateways_ —— Truyền dữ liệu vào luồng tích hợp thông qua một interface
 
-You’ve already seen a few of these components in play when you defined the filewriting integration flow. The `FileWriterGateway` interface was the gateway through which an application submitted text to be written to a file. You also defined a transformer to convert the given text to uppercase; then you declared a service gateway that performed the task of writing the text to a file. And the flow had two channels, `textInChannel` and `fileWriterChannel`, that connected the other components with each other. Now, a quick tour of the integration flow components, as promised.
-
+Bạn đã từng thấy một vài thành phần này hoạt động khi bạn định nghĩa luồng tích hợp ghi file. Interface `FileWriterGateway` là gateway thông qua đó ứng dụng gửi văn bản cần ghi vào file. Bạn cũng đã định nghĩa một transformer để chuyển đổi văn bản thành chữ in hoa; sau đó bạn khai báo một service gateway thực hiện nhiệm vụ ghi văn bản vào file. Và luồng này có hai kênh, `textInChannel` và `fileWriterChannel`, kết nối các thành phần với nhau. Giờ thì cùng điểm qua các thành phần trong luồng tích hợp như đã hứa.
