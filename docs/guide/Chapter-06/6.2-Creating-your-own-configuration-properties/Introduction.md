@@ -1,10 +1,10 @@
-## 6.2 Creating your own configuration properties
+## 6.2 Tạo cấu hình tùy chỉnh của riêng bạn
 
-As I mentioned earlier, configuration properties are nothing more than properties of beans that have been designated to accept configurations from Spring’s environment abstraction. What I didn’t mention is how those beans are designated to consume those configurations.
+Như tôi đã đề cập trước đó, các thuộc tính cấu hình không gì khác ngoài các thuộc tính của các bean được chỉ định để nhận cấu hình từ lớp trừu tượng môi trường của Spring. Điều mà tôi chưa đề cập là cách các bean đó được chỉ định để sử dụng các cấu hình đó.
 
-To support property injection of configuration properties, Spring Boot provides the `@ConfigurationProperties` annotation. When placed on any Spring bean, it specifies that the properties of that bean can be injected from properties in the Spring environment.
+Để hỗ trợ việc tiêm thuộc tính cấu hình, Spring Boot cung cấp annotation `@ConfigurationProperties`. Khi được đặt trên bất kỳ bean Spring nào, nó chỉ định rằng các thuộc tính của bean đó có thể được tiêm từ các thuộc tính trong môi trường Spring.
 
-To demonstrate how `@ConfigurationProperties` works, suppose that you’ve added the following method to `OrderController` to list the authenticated user’s past orders:
+Để minh họa cách `@ConfigurationProperties` hoạt động, giả sử bạn đã thêm phương thức sau vào `OrderController` để liệt kê các đơn hàng trước đó của người dùng đã xác thực:  
 
 ```java
 @GetMapping
@@ -18,15 +18,15 @@ public String ordersForUser(
 }
 ```
 
-Along with that, you’ve also added the next necessary `findByUserOrderByPlacedAtDesc()` method to `OrderRepository`:
+Cùng với đó, bạn cũng đã thêm phương thức cần thiết `findByUserOrderByPlacedAtDesc()` vào `OrderRepository`:
 
 ```java
 List<Order> findByUserOrderByPlacedAtDesc(User user);
 ```
 
-Notice that this repository method is named with a clause of `OrderByPlacedAtDesc`. The `OrderBy` portion specifies a property by which the results will be ordered—in this case, the `placedAt` property. The `Desc` at the end causes the ordering to be in descending order. Therefore, the list of orders returned will be sorted from most recent to least recent.
+Lưu ý rằng phương thức repository này được đặt tên với phần tử `OrderByPlacedAtDesc`. Phần `OrderBy` chỉ định thuộc tính dùng để sắp xếp kết quả—trong trường hợp này là thuộc tính `placedAt`. `Desc` ở cuối tên phương thức khiến kết quả được sắp xếp theo thứ tự giảm dần. Do đó, danh sách đơn hàng được trả về sẽ được sắp xếp từ mới nhất đến cũ nhất.
 
-As written, this controller method may be useful after the user has placed a handful of orders, but it could become a bit unwieldy for the most avid of taco connoisseurs. A few orders displayed in the browser are useful; a never-ending list of hundreds of orders is just noise. Let’s say that you want to limit the number of orders displayed to the most recent 20 orders. You can change `ordersForUser()` as follows:
+Theo cách viết hiện tại, phương thức controller này có thể hữu ích sau khi người dùng đã đặt một vài đơn hàng, nhưng nó có thể trở nên hơi rối rắm với những người yêu thích taco cuồng nhiệt. Một vài đơn hàng hiển thị trong trình duyệt thì hữu ích; nhưng một danh sách bất tận với hàng trăm đơn hàng thì chỉ là nhiễu. Giả sử bạn muốn giới hạn số lượng đơn hàng hiển thị xuống còn 20 đơn hàng gần đây nhất. Bạn có thể thay đổi `ordersForUser()` như sau:  
 
 ```java
 @GetMapping
@@ -41,20 +41,21 @@ public String ordersForUser(
 }
 ```
 
-along with the corresponding changes to `OrderRepository`, shown next:
+Cùng với các thay đổi tương ứng trong `OrderRepository` như sau:  
 
 ```java
 List<TacoOrder> findByUserOrderByPlacedAtDesc(
       User user, Pageable pageable);
 ```
 
-Here you’ve changed the signature of the `findByUserOrderByPlacedAtDesc()` method to accept a `Pageable` as a parameter. `Pageable` is Spring Data’s way of selecting some subset of the results by a page number and page size. In the `ordersForUser()` controller method, you constructed a `PageRequest` object that implemented `Pageable` to request the first page (page zero) with a page size of 20 to get up to 20 of the most recently placed orders for the user.
+Tại đây bạn đã thay đổi chữ ký của phương thức `findByUserOrderByPlacedAtDesc()` để chấp nhận một `Pageable` làm tham số. `Pageable` là cách của Spring Data để chọn một tập con kết quả theo số trang và kích thước trang. Trong phương thức controller `ordersForUser()`, bạn đã tạo một đối tượng `PageRequest` triển khai `Pageable` để yêu cầu trang đầu tiên (trang số 0) với kích thước trang là 20, nhằm lấy tối đa 20 đơn hàng gần nhất của người dùng.
 
-Although this works fantastically, it leaves me a bit uneasy that you’ve hardcoded the page size. What if you later decide that 20 is too many orders to list, and you decide to change it to 10? Because it’s hardcoded, you’d have to rebuild and redeploy the application.
+Mặc dù cách làm này hoạt động rất tốt, nhưng nó khiến tôi hơi băn khoăn vì bạn đã hardcode kích thước trang. Nếu sau này bạn quyết định rằng 20 là quá nhiều và muốn thay đổi nó thành 10 thì sao? Vì giá trị này được hardcode, bạn sẽ phải build lại và triển khai lại ứng dụng.
 
-Rather than hardcode the page size, you can set it with a custom configuration property. First, you need to add a new property called `pageSize` to `OrderController`, and then annotate `OrderController` with `@ConfigurationProperties` as shown in the next listing.
+Thay vì hardcode kích thước trang, bạn có thể đặt nó bằng một thuộc tính cấu hình tùy chỉnh. Đầu tiên, bạn cần thêm một thuộc tính mới có tên `pageSize` vào `OrderController`, sau đó đánh dấu `OrderController` với annotation `@ConfigurationProperties` như được hiển thị trong đoạn mã tiếp theo.
 
-**Listing 6.1 Enabling configuration properties in OrderController**
+**Liệt kê 6.1 Kích hoạt thuộc tính cấu hình trong OrderController**
+
 ```java
 @Controller
 @RequestMapping("/orders")
@@ -82,9 +83,9 @@ public class OrderController {
 }
 ```
 
-The most significant change made in listing 6.1 is the addition of the `@ConfigurationProperties` annotation. Its prefix attribute is set to `taco.orders`, which means that when setting the pageSize property, you need to use a configuration property named `taco.orders.pageSize`.
+Thay đổi quan trọng nhất trong liệt kê 6.1 là bổ sung annotation `@ConfigurationProperties`. Thuộc tính `prefix` được đặt là `taco.orders`, nghĩa là khi đặt thuộc tính `pageSize`, bạn cần sử dụng một thuộc tính cấu hình có tên là `taco.orders.pageSize`.
 
-The new `pageSize` property defaults to 20, but you can easily change it to any value you want by setting a `taco.orders.pageSize` property. For example, you could set this property in application.yml like this:
+Thuộc tính `pageSize` mới mặc định là 20, nhưng bạn có thể dễ dàng thay đổi nó thành bất kỳ giá trị nào bằng cách đặt thuộc tính `taco.orders.pageSize`. Ví dụ, bạn có thể đặt thuộc tính này trong `application.yml` như sau:
 
 ```yaml
 taco:
@@ -92,12 +93,10 @@ taco:
     pageSize: 10
 ```
 
-Or, if you need to make a quick change while in production, you can do so without having to rebuild and redeploy the application by setting the `taco.orders.pageSize` property as an environment variable as follows:
+Hoặc, nếu bạn cần thực hiện thay đổi nhanh chóng khi đang chạy ứng dụng trong môi trường production, bạn có thể làm điều đó mà không cần build lại và triển khai lại ứng dụng bằng cách đặt biến môi trường `taco.orders.pageSize` như sau:
 
 ```bash
-$ export TACO_ORDERS_PAGESIZE=10
+export TACO_ORDERS_PAGESIZE=10
 ```
 
-Any means by which a configuration property can be set can be used to adjust the page size of the recent orders page. Next, we’ll look at how to set configuration data in property holders.
-
-
+Bất kỳ cách nào để thiết lập thuộc tính cấu hình đều có thể được sử dụng để điều chỉnh kích thước trang của trang đơn hàng gần đây. Tiếp theo, chúng ta sẽ xem cách đặt dữ liệu cấu hình trong các holder chứa thuộc tính.

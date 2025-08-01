@@ -1,11 +1,11 @@
-## 6.1 Fine-tuning autoconfiguration
+## 6.1 Tinh chỉnh cấu hình tự động
 
-Before we dive in too deeply with configuration properties, it’s important to establish the following different (but related) kinds of configurations in Spring:
+Trước khi chúng ta đi sâu vào các thuộc tính cấu hình, điều quan trọng là phải phân biệt được những loại cấu hình khác nhau (nhưng có liên quan) trong Spring:
 
-* _Bean wiring_ — Configuration that declares application components to be created as beans in the Spring application context and how they should be injected into each other
-* _Property injection_ — Configuration that sets values on beans in the Spring application context
+* _Bean wiring_ — Cấu hình khai báo các thành phần ứng dụng sẽ được tạo thành các bean trong Spring application context và cách chúng được tiêm lẫn nhau
+* _Property injection_ — Cấu hình thiết lập các giá trị cho các bean trong Spring application context
 
-In Spring’s XML and Java configuration, these two types of configurations are often declared explicitly in the same place. In Java configuration, a `@Bean`-annotated method is likely to both instantiate a bean and then set values to its properties. For example, consider the following `@Bean` method that declares a `DataSource` for an embedded H2 database:
+Trong cấu hình XML và Java của Spring, hai loại cấu hình này thường được khai báo rõ ràng cùng một chỗ. Trong cấu hình Java, một phương thức được chú thích `@Bean` có thể vừa tạo một bean, vừa gán giá trị cho các thuộc tính của nó. Ví dụ, hãy xem phương thức `@Bean` sau khai báo một `DataSource` cho cơ sở dữ liệu H2 nhúng:
 
 ```java
 @Bean
@@ -18,10 +18,8 @@ public DataSource dataSource() {
 }
 ```
 
-Here the `addScript()` and `addScripts()` methods set some `String` properties with the name of SQL scripts that should be applied to the database once the data source is ready. Whereas this is how you might configure a `DataSource` bean if you aren’t using Spring Boot, autoconfiguration makes this method completely unnecessary.
+Tại đây, các phương thức `addScript()` và `addScripts()` thiết lập một số thuộc tính kiểu `String` với tên các file script SQL sẽ được áp dụng vào cơ sở dữ liệu khi data source sẵn sàng. Đây là cách bạn có thể cấu hình một bean `DataSource` nếu bạn **không sử dụng Spring Boot** — tuy nhiên, cấu hình tự động khiến phương thức này hoàn toàn **không cần thiết**.
 
-If the H2 dependency is available in the runtime classpath, then Spring Boot automatically creates in the Spring application context an appropriate `DataSource` bean, which applies the SQL scripts schema.sql and data.sql.
+Nếu thư viện H2 có sẵn trong classpath lúc runtime, thì Spring Boot sẽ **tự động** tạo một bean `DataSource` phù hợp trong Spring application context và áp dụng các script SQL như `schema.sql` và `data.sql`.
 
-But what if you want to name the SQL scripts something else? Or what if you need to specify more than two SQL scripts? That’s where configuration properties come in. But before you can start using configuration properties, you need to understand where those properties come from.
-
-
+Nhưng nếu bạn muốn đổi tên các file script SQL? Hoặc nếu bạn cần chỉ định nhiều hơn hai script SQL thì sao? Đó chính là lúc **thuộc tính cấu hình** phát huy tác dụng. Tuy nhiên, trước khi bạn có thể bắt đầu sử dụng các thuộc tính cấu hình, bạn cần hiểu **các thuộc tính đó đến từ đâu**.
