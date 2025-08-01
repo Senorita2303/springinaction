@@ -1,28 +1,26 @@
-## 9.2 Working with RabbitMQ and AMQP
+## 9.2 Làm việc với RabbitMQ và AMQP
 
-As arguably the most prominent implementation of AMQP, RabbitMQ offers a more advanced message-routing strategy than JMS. Whereas JMS messages are addressed with the name of a destination from which the receiver will retrieve them, AMQP messages are addressed with the name of an exchange and a routing key, which are decoupled from the queue to which the receiver is listening. This relationship between an exchange and queues is illustrated in figure 9.2.
+Là một trong những triển khai nổi bật nhất của AMQP, RabbitMQ cung cấp chiến lược định tuyến thông điệp tiên tiến hơn so với JMS. Trong khi JMS định địa chỉ thông điệp bằng tên của một đích đến mà người nhận sẽ lấy thông điệp từ đó, thì AMQP định địa chỉ thông điệp bằng tên của một *exchange* và một *routing key*, vốn được tách rời khỏi *queue* mà người nhận đang lắng nghe. Mối quan hệ giữa *exchange* và *queue* này được minh họa trong hình 9.2.
 
-![](../../assets/9.2.png)
-**Figure 9.2 Messages sent to a RabbitMQ exchange are routed to one or more queues, based on routing keys and bindings.** <br/>
+![Hình 9.2](../../assets/9.2.png)  
+**Hình 9.2 Các thông điệp gửi đến một exchange trong RabbitMQ sẽ được định tuyến đến một hoặc nhiều hàng đợi (queues), dựa trên routing key và các liên kết (binding).**
 
-When a message arrives at the RabbitMQ broker, it goes to the exchange for which it was addressed. The exchange is responsible for routing it to one or more queues, depending on the type of exchange, the binding between the exchange and queues, and the value of the message’s routing key.
+Khi một thông điệp đến RabbitMQ broker, nó sẽ đi đến *exchange* mà nó được định địa chỉ. *Exchange* chịu trách nhiệm định tuyến thông điệp đó đến một hoặc nhiều *queue*, tùy thuộc vào loại exchange, các liên kết giữa exchange và queue, và giá trị của *routing key* của thông điệp.
 
-There are several different kinds of exchanges, including the following:
+Có một số loại *exchange* khác nhau, bao gồm:
 
-* _Default_ —— A special exchange that’s automatically created by the broker. It routes messages to queues whose name is the same as the message’s routing key. All queues will automatically be bound to the default exchange.
-* _Direct_ —— Routes messages to a queue whose binding key is the same as the message’s routing key.
-* _Topic_ —— Routes a message to one or more queues where the binding key (which may contain wildcards) matches the message’s routing key.
-* _Fanout_ —— Routes messages to all bound queues without regard for binding keys or routing keys.
-* _Headers_ —— Similar to a topic exchange, except that routing is based on message header values rather than routing keys.
-* _Dead letter_ —— A catchall for any messages that are undeliverable (meaning they don’t match any defined exchange-to-queue binding).
+* *Default* —— Là một exchange đặc biệt được tạo tự động bởi broker. Nó định tuyến thông điệp đến *queue* có tên trùng với *routing key* của thông điệp. Tất cả *queue* sẽ tự động được liên kết với exchange mặc định này.
+* *Direct* —— Định tuyến thông điệp đến *queue* có khóa liên kết (binding key) trùng với *routing key* của thông điệp.
+* *Topic* —— Định tuyến một thông điệp đến một hoặc nhiều *queue* mà binding key (có thể chứa ký tự đại diện) khớp với *routing key* của thông điệp.
+* *Fanout* —— Định tuyến thông điệp đến tất cả các *queue* đã liên kết, không quan tâm đến binding key hoặc routing key.
+* *Headers* —— Tương tự như exchange loại *topic*, ngoại trừ việc định tuyến dựa trên giá trị của các header trong thông điệp thay vì *routing key*.
+* *Dead letter* —— Là nơi chứa tất cả những thông điệp không thể gửi được (nghĩa là không khớp với bất kỳ binding nào đã được định nghĩa từ exchange đến queue).
 
-The simplest forms of exchanges are default and fanout—these roughly correspond to a JMS queue and topic. But the other exchanges allow you to define more flexible routing schemes.
+Các loại *exchange* đơn giản nhất là *default* và *fanout* — chúng tương ứng một cách gần đúng với *queue* và *topic* trong JMS. Tuy nhiên, các loại exchange khác cho phép bạn định nghĩa các sơ đồ định tuyến linh hoạt hơn.
 
-The most important thing to understand is that messages are sent to exchanges with routing keys and they’re consumed from queues. How they get from an exchange to a queue depends on the binding definitions and what best suits your use cases.
+Điều quan trọng nhất cần hiểu là: thông điệp được gửi đến *exchange* kèm theo *routing key*, và được tiêu thụ từ các *queue*. Cách chúng đi từ *exchange* đến *queue* phụ thuộc vào các định nghĩa binding và những gì phù hợp nhất với trường hợp sử dụng của bạn.
 
-Which exchange type you use and how you define the bindings from exchanges to queues has little bearing on how messages are sent and received in your Spring applications. Therefore, we’ll focus on how to write code that sends and receives messages with Rabbit.
+Loại *exchange* mà bạn sử dụng và cách bạn định nghĩa các liên kết từ exchange đến queue không ảnh hưởng nhiều đến cách gửi và nhận thông điệp trong các ứng dụng Spring của bạn. Do đó, chúng ta sẽ tập trung vào cách viết mã để gửi và nhận thông điệp với Rabbit.
 
->**NOTE**
->For a more detailed discussion on how best to bind queues to exchanges, see RabbitMQ in Depth by Gavin Roy (Manning, 2017) or RabbitMQ in Action by Alvaro Videla and Jason J. W. Williams (Manning, 2012).
-
-
+>**LƯU Ý**  
+>Để có thảo luận chi tiết hơn về cách liên kết queue với exchange một cách tốt nhất, bạn có thể tham khảo *RabbitMQ in Depth* của Gavin Roy (Manning, 2017) hoặc *RabbitMQ in Action* của Alvaro Videla và Jason J. W. Williams (Manning, 2012).

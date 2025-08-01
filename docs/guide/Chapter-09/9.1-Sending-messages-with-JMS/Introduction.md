@@ -1,11 +1,9 @@
-## 9.1 Sending messages with JMS
+## 9.1 Gửi tin nhắn với JMS
 
-JMS is a Java standard that defines a common API for working with message brokers. First introduced in 2001, JMS has been the go-to approach for asynchronous messaging in Java for a very long time. Before JMS, each message broker had a proprietary API, making an application’s messaging code less portable between brokers. But with JMS, all compliant implementations can be worked with via a common interface in much the same way that JDBC has given relational database operations a common interface.
+JMS là một tiêu chuẩn Java định nghĩa API chung để làm việc với các trình môi giới tin nhắn (message broker). Được giới thiệu lần đầu vào năm 2001, JMS đã trở thành phương pháp phổ biến để nhắn tin bất đồng bộ trong Java trong một thời gian dài. Trước JMS, mỗi trình môi giới tin nhắn đều có API riêng biệt, khiến mã nguồn xử lý tin nhắn của ứng dụng kém linh hoạt và khó di chuyển giữa các broker khác nhau. Nhưng với JMS, tất cả các triển khai tuân thủ chuẩn đều có thể được làm việc thông qua một giao diện chung, tương tự như cách JDBC cung cấp một giao diện chung cho thao tác với cơ sở dữ liệu quan hệ.
 
-Spring supports JMS through a template-based abstraction known as `JmsTemplate`. Using `JmsTemplate`, it’s easy to send messages across queues and topics from the producer side and to receive those messages on the consumer side. Spring also supports the notion of message-driven POJOs: simple Java objects that react to messages arriving on a queue or topic in an asynchronous fashion.
+Spring hỗ trợ JMS thông qua một lớp trừu tượng dựa trên mẫu gọi là `JmsTemplate`. Sử dụng `JmsTemplate`, bạn có thể dễ dàng gửi tin nhắn đến các hàng đợi (queue) và chủ đề (topic) từ phía nhà sản xuất (producer) và nhận tin nhắn từ phía người tiêu dùng (consumer). Spring cũng hỗ trợ khái niệm POJO điều khiển bằng tin nhắn (message-driven POJO): các đối tượng Java đơn giản phản hồi tin nhắn đến hàng đợi hoặc chủ đề theo cách bất đồng bộ.
 
-We’re going to explore Spring’s JMS support, including `JmsTemplate` and messagedriven POJOs. Our focus will be on Spring’s support for messaging with JMS, but if you want to know more about JMS, then have a look at _ActiveMQ in Action_ by Bruce Snyder, Dejan Bosanac, and Rob Davies (Manning, 2011).
+Chúng ta sẽ khám phá cách Spring hỗ trợ JMS, bao gồm `JmsTemplate` và các POJO điều khiển bằng tin nhắn. Trọng tâm sẽ là hỗ trợ JMS trong Spring, nhưng nếu bạn muốn tìm hiểu sâu hơn về JMS, hãy xem cuốn _ActiveMQ in Action_ của Bruce Snyder, Dejan Bosanac và Rob Davies (Manning, 2011).
 
-Before you can send and receive messages, you need a message broker that’s ready to relay those messages between producers and consumers. Let’s kick off our exploration of Spring JMS by setting up a message broker in Spring.
-
-
+Trước khi có thể gửi và nhận tin nhắn, bạn cần một trình môi giới tin nhắn (message broker) sẵn sàng để chuyển tiếp các tin nhắn giữa nhà sản xuất và người tiêu dùng. Hãy bắt đầu việc khám phá JMS trong Spring bằng cách thiết lập một trình môi giới tin nhắn trong Spring.

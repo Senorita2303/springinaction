@@ -1,17 +1,16 @@
-# Chapter 9. Sending messages asynchronously
+# Chương 9. Gửi tin nhắn bất đồng bộ
 
-This chapter covers
+Chương này bao gồm
 
-* Asynchronous messaging
-* Sending messages with JMS, RabbitMQ, and Kafka
-* Pulling messages from a broker
-* Listening for messages
+* Nhắn tin bất đồng bộ
+* Gửi tin nhắn với JMS, RabbitMQ và Kafka
+* Kéo tin nhắn từ bộ môi giới
+* Lắng nghe tin nhắn
 
-It’s 4:55 p.m. on Friday. You’re minutes away from starting a much-anticipated vacation. You have just enough time to drive to the airport and catch your flight. But before you pack up and head out, you need to be sure your boss and colleagues know the status of the work you’ve been doing so that on Monday they can pick up where you left off. Unfortunately, some of your colleagues have already skipped out for the weekend, and your boss is tied up in a meeting. What do you do?
+Bây giờ là 4:55 chiều thứ Sáu. Bạn chỉ còn vài phút nữa là bắt đầu kỳ nghỉ được mong đợi từ lâu. Bạn chỉ vừa đủ thời gian để lái xe đến sân bay và kịp chuyến bay. Nhưng trước khi đóng gói hành lý và rời đi, bạn cần đảm bảo rằng sếp và đồng nghiệp biết được tình trạng công việc bạn đang làm để họ có thể tiếp tục vào thứ Hai. Thật không may, một số đồng nghiệp đã rời khỏi văn phòng từ sớm, và sếp bạn thì đang bận họp. Bạn sẽ làm gì?
 
-The most practical way to communicate your status and still catch your plane is to send a quick email to your boss and your colleagues, detailing your progress and promising to send a postcard. You don’t know where they are or when they’ll read the email, but you do know they’ll eventually return to their desks and read it. Meanwhile, you’re on your way to the airport.
+Cách thực tế nhất để thông báo tình trạng công việc và vẫn kịp ra sân bay là gửi một email nhanh cho sếp và đồng nghiệp, trình bày tiến độ công việc và hứa sẽ gửi bưu thiếp. Bạn không biết họ đang ở đâu hay khi nào họ sẽ đọc email, nhưng bạn biết chắc rằng cuối cùng họ sẽ quay lại bàn làm việc và đọc nó. Trong khi đó, bạn đã lên đường đến sân bay.
 
-_Synchronous_ communication, which is what we’ve seen with REST, has its place. But it’s not the only style of interapplication communication available to developers. Asynchronous messaging is a way of indirectly sending messages from one application to another without waiting for a response. This indirection affords looser coupling and greater scalability between the communicating applications.
+Giao tiếp _đồng bộ_, như chúng ta đã thấy với REST, có vị trí riêng của nó. Nhưng đó không phải là kiểu giao tiếp duy nhất giữa các ứng dụng mà nhà phát triển có thể sử dụng. Nhắn tin bất đồng bộ là cách để gửi gián tiếp các tin nhắn từ một ứng dụng này đến một ứng dụng khác mà không cần đợi phản hồi. Kiểu gián tiếp này giúp giảm sự phụ thuộc giữa các ứng dụng và tăng khả năng mở rộng.
 
-In this chapter, we’re going to use asynchronous messaging to send orders from the Taco Cloud website to a separate application in the Taco Cloud kitchens where the tacos will be prepared. We’ll consider three options that Spring offers for asynchronous messaging: the Java Message Service (JMS), RabbitMQ and Advanced Message Queueing Protocol (AMQP), and Apache Kafka. In addition to the basic sending and receiving of messages, we’ll look at Spring’s support for message-driven POJOs: a way to receive messages that resembles Enterprise JavaBeans’ message-driven beans (MDBs).
-
+Trong chương này, chúng ta sẽ sử dụng nhắn tin bất đồng bộ để gửi đơn hàng từ website Taco Cloud đến một ứng dụng khác trong nhà bếp Taco Cloud – nơi tacos sẽ được chuẩn bị. Chúng ta sẽ xem xét ba tùy chọn mà Spring cung cấp để nhắn tin bất đồng bộ: Java Message Service (JMS), RabbitMQ với giao thức Advanced Message Queueing Protocol (AMQP), và Apache Kafka. Bên cạnh việc gửi và nhận tin nhắn cơ bản, chúng ta cũng sẽ tìm hiểu cách Spring hỗ trợ POJO điều khiển bởi tin nhắn – một phương pháp nhận tin nhắn giống như các message-driven beans (MDBs) trong Enterprise JavaBeans.
