@@ -1,16 +1,16 @@
-# Chapter 8. Securing REST
+# Chương 8. Bảo mật REST
 
-This chapter covers
+Chương này bao gồm
 
-* Securing APIs with OAuth 2
-* Creating an authorization server
-* Adding a resource server to an API
-* Consuming OAuth 2–secured APIs
+* Bảo mật API với OAuth 2  
+* Tạo máy chủ cấp quyền (authorization server)  
+* Thêm máy chủ tài nguyên (resource server) vào API  
+* Tiêu thụ API được bảo mật bằng OAuth 2  
 
-Have you ever taken advantage of valet parking? It’s a simple concept: you hand your car keys to a valet near the entrance of a store, hotel, theater, or restaurant, and they deal with the hassle of finding a parking space for you. And then they return your car to you when you ask for it. Maybe it’s because I’ve seen _Ferris Bueller’s Day Off_ too many times, but I’m always reluctant to hand my car keys to a stranger and hope that they take good care of my vehicle for me.
+Bạn đã bao giờ sử dụng dịch vụ gửi xe hộ (valet parking) chưa? Đó là một khái niệm đơn giản: bạn đưa chìa khóa xe cho nhân viên gửi xe gần lối vào của cửa hàng, khách sạn, rạp chiếu phim hoặc nhà hàng, và họ sẽ lo việc tìm chỗ đậu xe giúp bạn. Sau đó, họ trả lại xe khi bạn yêu cầu. Có thể là vì tôi đã xem phim _Ferris Bueller’s Day Off_ quá nhiều lần, nhưng tôi luôn do dự khi phải giao chìa khóa xe cho người lạ và hy vọng rằng họ sẽ chăm sóc xe cẩn thận.
 
-Nonetheless, valet parking involves granting trust to someone to take care of your car. Many newer cars provide a “valet key,” a special key that can be used only to open the car doors and start the engine. This way the amount of trust that you are granting is limited in scope. The valet cannot open the glove compartment or the trunk with the valet key.
+Tuy vậy, gửi xe hộ yêu cầu bạn phải tin tưởng người khác để chăm sóc xe của mình. Nhiều xe hiện đại cung cấp một “chìa khóa gửi xe” (valet key), một loại chìa khóa đặc biệt chỉ có thể dùng để mở cửa xe và khởi động động cơ. Như vậy, phạm vi tin tưởng mà bạn cấp cho người khác được giới hạn. Nhân viên gửi xe sẽ không thể mở cốp xe hoặc ngăn chứa đồ với chìa khóa này.
 
-In a distributed application, trust is critical between software systems. Even in a simple situation where a client application consumes a backend API, it’s important that the client is trusted and anyone else attempting to use that same API is blocked out. And, like the valet, the amount of trust you grant to a client should be limited to only the functions necessary for the client to do its job.
+Trong một ứng dụng phân tán, sự tin tưởng giữa các hệ thống phần mềm là rất quan trọng. Ngay cả trong những tình huống đơn giản, khi một ứng dụng khách truy cập vào một API phía sau, điều quan trọng là phải đảm bảo rằng ứng dụng khách đó được tin cậy, và những kẻ khác cố gắng truy cập cùng API đó sẽ bị chặn. Và cũng giống như trường hợp gửi xe, mức độ tin tưởng mà bạn cấp cho một ứng dụng khách nên được giới hạn chỉ ở những chức năng cần thiết để nó hoàn thành nhiệm vụ.
 
-Securing a REST API is different from securing a browser-based web application. In this chapter, we’re going to look at OAuth 2, an authorization specification created specifically for API security. In doing so, we’ll look at Spring Security’s support for OAuth 2. But first, let’s set the stage by seeing how OAuth 2 works.
+Bảo mật một REST API khác với bảo mật một ứng dụng web dựa trên trình duyệt. Trong chương này, chúng ta sẽ tìm hiểu về OAuth 2, một đặc tả ủy quyền được tạo ra đặc biệt để bảo mật API. Khi làm điều đó, chúng ta cũng sẽ khám phá cách Spring Security hỗ trợ OAuth 2. Nhưng trước tiên, hãy tìm hiểu cách hoạt động của OAuth 2.
