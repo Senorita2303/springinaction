@@ -1,16 +1,14 @@
-# 欢迎
+# Chào mừng
 
-感谢您购买《Spring 实战》第六版 MEAP。从过去的五个版本中一路走来，现在我很高兴在这个版本中为您介绍最新最好的 Spring。无论您是刚接触，还是想了解一些 Spring 新特性，本书都是您学习 Spring 的宝贵资源。
+Cảm ơn bạn đã mua MEAP của *Spring in Action*, Ấn bản lần thứ 6. Sau năm ấn bản trước, tôi rất háo hức được giới thiệu với bạn phiên bản mới nhất và tốt nhất của Spring trong ấn bản này. Dù bạn mới bắt đầu hay đang muốn tìm hiểu về một số tính năng mới của Spring, cuốn sách này sẽ là một tài nguyên quý giá để học Spring.
 
-我试图让这个版本遵循一种亲身实践的风格，带领您完成应用程序构建的全过程。从初始化项目开始，一直到如何部署应用程序。
+Tôi đã cố gắng làm cho ấn bản này mang phong cách thực hành, hướng dẫn bạn xuyên suốt quá trình xây dựng một ứng dụng. Từ việc khởi tạo một dự án cho đến cách triển khai ứng dụng của bạn.
 
-我们将发布开始的前五章内容。尽管还有一些尚未更新的内容，但这些章节与前一版没有太多不同。在第 1 章中，您将学习如何利用 Spring Initializr 和 Spring Boot 开始创建项目。在第 2 章中，我们将在此基础上，通过使用 Spring MVC 开发基于浏览器的功能。
-第 3 章，介绍使用 JDBC 和 Spring Data JPA 持久化数据。在第 4 章中，我们将看到使用 Spring Security 保护应用程序。最后，第 5 章将介绍如何使用配置属性来配置 Spring。
+Chúng tôi phát hành trước năm chương đầu tiên. Mặc dù vẫn còn một số nội dung chưa được cập nhật, các chương này không khác nhiều so với ấn bản trước. Trong Chương 1, bạn sẽ học cách sử dụng Spring Initializr và Spring Boot để bắt đầu tạo dự án. Trong Chương 2, chúng ta sẽ tiếp tục phát triển các chức năng dựa trên trình duyệt bằng cách sử dụng Spring MVC.  
+Chương 3 giới thiệu việc lưu trữ dữ liệu với JDBC và Spring Data JPA. Trong Chương 4, chúng ta sẽ tìm hiểu cách bảo mật ứng dụng bằng Spring Security. Cuối cùng, Chương 5 sẽ đề cập đến cách cấu hình Spring thông qua các thuộc tính cấu hình.
 
-展望未来，我们将在第一部分中展开更多的有关数据持久化的内容，包括 Spring Data JDBC 和非关系数据库，如 MongoDB 和 Cassandra。在本书的第二部分中，我们将看到如何把应用程序与其他应用程序集成在一起。在第三部分，我们将深入研究 Spring 6 的响应式编程，并重新改造以前开发的组件，使其成为响应性式的。最后，第四部分我们将进一步讨论如何部署应用。
+Trong phần tiếp theo, chúng ta sẽ mở rộng thêm các chủ đề về lưu trữ dữ liệu trong Phần 1, bao gồm Spring Data JDBC và các cơ sở dữ liệu phi quan hệ như MongoDB và Cassandra. Trong Phần 2 của cuốn sách, chúng ta sẽ xem cách tích hợp ứng dụng với các ứng dụng khác. Trong Phần 3, chúng ta sẽ đi sâu vào lập trình phản ứng (reactive programming) của Spring 6 và cải tiến lại các thành phần đã phát triển trước đó để biến chúng thành phản ứng. Cuối cùng, trong Phần 4, chúng ta sẽ thảo luận thêm về việc triển khai ứng dụng.
 
-我们希望每隔几周对这本书进行一次更新，无论是新加章节，还是对现有章节进行修改。当您在阅读时，我邀请您访问 [liveBook 论坛](https://livebook.manning.com/#!/book/spring-in-action-sixth-edition/discussion)，您可以提问和留言。我非常重视您反馈，因为我在写这篇文章时，这些反馈对指导我的后续写作非常有价值。
+Chúng tôi dự định cập nhật cuốn sách này vài tuần một lần, có thể bằng cách thêm các chương mới hoặc chỉnh sửa các chương hiện có. Trong quá trình đọc, tôi mời bạn truy cập [diễn đàn liveBook](https://livebook.manning.com/#!/book/spring-in-action-sixth-edition/discussion), nơi bạn có thể đặt câu hỏi và để lại bình luận. Tôi rất trân trọng phản hồi của bạn, vì nó vô cùng quý giá trong việc định hướng cho phần viết tiếp theo của tôi trong cuốn sách này.
 
 —Craig Walls
-
-

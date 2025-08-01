@@ -1,22 +1,20 @@
-## 2.1 Displaying information
+## 2.1 Hiển thị thông tin
 
-Fundamentally, Taco Cloud is a place where you can order tacos online. But more than that, Taco Cloud wants to enable its customers to express their creative side and design custom tacos from a rich palette of ingredients.
+Về cơ bản, Taco Cloud là một nơi nơi bạn có thể đặt taco trực tuyến. Nhưng hơn thế nữa, Taco Cloud muốn cho phép khách hàng thể hiện khía cạnh sáng tạo của họ bằng cách thiết kế những chiếc taco tùy chỉnh từ một bảng nguyên liệu phong phú.
 
-Therefore, the Taco Cloud web application needs a page that displays the selection of ingredients for taco artists to choose from. The ingredient choices may change at any time, so they shouldn’t be hardcoded into an HTML page. Rather, the list of available ingredients should be fetched from a database and handed over to the page to be displayed to the customer.
+Vì vậy, ứng dụng web Taco Cloud cần có một trang hiển thị danh sách các nguyên liệu để những nghệ sĩ taco có thể lựa chọn. Các lựa chọn nguyên liệu này có thể thay đổi bất kỳ lúc nào, vì vậy chúng không nên được mã hóa cứng trong một trang HTML. Thay vào đó, danh sách nguyên liệu có sẵn nên được lấy từ cơ sở dữ liệu và chuyển giao cho trang web để hiển thị cho khách hàng.
 
-In a Spring web application, it’s a controller’s job to fetch and process data. And it’s a view’s job to render that data into HTML that will be displayed in the browser. You’re going to create the following components in support of the taco creation page:
+Trong một ứng dụng web Spring, công việc của controller là truy xuất và xử lý dữ liệu. Còn công việc của view là hiển thị dữ liệu đó thành HTML để hiển thị trong trình duyệt. Bạn sẽ tạo ra các thành phần sau để hỗ trợ trang tạo taco:
 
-* A domain class that defines the properties of a taco ingredient
-* A Spring MVC controller class that fetches ingredient information and passes it along to the view
-* A view template that renders a list of ingredients in the user’s browser
+* Một lớp miền định nghĩa các thuộc tính của một nguyên liệu taco
+* Một lớp controller của Spring MVC để truy xuất thông tin nguyên liệu và chuyển nó đến view
+* Một template view hiển thị danh sách nguyên liệu trên trình duyệt của người dùng
 
-The relationship between these components is illustrated in figure 2.1.
+Mối quan hệ giữa các thành phần này được minh họa trong hình 2.1.
 
-![](../../assets/2.1.png)
-**Figure 2.1 A typical Spring MVC request flow** <br/>
+![](../../assets/2.1.png)  
+**Hình 2.1 Luồng yêu cầu điển hình trong Spring MVC**
 
-Because this chapter focuses on Spring’s web framework, we’ll defer any of the database stuff to chapter 3. For now, the controller is solely responsible for providing the ingredients to the view. In chapter 3, you’ll rework the controller to collaborate with a repository that fetches ingredients data from a database.
+Vì chương này tập trung vào framework web của Spring, chúng ta sẽ tạm hoãn phần làm việc với cơ sở dữ liệu đến chương 3. Hiện tại, controller sẽ chỉ chịu trách nhiệm cung cấp nguyên liệu cho view. Trong chương 3, bạn sẽ chỉnh sửa lại controller để nó làm việc với một repository nhằm truy xuất dữ liệu nguyên liệu từ cơ sở dữ liệu.
 
-Before you write the controller and view, let’s hammer out the domain type that represents an ingredient. This will establish a foundation on which you can develop your web components.
-
-
+Trước khi bạn viết controller và view, hãy định nghĩa kiểu miền đại diện cho một nguyên liệu. Điều này sẽ tạo nền tảng để bạn phát triển các thành phần web.

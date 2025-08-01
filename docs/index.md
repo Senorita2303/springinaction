@@ -3,40 +3,37 @@ layout: home
 
 hero:
   name: "FileCodeBox"
-  text: "文件快递柜"
-  tagline: 匿名口令分享文本，文件，像拿快递一样取文件
+  text: "Hộp chuyển phát tệp"
+  tagline: Chia sẻ văn bản, tệp tin ẩn danh bằng mật khẩu, nhận tệp dễ dàng như nhận hàng chuyển phát
   image:
     src: /logo_small.png
     alt: FileCodeBox
   actions:
     - theme: brand
-      text: 快速开始
+      text: Bắt đầu nhanh
       link: /guide/README
     - theme: alt
-      text: 在线体验
-      link: https://share.lanol.cn
-    - theme: alt
-      text: 在 GitHub 上查看
+      text: Xem trên GitHub
       link: https://github.com/Senorita2303/springinaction
 
 features:
   - icon: 🚀
-    title: 快速部署
-    details: 支持 Docker 一键部署，简单快捷，无需复杂配置
+    title: Triển khai nhanh chóng
+    details: Hỗ trợ triển khai một lần bằng Docker, đơn giản nhanh chóng, không cần cấu hình phức tạp
   - icon: 🔒
-    title: 安全可靠
-    details: 文件访问需要提取码，支持设置有效期和下载次数限制
+    title: An toàn bảo mật
+    details: Truy cập tệp yêu cầu mã trích xuất, hỗ trợ thiết lập thời hạn và giới hạn số lần tải xuống
   - icon: 💻
-    title: 简洁界面
-    details: 清爽的用户界面，支持拖拽上传，使用体验极佳
+    title: Giao diện đơn giản
+    details: Truy cập tệp yêu cầu mã trích xuất, hỗ trợ thiết lập thời hạn và giới hạn số lần tải xuống
   - icon: 🛠️
-    title: 功能丰富
-    details: 支持文件预览、在线播放、图片处理等多种功能
+    title: Tính năng phong phú
+    details: Hỗ trợ xem trước tệp, phát trực tuyến, xử lý hình ảnh và nhiều tính năng khác
   - icon: 📦
-    title: 存储扩展
-    details: 支持本地存储、对象存储等多种存储方式
+    title: Mở rộng lưu trữ
+    details: Hỗ trợ nhiều phương thức lưu trữ như lưu trữ cục bộ, lưu trữ đối tượng
   - icon: 🔌
-    title: API 支持
-    details: 提供完整的 REST API，方便与其他系统集成
+    title: Hỗ trợ API
+    details: Cung cấp REST API đầy đủ, dễ dàng tích hợp với các hệ thống khác
 ---
 

@@ -1,16 +1,14 @@
-# 欢迎
+# Welcome
 
-感谢您购买《Spring 实战》第六版 MEAP。从过去的五个版本中一路走来，现在我很高兴在这个版本中为您介绍最新最好的 Spring。无论您是刚接触，还是想了解一些 Spring 新特性，本书都是您学习 Spring 的宝贵资源。
+Thank you for purchasing the MEAP of *Spring in Action*, 6th Edition. Having come through the previous five editions, I'm now excited to introduce you to the newest and best Spring in this edition. Whether you're just getting started or looking to learn about some of Spring's new features, this book is a valuable resource for learning Spring.
 
-我试图让这个版本遵循一种亲身实践的风格，带领您完成应用程序构建的全过程。从初始化项目开始，一直到如何部署应用程序。
+I've tried to make this edition follow a hands-on style, guiding you through the entire process of building an application. From initializing a project all the way to how to deploy your application.
 
-我们将发布开始的前五章内容。尽管还有一些尚未更新的内容，但这些章节与前一版没有太多不同。在第 1 章中，您将学习如何利用 Spring Initializr 和 Spring Boot 开始创建项目。在第 2 章中，我们将在此基础上，通过使用 Spring MVC 开发基于浏览器的功能。
-第 3 章，介绍使用 JDBC 和 Spring Data JPA 持久化数据。在第 4 章中，我们将看到使用 Spring Security 保护应用程序。最后，第 5 章将介绍如何使用配置属性来配置 Spring。
+We're releasing the first five chapters to start. Although there's still some content that hasn't been updated yet, these chapters aren't too different from the previous edition. In Chapter 1, you'll learn how to use Spring Initializr and Spring Boot to start creating projects. In Chapter 2, we'll build on that by developing browser-based functionality using Spring MVC.
+Chapter 3 introduces data persistence using JDBC and Spring Data JPA. In Chapter 4, we'll see how to secure applications with Spring Security. Finally, Chapter 5 will cover how to configure Spring using configuration properties.
 
-展望未来，我们将在第一部分中展开更多的有关数据持久化的内容，包括 Spring Data JDBC 和非关系数据库，如 MongoDB 和 Cassandra。在本书的第二部分中，我们将看到如何把应用程序与其他应用程序集成在一起。在第三部分，我们将深入研究 Spring 6 的响应式编程，并重新改造以前开发的组件，使其成为响应性式的。最后，第四部分我们将进一步讨论如何部署应用。
+Looking ahead, we'll expand on more data persistence topics in Part 1, including Spring Data JDBC and non-relational databases like MongoDB and Cassandra. In Part 2 of the book, we'll see how to integrate applications with other applications. In Part 3, we'll dive deep into Spring 6's reactive programming and rework previously developed components to make them reactive. Finally, in Part 4 we'll further discuss application deployment.
 
-我们希望每隔几周对这本书进行一次更新，无论是新加章节，还是对现有章节进行修改。当您在阅读时，我邀请您访问 [liveBook 论坛](https://livebook.manning.com/#!/book/spring-in-action-sixth-edition/discussion)，您可以提问和留言。我非常重视您反馈，因为我在写这篇文章时，这些反馈对指导我的后续写作非常有价值。
+We plan to update this book every few weeks, whether by adding new chapters or revising existing ones. As you read, I invite you to visit the [liveBook forum](https://livebook.manning.com/#!/book/spring-in-action-sixth-edition/discussion) where you can ask questions and leave comments. I value your feedback greatly, as it's extremely valuable in guiding my subsequent writing while I work on this book.
 
 —Craig Walls
-
-

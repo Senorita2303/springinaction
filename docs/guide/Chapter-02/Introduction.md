@@ -1,14 +1,13 @@
-# Chapter 2. Developing web applications
+# Chương 2. Phát triển ứng dụng web
 
-This chapter covers:
+Chương này bao gồm:
 
-* Presenting model data in the browser
-* Processing and validating form input
-* Choosing a view template library
+* Trình bày dữ liệu mô hình trong trình duyệt
+* Xử lý và xác thực dữ liệu từ biểu mẫu
+* Lựa chọn thư viện template cho giao diện
 
-First impressions are important. Curb appeal can sell a house long before the home buyer enters the door. A car’s cherry red paint job will turn more heads than what’s under the hood. And literature is replete with stories of love at first sight. What’s inside is important, but what’s outside — what’s seen first — is also important.
+Ấn tượng ban đầu rất quan trọng. Vẻ ngoài hấp dẫn có thể bán được một ngôi nhà ngay cả trước khi người mua bước vào. Một chiếc xe hơi với lớp sơn đỏ tươi sẽ thu hút nhiều ánh nhìn hơn là những gì nằm dưới nắp capo. Và văn học thì đầy rẫy những câu chuyện yêu từ cái nhìn đầu tiên. Những gì bên trong rất quan trọng, nhưng những gì bên ngoài — những gì được nhìn thấy đầu tiên — cũng quan trọng không kém.
 
-The applications you’ll build with Spring will do all kinds of things, including crunching data, reading information from a database, and interacting with other applications. But the first impression your application users will get comes from the user interface. And in many applications, that UI is a web application presented in a browser.
+Các ứng dụng bạn xây dựng với Spring sẽ thực hiện nhiều tác vụ khác nhau, bao gồm xử lý dữ liệu, đọc thông tin từ cơ sở dữ liệu và tương tác với các ứng dụng khác. Nhưng ấn tượng đầu tiên mà người dùng có được từ ứng dụng của bạn chính là giao diện người dùng. Và trong nhiều trường hợp, giao diện đó là một ứng dụng web hiển thị trên trình duyệt.
 
-In chapter 1, you created your first Spring MVC controller to display your application home page. But Spring MVC can do far more than simply display static content. In this chapter, you’ll develop the first major bit of functionality in your Taco Cloud application—the ability to design custom tacos. In doing so, you’ll dig deeper into Spring MVC, and you’ll see how to display model data and process form input.
-
+Trong chương 1, bạn đã tạo ra controller Spring MVC đầu tiên để hiển thị trang chủ của ứng dụng. Nhưng Spring MVC có thể làm được nhiều hơn là chỉ hiển thị nội dung tĩnh. Trong chương này, bạn sẽ phát triển phần chức năng chính đầu tiên trong ứng dụng Taco Cloud của mình — khả năng thiết kế taco tùy chỉnh. Qua đó, bạn sẽ đi sâu hơn vào Spring MVC, và sẽ học cách hiển thị dữ liệu mô hình cũng như xử lý dữ liệu biểu mẫu.

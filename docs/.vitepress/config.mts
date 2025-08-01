@@ -27,15 +27,6 @@ export default defineConfig({
         nav: [
           { text: 'Home', link: '/' },
           { text: 'Guide', link: '/guide/readme' },
-          // { text: 'API', link: '/api/' },
-          // { text: 'Demo', link: 'https://share.lanol.cn' },
-          // {
-          //   text: '了解更多',
-          //   items: [
-          //     { text: '更新日志', link: '/changelog' },
-          //     { text: '贡献指南', link: '/contributing' },
-          //   ],
-          // },
         ],
 
         sidebar: {
@@ -1054,18 +1045,6 @@ export default defineConfig({
               ],
             },
           ],
-          '/api/': [
-            {
-              text: 'API 参考',
-              collapsed: false,
-              items: [
-                { text: '分享接口', link: '/api/#分享接口' },
-                { text: '管理接口', link: '/api/#管理接口' },
-                { text: '错误响应', link: '/api/#错误响应' },
-                { text: '状态码说明', link: '/api/#状态码说明' },
-              ],
-            },
-          ],
         },
         socialLinks: [
           { icon: 'github', link: 'https://github.com/Senorita2303/springinaction' },
@@ -1093,15 +1072,6 @@ export default defineConfig({
         nav: [
           { text: 'Home', link: '/en/' },
           { text: 'Guide', link: '/en/guide/README' },
-          // { text: 'API', link: '/en/api/' },
-          // { text: 'Demo', link: 'https://share.lanol.cn' },
-          // {
-          //   text: 'More',
-          //   items: [
-          //     { text: 'Changelog', link: '/en/changelog' },
-          //     { text: 'Contributing', link: '/en/contributing' },
-          //   ],
-          // },
         ],
 
         sidebar: {
@@ -2120,18 +2090,6 @@ export default defineConfig({
               ],
             },
           ],
-          '/en/api/': [
-            {
-              text: 'API Reference',
-              collapsed: false,
-              items: [
-                { text: 'Share API', link: '/en/api/#share-api' },
-                { text: 'Admin API', link: '/en/api/#admin-api' },
-                { text: 'Error Response', link: '/en/api/#error-response' },
-                { text: 'Status Codes', link: '/en/api/#status-codes' },
-              ],
-            },
-          ],
         },
         socialLinks: [
           { icon: 'github', link: 'https://github.com/Senorita2303/springinaction' },
@@ -2152,21 +2110,17 @@ export default defineConfig({
   },
 
   themeConfig: {
-    // 语言切换器
-    langMenuLabel: '切换语言',
+    langMenuLabel: 'Chuyển đổi ngôn ngữ',
 
-    // 社交链接
     socialLinks: [
       { icon: 'github', link: 'https://github.com/Senorita2303/springinaction' },
     ],
 
-    // 页脚
     footer: {
       message: 'Released under the MIT License.',
       copyright: 'Copyright © 2025-present Senorita2303',
     },
 
-    // 搜索
     search: {
       provider: 'local',
       options: {
@@ -2174,15 +2128,15 @@ export default defineConfig({
           zh: {
             translations: {
               button: {
-                buttonText: '搜索文档',
-                buttonAriaLabel: '搜索文档',
+                buttonText: 'Tìm kiếm tài liệu',
+                buttonAriaLabel: 'Tìm kiếm tài liệu',
               },
               modal: {
-                noResultsText: '无法找到相关结果',
-                resetButtonTitle: '清除查询条件',
+                noResultsText: 'Không tìm thấy kết quả liên quan',
+                resetButtonTitle: 'Xóa điều kiện tìm kiếm',
                 footer: {
-                  selectText: '选择',
-                  navigateText: '切换',
+                  selectText: 'Chọn',
+                  navigateText: 'Chuyển đổi',
                 },
               },
             },

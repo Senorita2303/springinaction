@@ -13,9 +13,6 @@ hero:
       text: Get Started
       link: /en/guide/README
     - theme: alt
-      text: Live Demo
-      link: https://share.lanol.cn
-    - theme: alt
       text: View on GitHub
       link: https://github.com/Senorita2303/springinaction
 
