@@ -1,13 +1,11 @@
-## 4.1 Working with Cassandra Repository
+## 4.1 Làm việc với Cassandra Repository
 
-Cassandra is a distributed, high-performance, always available, eventually consistent, partitioned-column-store, NoSQL database.
+Cassandra là một cơ sở dữ liệu NoSQL kiểu cột phân vùng, phân tán, hiệu suất cao, luôn sẵn sàng, nhất quán theo thời gian, và có khả năng mở rộng theo chiều ngang.
 
-That’s a mouthful of adjectives to describe a database, but each one accurately speaks to the power of working with Cassandra. To put it in simpler terms, Cassandra deals in rows of data written to tables, which are partitioned across one-to-many distributed nodes. No single node carries all the data, but any given row may be replicated across multiple nodes, thus eliminating any single point of failure.
+Đó là một loạt các tính từ để mô tả một cơ sở dữ liệu, nhưng mỗi từ đều chính xác phản ánh sức mạnh khi làm việc với Cassandra. Nói một cách đơn giản hơn, Cassandra lưu trữ các hàng dữ liệu trong các bảng, được phân vùng trên một hoặc nhiều node phân tán. Không có node nào chứa toàn bộ dữ liệu, nhưng bất kỳ hàng dữ liệu nào cũng có thể được sao chép trên nhiều node, qua đó loại bỏ điểm lỗi đơn lẻ.
 
-Spring Data Cassandra provides automatic repository support for the Cassandra database that’s quite similar to—and yet quite different from—what’s offered by Spring Data JPA for relational databases. In addition, Spring Data Cassandra offers annotations for mapping application domain types to the backing database structures.
+Spring Data Cassandra cung cấp hỗ trợ repository tự động cho cơ sở dữ liệu Cassandra, khá giống—nhưng cũng khác biệt—so với những gì Spring Data JPA cung cấp cho cơ sở dữ liệu quan hệ. Ngoài ra, Spring Data Cassandra còn cung cấp các annotation để ánh xạ các kiểu miền trong ứng dụng với các cấu trúc dữ liệu trong cơ sở dữ liệu.
 
-Before we explore Cassandra any further, it’s important to understand that although Cassandra shares many concepts similar to relational databases like Oracle and SQL Server, Cassandra isn’t a relational database and is in many ways quite a different beast. I’ll explain the idiosyncrasies of Cassandra as they pertain to working with Spring Data. But I encourage you to read Cassandra’s own documentation [http://cassandra.apache.org/doc/latest/](http://cassandra.apache.org/doc/latest/) for a thorough understanding of what makes it tick.
+Trước khi chúng ta tìm hiểu sâu hơn về Cassandra, điều quan trọng là phải hiểu rằng mặc dù Cassandra có nhiều khái niệm tương tự với cơ sở dữ liệu quan hệ như Oracle và SQL Server, nhưng Cassandra không phải là một cơ sở dữ liệu quan hệ và ở nhiều khía cạnh thì nó hoàn toàn khác biệt. Tôi sẽ giải thích các đặc thù của Cassandra khi làm việc với Spring Data. Tuy nhiên, tôi khuyến khích bạn đọc tài liệu chính thức của Cassandra tại [http://cassandra.apache.org/doc/latest/](http://cassandra.apache.org/doc/latest/) để hiểu sâu hơn về cách hoạt động của nó.
 
-Let’s get started by enabling Spring Data Cassandra in the Taco Cloud project.
-
-
+Hãy bắt đầu bằng cách bật tính năng Spring Data Cassandra trong dự án Taco Cloud.

@@ -1,15 +1,13 @@
-# Chapter 5. Securing Spring
+# Chương 5. Bảo mật trong Spring
 
-This chapter covers
+Chương này bao gồm
 
-* Autoconfiguring Spring Security
-* Defining custom user storage
-* Customizing the login page
-* Securing against CSRF attacks
-* Knowing your user
+* Cấu hình tự động Spring Security
+* Định nghĩa lưu trữ người dùng tùy chỉnh
+* Tùy chỉnh trang đăng nhập
+* Bảo vệ chống lại các cuộc tấn công CSRF
+* Nhận biết người dùng của bạn
 
-Have you ever noticed that most people in television sitcoms don’t lock their doors? In the days of _Leave It to Beaver_, it wasn’t so unusual for people to leave their doors unlocked. But it seems crazy that at a time when we’re concerned with privacy and security, we see television characters enabling unhindered access to their apartments and homes.
+Bạn đã bao giờ nhận thấy rằng hầu hết các nhân vật trong các bộ phim truyền hình sitcom không khóa cửa chưa? Vào thời của _Leave It to Beaver_, việc mọi người để cửa không khóa không phải là điều gì lạ lẫm. Nhưng thật kỳ quặc khi trong thời đại mà chúng ta quan tâm đến quyền riêng tư và bảo mật, các nhân vật truyền hình lại để cửa nhà và căn hộ của họ mở toang mà không chút e dè.
 
-Information is probably the most valuable item we now have; crooks are looking for ways to steal our data and identities by sneaking into unsecured applications. As software developers, we must take steps to protect the information that resides in our applications. Whether it’s an email account protected with a username-password pair or a brokerage account protected with a trading PIN, security is a crucial aspect of most applications.
-
-
+Thông tin có lẽ là tài sản quý giá nhất mà chúng ta đang sở hữu; kẻ xấu đang tìm mọi cách để đánh cắp dữ liệu và danh tính của chúng ta bằng cách xâm nhập vào các ứng dụng không được bảo vệ. Là nhà phát triển phần mềm, chúng ta phải thực hiện các bước để bảo vệ thông tin tồn tại trong ứng dụng của mình. Cho dù đó là tài khoản email được bảo vệ bằng cặp tên người dùng – mật khẩu, hay tài khoản chứng khoán được bảo vệ bằng mã PIN giao dịch, thì bảo mật luôn là một khía cạnh thiết yếu trong hầu hết các ứng dụng.
