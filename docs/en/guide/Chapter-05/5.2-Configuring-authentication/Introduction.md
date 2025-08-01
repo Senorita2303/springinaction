@@ -5,6 +5,7 @@ Over the years, several ways of configuring Spring Security have existed, includ
 Before this chapter is finished, you’ll have configured all of your Taco Cloud security needs in a Java configuration for Spring Security. But to get started, you’ll ease into it by writing the configuration class shown in the following listing.
 
 **Listing 5.1 A barebones configuration class for Sprin Security**
+
 ```java
 package tacos.security;
 import org.springframework.context.annotation.Bean;
@@ -57,5 +58,3 @@ As it turns out, Spring Security offers several out-of-the-box implementations o
 Or, you can also create your own implementation to suit your application’s specific security needs.
 
 To get started, let’s try out the in-memory implementation of `UserDetailsService`.
-
-

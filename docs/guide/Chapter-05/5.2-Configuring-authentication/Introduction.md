@@ -1,10 +1,11 @@
-## 5.2 Configuring authentication
+## 5.2 Cấu hình xác thực
 
-Over the years, several ways of configuring Spring Security have existed, including lengthy XML configuration. Fortunately, several recent versions of Spring Security have supported Java configuration, which is much easier to read and write.
+Qua nhiều năm, đã có một số cách khác nhau để cấu hình Spring Security, bao gồm cả cấu hình XML dài dòng. May mắn thay, trong một vài phiên bản gần đây, Spring Security đã hỗ trợ cấu hình bằng Java, dễ đọc và dễ viết hơn rất nhiều.
 
-Before this chapter is finished, you’ll have configured all of your Taco Cloud security needs in a Java configuration for Spring Security. But to get started, you’ll ease into it by writing the configuration class shown in the following listing.
+Trước khi kết thúc chương này, bạn sẽ cấu hình toàn bộ nhu cầu bảo mật của Taco Cloud bằng cấu hình Java cho Spring Security. Nhưng để bắt đầu, bạn sẽ làm quen dần bằng cách viết lớp cấu hình như được hiển thị trong danh sách dưới đây.
 
-**Listing 5.1 A barebones configuration class for Sprin Security**
+**Danh sách 5.1 Một lớp cấu hình cơ bản cho Spring Security**
+
 ```java
 package tacos.security;
 import org.springframework.context.annotation.Bean;
@@ -23,19 +24,19 @@ public class SecurityConfig {
 }
 ```
 
-What does this barebones security configuration do for you? Not much, actually. The main thing it does is declare a `PasswordEncoder` bean, which we’ll use both when creating new users and when authenticating users at login. In this case, we’re using `BCryptPasswordEncoder`, one of a handful of password encoders provided by Spring Security, including the following
+Lớp cấu hình bảo mật cơ bản này mang lại điều gì cho bạn? Thực ra là không nhiều. Điều chính mà nó làm là khai báo một bean `PasswordEncoder`, mà chúng ta sẽ sử dụng khi tạo người dùng mới cũng như khi xác thực người dùng lúc đăng nhập. Trong trường hợp này, chúng ta sử dụng `BCryptPasswordEncoder`, một trong số những trình mã hóa mật khẩu được Spring Security cung cấp, bao gồm:
 
-* _BCryptPasswordEncoder_ —— Applies bcrypt strong hashing encryption
-* _NoOpPasswordEncoder_ —— Applies no encoding
-* _Pbkdf2PasswordEncoder_ —— Applies PBKDF2 encryption
-* _SCryptPasswordEncoder_ —— Applies Scrypt hashing encryption
-* _StandardPasswordEncoder_ —— Applies SHA-256 hashing encryption
+* _BCryptPasswordEncoder_ —— Áp dụng mã hóa băm mạnh bcrypt
+* _NoOpPasswordEncoder_ —— Không áp dụng mã hóa
+* _Pbkdf2PasswordEncoder_ —— Áp dụng mã hóa PBKDF2
+* _SCryptPasswordEncoder_ —— Áp dụng mã hóa băm Scrypt
+* _StandardPasswordEncoder_ —— Áp dụng mã hóa băm SHA-256
 
-No matter which password encoder you use, it’s important to understand that the password in the database is never decoded. Instead, the password that the user enters at login is encoded using the same algorithm, and it’s then compared with the encoded password in the database. That comparison is performed in the `PasswordEncoder’s matches()` method.
+Dù bạn sử dụng trình mã hóa mật khẩu nào, điều quan trọng cần hiểu là mật khẩu trong cơ sở dữ liệu sẽ không bao giờ được giải mã. Thay vào đó, mật khẩu mà người dùng nhập khi đăng nhập sẽ được mã hóa bằng cùng thuật toán, và sau đó được so sánh với mật khẩu đã mã hóa trong cơ sở dữ liệu. Việc so sánh này được thực hiện trong phương thức `matches()` của `PasswordEncoder`.
 
-In addition to the password encoder, we’ll fill in this configuration class with more beans to define the specifics of security for our application. We’ll start by configuring a user store that can handle more than one user.
+Ngoài trình mã hóa mật khẩu, chúng ta sẽ bổ sung thêm nhiều bean vào lớp cấu hình này để định nghĩa cụ thể các yếu tố bảo mật cho ứng dụng. Chúng ta sẽ bắt đầu bằng việc cấu hình một kho người dùng có thể xử lý nhiều người dùng.
 
-To configure a user store for authentication purposes, you’ll need to declare a `UserDetailsService` bean. The `UserDetailsService` interface is relatively simple, including only one method that must be implemented. Here’s what `UserDetailsService` looks like:
+Để cấu hình kho người dùng cho mục đích xác thực, bạn cần khai báo một bean `UserDetailsService`. Giao diện `UserDetailsService` khá đơn giản, chỉ bao gồm một phương thức cần được triển khai. Dưới đây là giao diện của `UserDetailsService`:
 
 ```java
 public interface UserDetailsService {
@@ -46,16 +47,14 @@ public interface UserDetailsService {
 
 ```
 
-The `loadUserByUsername()` method accepts a username and uses it to look up a `UserDetails` object. If no user can be found for the given username, then it will throw a `UsernameNotFoundException`.
+Phương thức `loadUserByUsername()` chấp nhận một tên người dùng và sử dụng nó để tìm kiếm một đối tượng `UserDetails`. Nếu không tìm thấy người dùng với tên đăng nhập đã cho, thì nó sẽ ném ra ngoại lệ `UsernameNotFoundException`.
 
-As it turns out, Spring Security offers several out-of-the-box implementations of `UserDetailsService`, including the following:
+Hóa ra, Spring Security cung cấp sẵn một số hiện thực của `UserDetailsService`, bao gồm:
 
 * An in-memory user store
 * A JDBC user store
 * An LDAP user store
 
-Or, you can also create your own implementation to suit your application’s specific security needs.
+Hoặc, bạn cũng có thể tự tạo một hiện thực phù hợp với nhu cầu bảo mật cụ thể của ứng dụng của mình.
 
-To get started, let’s try out the in-memory implementation of `UserDetailsService`.
-
-
+Để bắt đầu, hãy thử sử dụng hiện thực `UserDetailsService` trong bộ nhớ (in-memory).

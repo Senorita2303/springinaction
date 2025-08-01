@@ -22,5 +22,3 @@ be served
 * Configuring cross-site request forgery protecti
 
 Intercepting requests to ensure that the user has proper authority is one of the most common things you’ll configure `HttpSecurity` to do. Let’s ensure that your Taco Cloud customers meet those requirements.
-
-
