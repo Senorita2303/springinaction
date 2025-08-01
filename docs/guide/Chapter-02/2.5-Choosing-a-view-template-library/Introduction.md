@@ -1,8 +1,8 @@
-## 2.5 Choosing a view template library
+## 2.5 Lựa chọn thư viện mẫu (view template) cho giao diện
 
-For the most part, your choice of a view template library is a matter of personal taste. Spring is flexible and supports many common templating options. With only a few small exceptions, the template library you choose will itself have no idea that it’s even working with Spring
+Phần lớn, việc lựa chọn thư viện template giao diện là vấn đề thuộc về sở thích cá nhân. Spring rất linh hoạt và hỗ trợ nhiều tùy chọn template phổ biến. Với một vài ngoại lệ nhỏ, thư viện template mà bạn chọn thực ra sẽ không cần biết nó đang được sử dụng cùng với Spring.
 
-**Table 2.2 Supported template options**
+**Bảng 2.2 Các tùy chọn template được hỗ trợ**
 
 | Template | Spring Boot starter dependency |
 | :--- | :--- |
@@ -12,13 +12,13 @@ For the most part, your choice of a view template library is a matter of persona
 | Mustache | spring-boot-starter-mustache |
 | Thymeleaf | spring-boot-starter-thymeleaf |
 
-Generally speaking, you select the view template library you want, add it as a dependency in your build, and start writing templates in the /templates directory (under the src/main/resources directory in a Maven or Gradle project). Spring Boot detects your chosen template library and automatically configures the components required for it to serve views for your Spring MVC controllers.
+Nói chung, bạn chỉ cần chọn thư viện template mà bạn muốn sử dụng, thêm nó như một dependency vào tệp build, và bắt đầu viết các template trong thư mục `/templates` (nằm dưới thư mục `src/main/resources` trong một dự án Maven hoặc Gradle). Spring Boot sẽ phát hiện ra thư viện template bạn chọn và tự động cấu hình các thành phần cần thiết để nó có thể phục vụ các view cho controller của Spring MVC.
 
-You’ve already done this with Thymeleaf for the Taco Cloud application. In chapter 1, you selected the Thymeleaf check box when initializing the project. This resulted in Spring Boot’s Thymeleaf starter being included in the pom.xml file. When the application starts up, Spring Boot autoconfiguration detects the presence of Thymeleaf and automatically configures the Thymeleaf beans for you. All you had to do was start writing templates in /templates.
+Bạn đã làm điều này với Thymeleaf cho ứng dụng Taco Cloud. Trong chương 1, bạn đã chọn checkbox Thymeleaf khi khởi tạo dự án. Điều này dẫn đến việc thư viện khởi động Thymeleaf của Spring Boot được thêm vào tệp `pom.xml`. Khi ứng dụng được khởi động, Spring Boot autoconfiguration sẽ phát hiện sự có mặt của Thymeleaf và tự động cấu hình các bean của Thymeleaf cho bạn. Tất cả những gì bạn cần làm là bắt đầu viết các template trong `/templates`.
 
-If you’d rather use a different template library, you simply select it at project initialization or edit your existing project build to include the newly chosen template library.
+Nếu bạn muốn sử dụng một thư viện template khác, bạn chỉ cần chọn nó trong lúc khởi tạo dự án hoặc chỉnh sửa tệp cấu hình build hiện tại để bao gồm thư viện template mới bạn chọn.
 
-For example, let’s say you wanted to use Mustache instead of Thymeleaf. No problem. Just visit the project pom.xml file and replace this
+Ví dụ, giả sử bạn muốn sử dụng Mustache thay vì Thymeleaf. Không vấn đề gì. Chỉ cần truy cập tệp `pom.xml` của dự án và thay thế như sau.  
 
 ```xml
 <dependency>
@@ -27,7 +27,7 @@ For example, let’s say you wanted to use Mustache instead of Thymeleaf. No pro
 </dependency>
 ```
 
-with this：
+bằng với:
 
 ```xml
 <dependency>
@@ -36,7 +36,7 @@ with this：
 </dependency>
 ```
 
-Of course, you’d need to make sure that you write all the templates with Mustache syntax instead of Thymeleaf tags. The specifics of working with Mustache (or any of the template language choices) is well outside of the scope of this book, but to give you an idea of what to expect, here’s a snippet from a Mustache template that will render one of the ingredient groups in the taco design form:
+Dĩ nhiên, bạn cần chắc chắn rằng tất cả các template được viết theo cú pháp Mustache thay vì sử dụng các thẻ Thymeleaf. Cách sử dụng Mustache (hoặc bất kỳ ngôn ngữ template nào khác) không nằm trong phạm vi cuốn sách này. Nhưng để bạn có hình dung, đây là một đoạn mã mẫu trong Mustache sẽ hiển thị một nhóm nguyên liệu trong biểu mẫu thiết kế taco:
 
 ```html
 <h3>Designate your wrap:</h3>
@@ -46,8 +46,8 @@ Of course, you’d need to make sure that you write all the templates with Musta
 </div>
 ```
 
-This is the Mustache equivalent of the Thymeleaf snippet in section 2.1.3. The `wrap` block (which concludes with `/wrap`) iterates through a collection in the request attribute whose key is wrap and renders the embedded HTML for each item. The `{{id}}` and `{{name}}` tags reference the id and name properties of the item (which should be an `Ingredient`).
+Đây là đoạn mã tương đương trong Mustache của đoạn Thymeleaf trong mục 2.1.3. Khối `wrap` (kết thúc với `/wrap`) lặp qua một danh sách trong thuộc tính request có key là `wrap` và render HTML được nhúng cho từng phần tử. Các thẻ `{{id}}` và `{{name}}` tham chiếu đến các thuộc tính `id` và `name` của phần tử (vốn nên là một đối tượng `Ingredient`).
 
-You’ll notice in table 2.2 that JSP doesn’t require any special dependency in the build. That’s because the servlet container itself (Tomcat by default) implements the JSP specification,
+Bạn sẽ thấy trong bảng 2.2 rằng JSP không yêu cầu bất kỳ dependency đặc biệt nào trong tệp cấu hình build. Đó là bởi vì container servlet (Tomcat mặc định) đã triển khai đặc tả JSP.
 
-But there’s a gotcha if you choose to use JSP. As it turns out, Java servlet containers—including embedded Tomcat and Jetty containers—usually look for JSPs somewhere under /WEB-INF. But if you’re building your application as an executable JAR file, there’s no way to satisfy that requirement. Therefore, JSP is an option only if you’re building your application as a WAR file and deploying it in a traditional servlet container. If you’re building an executable JAR file, you must choose Thymeleaf, FreeMarker, or one of the other options in table 2.2.
+Tuy nhiên, có một lưu ý quan trọng nếu bạn chọn sử dụng JSP. Hóa ra, các container servlet của Java — bao gồm cả các container nhúng như Tomcat và Jetty — thường tìm kiếm file JSP ở đâu đó trong thư mục `/WEB-INF`. Nhưng nếu bạn đang xây dựng ứng dụng dưới dạng một tệp JAR thực thi, thì không có cách nào để đáp ứng yêu cầu đó. Do đó, JSP chỉ là một lựa chọn nếu bạn đang xây dựng ứng dụng dưới dạng tệp WAR và triển khai nó trong một container servlet truyền thống. Nếu bạn đang xây dựng tệp JAR thực thi, bạn phải chọn Thymeleaf, FreeMarker, hoặc một trong những tùy chọn khác trong bảng 2.2.

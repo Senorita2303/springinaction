@@ -1,21 +1,21 @@
-## 2.3 Validating form input
+## 2.3 Xác thực dữ liệu đầu vào từ biểu mẫu
 
-When designing a new taco creation, what if the user selects no ingredients or fails to specify a name for their creation? When submitting the order, what if the user fails to fill in the required address fields? Or what if they enter a value into the credit card field that isn’t even a valid credit card number?
+Khi thiết kế một chiếc taco mới, chuyện gì sẽ xảy ra nếu người dùng không chọn nguyên liệu nào hoặc không đặt tên cho tác phẩm của mình? Khi gửi đơn hàng, điều gì sẽ xảy ra nếu người dùng không điền vào các trường địa chỉ bắt buộc? Hoặc nếu họ nhập một giá trị vào trường thẻ tín dụng mà thậm chí không phải là số thẻ hợp lệ?
 
-As things stand now, nothing will stop the user from creating a taco without any ingredients or with an empty delivery address, or even submitting the lyrics to their favorite song as the credit card number. That’s because you haven’t yet specified how those fields should be validated.
+Ở thời điểm hiện tại, không có gì ngăn cản người dùng tạo một chiếc taco không có nguyên liệu nào, hoặc điền địa chỉ giao hàng trống, hoặc thậm chí gửi lời bài hát yêu thích của họ như số thẻ tín dụng. Đó là vì bạn chưa xác định cách thức để xác thực các trường đó.
 
-One way to perform form validation is to litter the `processTaco()` and `processOrder()` methods with a bunch of `if/then` blocks, checking each and every field to ensure that it meets the appropriate validation rules. But that would be cumbersome and difficult to read and debug.
+Một cách để thực hiện xác thực biểu mẫu là rải các khối `if/then` trong các phương thức `processTaco()` và `processOrder()` để kiểm tra từng trường, đảm bảo rằng nó đáp ứng các quy tắc hợp lệ tương ứng. Nhưng làm như vậy sẽ rất rườm rà, khó đọc và khó gỡ lỗi.
 
-Fortunately, Spring supports the JavaBean Validation API (also known as JSR 303; [https://jcp.org/en/jsr/detail?id=303](https://jcp.org/en/jsr/detail?id=303)). This makes it easy to declare validation rules as opposed to explicitly writing declaration logic in your application code. 
+May mắn thay, Spring hỗ trợ JavaBean Validation API (còn gọi là JSR 303; [https://jcp.org/en/jsr/detail?id=303](https://jcp.org/en/jsr/detail?id=303)). Điều này giúp bạn dễ dàng khai báo các quy tắc xác thực thay vì phải viết logic kiểm tra thủ công trong mã ứng dụng.
 
-To apply validation in Spring MVC, you need to
+Để áp dụng xác thực trong Spring MVC, bạn cần:
 
-* Add the Spring Validation starter to the build.
-* Declare validation rules on the class that is to be validated: specifically, the `Taco` class.
-* Specify that validation should be performed in the controller methods that require validation: specifically, the `DesignTacoController’s processTaco()` method and the `OrderController’s processOrder()` method.
-* Modify the form views to display validation errors.
+* Thêm starter Spring Validation vào file cấu hình build.
+* Khai báo các quy tắc xác thực trong lớp cần được xác thực: cụ thể là lớp `Taco`.
+* Chỉ định rằng việc xác thực sẽ được thực hiện trong các phương thức controller cần xác thực: cụ thể là phương thức `processTaco()` trong `DesignTacoController` và `processOrder()` trong `OrderController`.
+* Chỉnh sửa các view biểu mẫu để hiển thị lỗi xác thực.
 
-The Validation API offers several annotations that can be placed on properties of domain objects to declare validation rules. Hibernate’s implementation of the Validation API adds even more validation annotations. Both can be added to a project by adding the Spring Validation starter to the build. The Validation check box under I/O in the Spring Boot Starter wizard will get the job done, but if you prefer manually editing your build, the following entry in the Maven pom.xml file will do the trick:
+Validation API cung cấp một số annotation có thể được đặt lên các thuộc tính của đối tượng domain để khai báo quy tắc xác thực. Phiên bản triển khai của Hibernate cho Validation API còn bổ sung thêm nhiều annotation xác thực hơn nữa. Cả hai đều có thể được thêm vào dự án bằng cách thêm starter Spring Validation vào build. Checkbox Validation trong phần I/O của Spring Boot Starter wizard có thể giúp bạn làm điều đó, nhưng nếu bạn muốn chỉnh sửa file build thủ công, bạn có thể thêm đoạn sau vào file `pom.xml` (với Maven):  
 
 ```xml
 <dependency>
@@ -24,16 +24,14 @@ The Validation API offers several annotations that can be placed on properties o
 </dependency>
 ```
 
-Or if you’re using Gradle, then this is the dependency you’ll need:
+Hoặc nếu bạn dùng Gradle, thì bạn cần thêm dependency sau:
 
 ```text
 implementation 'org.springframework.boot:spring-boot-starter-validation'
 ```
 
->Is the validation starter required?
+> **Starter xác thực có bắt buộc không?**
 >
->In earlier versions of Spring Boot, the Spring Validation starter was automatically included with the web starter. Starting with Spring Boot 2.3.0, you’ll need to explicitly add it to your build if you intend to apply validation.
+> Trong các phiên bản Spring Boot trước đây, starter Spring Validation được bao gồm tự động trong starter web. Bắt đầu từ Spring Boot 2.3.0, bạn cần phải thêm nó một cách rõ ràng nếu muốn sử dụng xác thực.
 
-With the validation starter in place, let’s see how you can apply a few annotations to validate a submitted `Taco` or `TacoOrder`.
-
-
+Với starter xác thực đã được cấu hình, hãy xem cách bạn có thể áp dụng một vài annotation để xác thực dữ liệu được gửi lên trong `Taco` hoặc `TacoOrder`.

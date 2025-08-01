@@ -1,14 +1,14 @@
-## 3.1 Reading and writing data with JDBC
+## 3.1 Đọc và ghi dữ liệu với JDBC
 
-For decades, relational databases and SQL have enjoyed their position as the leading choice for data persistence. Even though many alternative database types have emerged in recent years, the relational database is still a top choice for a general-purpose data store and will not likely be usurped from its position any time soon.
+Trong nhiều thập kỷ, cơ sở dữ liệu quan hệ và SQL đã giữ vững vị trí là lựa chọn hàng đầu cho việc lưu trữ dữ liệu. Mặc dù đã có nhiều loại cơ sở dữ liệu thay thế xuất hiện trong những năm gần đây, cơ sở dữ liệu quan hệ vẫn là lựa chọn hàng đầu cho một kho lưu trữ dữ liệu đa năng và khó có thể bị thay thế trong tương lai gần.
 
-When it comes to working with relational data, Java developers have several options. The two most common choices are JDBC and JPA. Spring supports both with abstractions, making working with either JDBC or JPA easier than it would be without Spring. In this section, we’ll focus on how Spring supports JDBC, and then we’ll look at Spring support for JPA in section 3.2.
+Khi làm việc với dữ liệu quan hệ, các lập trình viên Java có một vài lựa chọn. Hai lựa chọn phổ biến nhất là JDBC và JPA. Spring hỗ trợ cả hai thông qua các lớp trừu tượng, giúp việc làm việc với JDBC hoặc JPA dễ dàng hơn nhiều so với khi không có Spring. Trong phần này, chúng ta sẽ tập trung vào cách Spring hỗ trợ JDBC, và sau đó sẽ tìm hiểu hỗ trợ JPA trong phần 3.2.
 
-Spring JDBC support is rooted in the `JdbcTemplate` class. `JdbcTemplate` provides a means by which developers can perform SQL operations against a relational database without all the ceremony and boilerplate typically required when working with JDBC.
+Hỗ trợ JDBC của Spring dựa trên lớp `JdbcTemplate`. `JdbcTemplate` cung cấp một cách để các lập trình viên thực hiện các thao tác SQL với cơ sở dữ liệu quan hệ mà không cần tất cả những đoạn mã rườm rà và lặp lại thường thấy khi làm việc với JDBC.
 
-To gain an appreciation of what `JdbcTemplate` does, let’s start by looking at an example of how to perform a simple query in Java without `JdbcTemplate`.
+Để thấy được sự hữu ích của `JdbcTemplate`, hãy bắt đầu với một ví dụ về cách thực hiện một truy vấn đơn giản trong Java mà không sử dụng `JdbcTemplate`.
 
-**Listing 3.1 Querying a database without JdbcTemplate**
+**Listing 3.1 Truy vấn cơ sở dữ liệu mà không dùng JdbcTemplate**
 
 ```java
 @Override
@@ -53,13 +53,13 @@ public Optional<Ingredient> findById(String id) {
 }
 ```
 
-I assure you that somewhere in listing 3.1 are a couple of lines that query the database for ingredients. But I’ll bet you had a hard time spotting that query needle in the JDBC haystack. It’s surrounded by code that creates a connection, creates a statement, and cleans up by closing the connection, statement, and result set.
+Tôi đảm bảo rằng đâu đó trong đoạn mã ở listing 3.1 có một vài dòng thực hiện truy vấn cơ sở dữ liệu để lấy nguyên liệu. Nhưng có lẽ bạn đã rất khó khăn để tìm ra câu truy vấn đó giữa đống mã JDBC phức tạp. Nó bị bao quanh bởi những đoạn mã để tạo kết nối, tạo câu lệnh và dọn dẹp sau khi thực hiện truy vấn bằng cách đóng kết nối, câu lệnh và `ResultSet`.
 
-To make matters worse, any number of things could go wrong when creating the connection or the statement, or when performing the query. This requires that you catch a `SQLException`, which may or may not be helpful in figuring out what went wrong or how to address the problem.
+Tồi tệ hơn nữa, có rất nhiều điều có thể xảy ra lỗi khi tạo kết nối, tạo câu lệnh hoặc thực hiện truy vấn. Điều này đòi hỏi bạn phải bắt ngoại lệ `SQLException`, mà có thể hoặc không giúp ích trong việc xác định lỗi gì đã xảy ra hoặc cách khắc phục nó.
 
-`SQLException` is a checked exception, which requires handling in a `catch` block. But the most common problems, such as failure to create a connection to the database or a mistyped query, can’t possibly be addressed in a catch block and are likely to be rethrown for handling upstream. In contrast, consider the following method that uses Spring’s `JdbcTemplate`.
+`SQLException` là một checked exception, điều đó nghĩa là bạn buộc phải xử lý nó trong khối `catch`. Nhưng phần lớn các lỗi phổ biến, như không thể kết nối đến cơ sở dữ liệu hoặc câu truy vấn bị sai cú pháp, thực tế không thể xử lý một cách hợp lý trong khối `catch` và thường cần được ném lại để xử lý ở cấp cao hơn. Trái lại, hãy xem xét phương thức dưới đây sử dụng `JdbcTemplate` của Spring.
 
-**Listing 3.2 Querying a database with JdbcTemplate**
+**Listing 3.2 Truy vấn cơ sở dữ liệu với JdbcTemplate**
 
 ```java
 private JdbcTemplate jdbcTemplate;
@@ -82,8 +82,6 @@ private Ingredient mapRowToIngredient(ResultSet row, int rowNum)
 }
 ```
 
-The code in listing 3.2 is clearly much simpler than the raw JDBC example in listing 3.1; there aren’t any statements or connections being created. And, after the method is finished, there isn’t any cleanup of those objects. Finally, there isn’t any handling of exceptions that can’t properly be handled in a `catch` block. What’s left is code that’s focused solely on performing a query (the call to `JdbcTemplate’s query()` method) and mapping the results to an `Ingredient` object (handled by the `mapRowToIngredient()` method).
+Đoạn mã trong listing 3.2 rõ ràng đơn giản hơn nhiều so với ví dụ JDBC thuần túy trong listing 3.1; không có bất kỳ `Statement` hay `Connection` nào được tạo thủ công. Và sau khi phương thức hoàn tất, cũng không cần dọn dẹp các đối tượng đó. Cuối cùng, cũng không cần xử lý những ngoại lệ không thể xử lý hợp lý trong khối `catch`. Phần còn lại là đoạn mã tập trung duy nhất vào việc thực hiện truy vấn (gọi phương thức `query()` của `JdbcTemplate`) và ánh xạ kết quả sang đối tượng `Ingredient` (được xử lý bởi phương thức `mapRowToIngredient()`).
 
-The code in listing 3.2 is a snippet of what you need to do to use `JdbcTemplate` to persist and read data in the Taco Cloud application. Let’s take the next steps necessary to outfit the application with JDBC persistence. We’ll start by making a few tweaks to the domain objects.
-
-
+Đoạn mã trong listing 3.2 là một phần ví dụ về những gì bạn cần làm để sử dụng `JdbcTemplate` nhằm lưu trữ và đọc dữ liệu trong ứng dụng Taco Cloud. Hãy tiếp tục với các bước cần thiết tiếp theo để trang bị khả năng lưu trữ dữ liệu bằng JDBC cho ứng dụng. Chúng ta sẽ bắt đầu bằng cách thực hiện một vài điều chỉnh nhỏ đối với các đối tượng miền (domain objects).

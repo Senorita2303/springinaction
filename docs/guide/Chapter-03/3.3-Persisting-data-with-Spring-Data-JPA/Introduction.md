@@ -1,5 +1,5 @@
-## 3.3 Persisting data with Spring Data JPA
+## 3.3 Lưu trữ dữ liệu với Spring Data JPA
 
-Whereas Spring Data JDBC makes easy work of persisting data, the Java Persistence API (JPA) is another popular option for working with data in a relational database. Spring Data JPA offers an approach to persistence with JPA similar to what Spring Data JDBC gave us for JDBC.
+Trong khi Spring Data JDBC giúp việc lưu trữ dữ liệu trở nên dễ dàng, thì Java Persistence API (JPA) là một lựa chọn phổ biến khác để làm việc với dữ liệu trong cơ sở dữ liệu quan hệ. Spring Data JPA cung cấp một cách tiếp cận để lưu trữ với JPA tương tự như những gì Spring Data JDBC đã mang lại cho JDBC.
 
-To see how Spring Data works, you’re going to start over, replacing the JDBC-based repositories from earlier in this chapter with repositories created by Spring Data JPA. But first, you need to add Spring Data JPA to the project build.
+Để thấy cách Spring Data hoạt động, bạn sẽ bắt đầu lại, thay thế các repository dựa trên JDBC từ phần trước của chương này bằng các repository được tạo ra bởi Spring Data JPA. Nhưng trước tiên, bạn cần thêm Spring Data JPA vào cấu hình build của dự án.
