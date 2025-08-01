@@ -545,7 +545,7 @@ export default defineConfig({
                 },
                 {
                   text: '9.3 Nhắn tin với Kafka',
-                  link: '/guide/configuration',
+                  link: '/guide/Chapter-09/9.3-Messaging-with-Kafka/Introduction',
                   collapsed: false,
                   items: [
                     { text: '9.3.1 Thiết lập Spring cho Kafka', link: '/guide/Chapter-09/9.3-Messaging-with-Kafka/9.3.1-Setting-up-Spring-for-Kafka-messaging' },
@@ -553,7 +553,7 @@ export default defineConfig({
                     { text: '9.3.3 Viết Kafka listeners', link: '/guide/Chapter-09/9.3-Messaging-with-Kafka/9.3.3-Writing-Kafka-listeners' },
                   ],
                 },
-                { text: '9.4 Tóm tắt', link: '/guide/configuration' },
+                { text: '9.4 Tóm tắt', link: '/guide/Chapter-09/9.4-Summary' },
               ],
             },
             {
@@ -1590,7 +1590,7 @@ export default defineConfig({
                 },
                 {
                   text: '9.3 Messaging with Kafka',
-                  link: '/en/guide/configuration',
+                  link: '/en/guide/Chapter-09/9.3-Messaging-with-Kafka/Introduction',
                   collapsed: false,
                   items: [
                     { text: '9.3.1 Setting up Spring for Kafka messaging', link: '/en/guide/Chapter-09/9.3-Messaging-with-Kafka/9.3.1-Setting-up-Spring-for-Kafka-messaging' },
@@ -1598,7 +1598,7 @@ export default defineConfig({
                     { text: '9.3.3 Writing Kafka listeners', link: '/en/guide/Chapter-09/9.3-Messaging-with-Kafka/9.3.3-Writing-Kafka-listeners' },
                   ],
                 },
-                { text: '9.4 Summary', link: '/en/guide/configuration' },
+                { text: '9.4 Summary', link: '/en/guide/Chapter-09/9.4-Summary' },
               ],
             },
             {
