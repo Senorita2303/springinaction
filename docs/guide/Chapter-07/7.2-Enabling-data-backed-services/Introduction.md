@@ -1,10 +1,10 @@
-## 7.2 Enabling data-backed services
+## 7.2 Kích hoạt các dịch vụ có hỗ trợ dữ liệu
 
-As you saw in chapter 3, Spring Data performs a special kind of magic by automatically creating repository implementations based on interfaces you define in your code. But Spring Data has another trick up its sleeve that can help you define APIs for your application.
+Như bạn đã thấy trong chương 3, Spring Data thực hiện một loại "phép thuật" đặc biệt bằng cách tự động tạo các triển khai repository dựa trên các interface mà bạn định nghĩa trong mã của mình. Nhưng Spring Data còn có thêm một "chiêu" nữa có thể giúp bạn định nghĩa các API cho ứng dụng của mình.
 
-Spring Data REST is another member of the Spring Data family that automatically creates REST APIs for repositories created by Spring Data. By doing little more than adding Spring Data REST to your build, you get an API with operations for each repository interface you’ve defined.
+**Spring Data REST** là một thành viên khác trong họ Spring Data, tự động tạo ra các REST API cho các repository được tạo bởi Spring Data. Chỉ cần thêm Spring Data REST vào quá trình build, bạn sẽ có ngay một API với các thao tác dành cho mỗi interface repository mà bạn đã định nghĩa.
 
-To start using Spring Data REST, add the following dependency to your build:
+Để bắt đầu sử dụng Spring Data REST, hãy thêm dependency sau vào phần build của bạn:
 
 ```html
 <dependency>
@@ -13,13 +13,13 @@ To start using Spring Data REST, add the following dependency to your build:
 </dependency>
 ```
 
-Believe it or not, that’s all that’s required to expose a REST API in a project that’s already using Spring Data for automatic repositories. By simply having the Spring Data REST starter in the build, the application gets autoconfiguration that enables automatic creation of a REST API for any repositories that were created by Spring Data (including Spring Data JPA, Spring Data Mongo, and so on).
+Tin hay không tùy bạn, chỉ cần vậy là đủ để công khai một REST API trong một dự án đã sử dụng Spring Data để tạo repository tự động. Bằng cách chỉ đơn giản đưa Spring Data REST starter vào trong phần build, ứng dụng của bạn sẽ nhận được cấu hình tự động cho phép tạo REST API tự động cho bất kỳ repository nào đã được tạo bởi Spring Data (bao gồm Spring Data JPA, Spring Data Mongo, v.v.).
 
-The REST endpoints that Spring Data REST creates are at least as good as (and possibly even better than) the ones you’ve created yourself. So at this point, feel free to do a little demolition work and remove any `@RestController`-annotated classes you’ve created up to this point before moving on.
+Các endpoint REST mà Spring Data REST tạo ra ít nhất cũng tốt như (thậm chí có thể tốt hơn) các endpoint mà bạn tự viết. Vì vậy, tại thời điểm này, bạn hoàn toàn có thể "dọn dẹp" và xóa bất kỳ lớp nào có annotation `@RestController` mà bạn đã tạo trước đó trước khi tiếp tục.
 
-To try out the endpoints provided by Spring Data REST, you can fire up the application and start poking at some of the URLs. Based on the set of repositories you’ve already defined for Taco Cloud, you should be able to perform `GET` requests for tacos, ingredients, orders, and users.
+Để thử nghiệm các endpoint được cung cấp bởi Spring Data REST, bạn có thể khởi động ứng dụng và thử gọi một vài URL. Dựa trên các repository mà bạn đã định nghĩa cho Taco Cloud, bạn nên có thể thực hiện các yêu cầu `GET` cho tacos, ingredients, orders và users.
 
-For example, you can get a list of all ingredients by making a `GET` request for /ingredients. Using `curl`, you might get something that looks like this (abridged to show only the first ingredient):
+Ví dụ, bạn có thể lấy danh sách tất cả nguyên liệu bằng cách thực hiện một yêu cầu `GET` tới `/ingredients`. Sử dụng `curl`, bạn có thể nhận được một phản hồi trông giống như sau (rút gọn để chỉ hiển thị nguyên liệu đầu tiên):
 
 ```bash
 $ curl localhost:8080/ingredients
@@ -51,17 +51,17 @@ $ curl localhost:8080/ingredients
 }
 ```
 
-Wow! By doing nothing more than adding a dependency to your build, you’re not only getting an endpoint for ingredients, but the resources that come back also contain hyperlinks! These hyperlinks are implementations of Hypermedia as the Engine of Application State, or HATEOAS for short. A client consuming this API could (optionally) use these hyperlinks as a guide for navigating the API and performing the next request.
+Wow! Bạn chỉ cần thêm một dependency vào phần build mà đã có được một endpoint cho ingredients, và tài nguyên phản hồi còn chứa cả **hyperlink**! Những hyperlink này là hiện thực của mô hình Hypermedia as the Engine of Application State, hay viết tắt là **HATEOAS**. Một client sử dụng API này có thể (tùy chọn) sử dụng những hyperlink này để điều hướng qua API và thực hiện các yêu cầu tiếp theo.
 
-The Spring HATEOAS project [https://spring.io/projects/spring-hateoas](https://spring.io/projects/spring-hateoas) provides general support for adding hypermedia links in your Spring MVC controller responses. But Spring Data REST automatically adds these links in the responses to its generated APIs.
+Dự án [Spring HATEOAS](https://spring.io/projects/spring-hateoas) cung cấp hỗ trợ tổng quát để thêm liên kết hypermedia trong phản hồi từ controller Spring MVC của bạn. Nhưng Spring Data REST sẽ tự động thêm các liên kết này trong các phản hồi từ các API mà nó tạo ra.
 
->To HATEOAS or not to HATEOAS?
+>Có nên dùng HATEOAS hay không?
 >
->The general idea of HATEOAS is that it enables a client to navigate an API in much the same way that a human may navigate a website: by following links. Rather than encode API details in a client and having the client construct URLs for every request, the client can select a link, by name, from the list of hyperlinks and use it to make their next request. In this way, the client doesn’t need to be coded to know the structure of an API and can instead use the API itself as a roadmap through the API.
->On the other hand, the hyperlinks do add a small amount of extra data in the payload and add some complexity requiring that the client know how to navigate using those hyperlinks. For this reason, API developers often forego the use of HATEOAS, and client developers often simply ignore the hyperlinks if there are any in an API.
->Other than the free hyperlinks you get from Spring Data REST responses, we’ll ignore HATEOAS and focus on simple, nonhypermedia APIs.
+>Ý tưởng chung của HATEOAS là cho phép một client điều hướng qua API giống như cách con người điều hướng một website: bằng cách nhấp vào các liên kết. Thay vì mã hóa chi tiết API vào client và yêu cầu client phải tự tạo URL cho từng yêu cầu, client có thể chọn một liên kết theo tên từ danh sách các hyperlink và sử dụng nó để thực hiện yêu cầu tiếp theo. Theo cách này, client không cần được lập trình để biết trước cấu trúc của API và thay vào đó có thể dùng chính API như bản đồ để điều hướng.
+>Tuy nhiên, các liên kết này cũng làm payload tăng lên một chút và đòi hỏi client phải biết cách xử lý chúng. Vì lý do đó, các lập trình viên API thường bỏ qua HATEOAS, và lập trình viên client cũng thường lờ đi các hyperlink nếu có.
+>Ngoại trừ các hyperlink miễn phí bạn nhận được từ Spring Data REST, chúng ta sẽ **bỏ qua HATEOAS** và tập trung vào các API đơn giản, không sử dụng hypermedia.
 
-Pretending to be a client of this API, you can also use curl to follow the self link for the flour tortilla entry as follows:
+Giả vờ là một client của API này, bạn cũng có thể sử dụng `curl` để theo dõi liên kết `self` cho mục `flour tortilla` như sau:
 
 ```bash
 $ curl http://localhost:8080/ingredients/FLTO
@@ -79,9 +79,9 @@ $ curl http://localhost:8080/ingredients/FLTO
 }
 ```
 
-To avoid getting too distracted, we won’t waste much more time in this book digging into each and every endpoint and option that Spring Data REST has created. But you should know that it also supports `POST`, `PUT`, and `DELETE` methods for the endpoints it creates. That’s right: you can `POST` to /ingredients to create a new ingredient and `DELETE` /ingredients/FLTO to remove flour tortillas from the menu.
+Để tránh bị xao nhãng, chúng ta sẽ không mất thêm thời gian để đào sâu từng endpoint và tùy chọn mà Spring Data REST đã tạo. Nhưng bạn nên biết rằng nó cũng hỗ trợ các phương thức `POST`, `PUT` và `DELETE` cho các endpoint mà nó tạo ra. Đúng vậy: bạn có thể `POST` tới `/ingredients` để tạo một nguyên liệu mới, và `DELETE /ingredients/FLTO` để xóa bánh tortilla khỏi menu.
 
-One thing you might want to do is set a base path for the API so that its endpoints are distinct and don’t collide with any controllers you write. To adjust the base path for the API, set the spring.data.rest.base-path property as shown next:
+Một việc bạn có thể muốn làm là đặt một đường dẫn gốc (base path) cho API để các endpoint của nó rõ ràng và không bị trùng với bất kỳ controller nào bạn viết. Để điều chỉnh đường dẫn gốc cho API, hãy đặt thuộc tính `spring.data.rest.base-path` như sau:
 
 ```yaml
 spring:
@@ -90,7 +90,7 @@ spring:
       base-path: /api
 ```
 
-This sets the base path for Spring Data REST endpoints to /data-api. Although you can set the base path to anything you’d like, the choice of /data-api ensures that endpoints exposed by Spring Data REST don’t collide with any other controllers, including those whose path begins with “/api” that we created earlier in this chapter. Consequently, the ingredients endpoint is now /data-api/ingredients. Now give this new base path a spin by requesting a list of tacos as follows:
+Điều này sẽ đặt đường dẫn gốc cho các endpoint Spring Data REST là `/data-api`. Mặc dù bạn có thể đặt base path là bất kỳ giá trị nào bạn muốn, nhưng lựa chọn `/data-api` sẽ đảm bảo rằng các endpoint được Spring Data REST công khai không bị trùng với bất kỳ controller nào khác, bao gồm cả những controller có đường dẫn bắt đầu bằng “/api” mà chúng ta đã tạo trước đó trong chương này. Do đó, endpoint cho ingredients bây giờ sẽ là `/data-api/ingredients`. Giờ hãy thử nghiệm base path mới này bằng cách yêu cầu danh sách tacos như sau:
 
 ```bash
 $ curl http://localhost:8080/data-api/tacos
@@ -103,6 +103,4 @@ $ curl http://localhost:8080/data-api/tacos
 }
 ```
 
-Oh dear! That didn’t work quite as expected. You have an `Ingredient` entity and an `IngredientRepository` interface, which Spring Data REST exposed with a /dataapi/ingredients endpoint. So if you have a `Taco` entity and a `TacoRepository` interface, why doesn’t Spring Data REST give you a /data-api/tacos endpoint?
-
-
+Ôi không! Điều đó đã không hoạt động như mong đợi. Bạn có một entity `Ingredient` và một interface `IngredientRepository`, điều mà Spring Data REST đã công khai qua endpoint `/data-api/ingredients`. Vậy nếu bạn có một entity `Taco` và một interface `TacoRepository`, tại sao Spring Data REST lại không cung cấp một endpoint `/data-api/tacos`?

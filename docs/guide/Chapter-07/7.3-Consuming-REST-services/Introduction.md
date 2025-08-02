@@ -1,28 +1,28 @@
-## 7.3 Consuming REST services
+## 7.3 Tiêu thụ các dịch vụ REST
 
-Have you ever gone to a movie and, as the movie starts, discovered that you were the only person in the theater? It certainly is a wonderful experience to have what is essentially a private viewing of a movie. You can pick whatever seat you want, talk back to the characters onscreen, and maybe even open your phone and tweet about it without anyone getting angry for disrupting their movie-watching experience. And the best part is that nobody else is there ruining the movie for you, either!
+Bạn đã bao giờ đi xem phim và, khi bộ phim bắt đầu, phát hiện ra rằng bạn là người duy nhất trong rạp chưa? Chắc chắn đó là một trải nghiệm tuyệt vời khi bạn có một buổi chiếu phim riêng tư. Bạn có thể chọn bất kỳ chỗ ngồi nào bạn muốn, thoải mái nói chuyện với các nhân vật trên màn ảnh, thậm chí có thể mở điện thoại và đăng tweet mà không ai nổi giận vì bạn làm gián đoạn trải nghiệm xem phim của họ. Và điều tuyệt nhất là không ai khác có mặt để phá hỏng bộ phim cho bạn!
 
-This hasn’t happened to me often. But when it has, I have wondered what would have happened if I hadn’t shown up. Would they still have shown the film? Would the hero still have saved the day? Would the theater staff still have cleaned the theater after the movie was over?
+Điều này không xảy ra với tôi thường xuyên. Nhưng khi nó xảy ra, tôi tự hỏi điều gì sẽ xảy ra nếu tôi không đến. Họ có vẫn chiếu phim không? Nhân vật chính có vẫn cứu thế giới không? Nhân viên rạp chiếu có vẫn dọn dẹp sau khi phim kết thúc không?
 
-A movie without an audience is kind of like an API without a client. It’s ready to accept and provide data, but if the API is never invoked, is it really an API? Like Schrödinger’s cat, we can’t know if the API is active or returning HTTP 404 responses until we issue a request to it.
+Một bộ phim không có khán giả cũng giống như một API không có client. Nó sẵn sàng nhận và cung cấp dữ liệu, nhưng nếu API không bao giờ được gọi, thì liệu nó có thực sự là một API không? Giống như con mèo của Schrödinger, chúng ta không thể biết liệu API đang hoạt động hay trả về phản hồi HTTP 404 cho đến khi chúng ta gửi một yêu cầu đến nó.
 
-It’s not uncommon for Spring applications to both provide an API and make requests to another application’s API. In fact, this is becoming prevalent in the world of microservices. Therefore, it’s worthwhile to spend a moment looking at how to use Spring to interact with REST APIs.
+Không có gì lạ khi một ứng dụng Spring vừa cung cấp một API vừa gửi yêu cầu đến API của ứng dụng khác. Trên thực tế, điều này ngày càng phổ biến trong thế giới microservices. Do đó, rất đáng để dành một chút thời gian tìm hiểu cách sử dụng Spring để tương tác với các API REST.
 
-A Spring application can consume a REST API with the following:
+Một ứng dụng Spring có thể tiêu thụ một API REST thông qua các cách sau:
 
-* _RestTemplate_ —— A straightforward, synchronous REST client provided by the core Spring Framework.
-* _Traverson_ —— A wrapper around Spring’s `RestTemplate`, provided by Spring HATEOAS, to enable a hyperlink-aware, synchronous REST client. Inspired from a JavaScript library of the same name.
-* _WebClient_ —— A reactive, asynchronous REST client.
+* _RestTemplate_ —— Một client REST đồng bộ, đơn giản được cung cấp bởi Spring Framework cốt lõi.
+* _Traverson_ —— Một lớp bao quanh `RestTemplate` của Spring, được cung cấp bởi Spring HATEOAS, cho phép tạo client REST đồng bộ có nhận thức liên kết (hyperlink-aware). Được lấy cảm hứng từ một thư viện JavaScript cùng tên.
+* _WebClient_ —— Một client REST bất đồng bộ, phản ứng (reactive).
 
-For now, we’ll focus on creating clients with `RestTemplate`. I’ll defer discussion of `WebClient` until we cover Spring’s reactive web framework in chapter 12. And if you’re interested in writing hyperlink-aware clients, check out the Traverson documentation at [https://docs.spring.io/spring-hateoas/docs/current/reference/html/#client](https://docs.spring.io/spring-hateoas/docs/current/reference/html/#client)。
+Hiện tại, chúng ta sẽ tập trung vào việc tạo client với `RestTemplate`. Tôi sẽ để dành phần nói về `WebClient` khi chúng ta đề cập đến web framework phản ứng của Spring ở chương 12. Và nếu bạn quan tâm đến việc viết các client có nhận thức liên kết, hãy xem tài liệu Traverson tại [https://docs.spring.io/spring-hateoas/docs/current/reference/html/#client](https://docs.spring.io/spring-hateoas/docs/current/reference/html/#client)。
 
-There’s a lot that goes into interacting with a REST resource from the client’s perspective—mostly tedium and boilerplate. Working with low-level HTTP libraries, the client needs to create a client instance and a request object, execute the request, interpret the response, map the response to domain objects, and handle any exceptions that may be thrown along the way. And all of this boilerplate is repeated, regardless of what HTTP request is sent.
+Có rất nhiều điều liên quan đến việc tương tác với tài nguyên REST từ góc độ client — chủ yếu là các thao tác lặp lại và mã mẫu (boilerplate). Khi làm việc với các thư viện HTTP cấp thấp, client cần phải tạo một phiên bản client và một đối tượng yêu cầu, thực thi yêu cầu, phân tích phản hồi, ánh xạ phản hồi sang các đối tượng miền (domain objects), và xử lý bất kỳ ngoại lệ nào có thể xảy ra trong quá trình đó. Và tất cả mã mẫu này sẽ được lặp lại, bất kể yêu cầu HTTP nào được gửi.
 
-To avoid such boilerplate code, Spring provides `RestTemplate`. Just as `JdbcTemplate` handles the ugly parts of working with JDBC, `RestTemplate` frees you from dealing with the tedium of consuming REST resources.
+Để tránh việc viết mã mẫu như vậy, Spring cung cấp `RestTemplate`. Cũng giống như `JdbcTemplate` xử lý những phần phức tạp khi làm việc với JDBC, `RestTemplate` giúp bạn thoát khỏi sự tẻ nhạt khi tiêu thụ các tài nguyên REST.
 
-`RestTemplate` provides 41 methods for interacting with REST resources. Rather than examine all of the methods that it offers, it’s easier to consider only a dozen unique operations, each overloaded to equal the complete set of 41 methods. The 12 operations are described in table 7.2.
+`RestTemplate` cung cấp 41 phương thức để tương tác với tài nguyên REST. Thay vì xem xét tất cả các phương thức mà nó cung cấp, sẽ dễ dàng hơn nếu chỉ xét đến một tá thao tác duy nhất, mỗi thao tác được quá tải (overload) để tạo thành tập hợp đầy đủ 41 phương thức. 12 thao tác này được mô tả trong bảng 7.2.
 
-**Table 7.2 `RestTemplate` defines 12 unique operations, each of which is overloaded, providing a total of 41 methods.**
+**Bảng 7.2 `RestTemplate` định nghĩa 12 thao tác duy nhất, mỗi thao tác được quá tải, cung cấp tổng cộng 41 phương thức.**
 
 | Method | Description |
 | :--- | :--- |
@@ -39,23 +39,23 @@ To avoid such boilerplate code, Spring provides `RestTemplate`. Just as `JdbcTem
 | `postForObject(...)` | `POSTs` data to a URL, returning an object mapped from the response body |
 | `put(...)` | `PUTs` resource data to the specified URL |
 
-With the exception of `TRACE`, `RestTemplate` has at least one method for each of the standard HTTP methods. In addition, `execute()` and `exchange()` provide lower-level, general-purpose methods for sending requests with any HTTP method.
+Ngoại trừ `TRACE`, `RestTemplate` có ít nhất một phương thức cho mỗi phương thức HTTP chuẩn. Ngoài ra, `execute()` và `exchange()` cung cấp các phương thức mức thấp hơn, mục đích tổng quát để gửi yêu cầu với bất kỳ phương thức HTTP nào.
 
-Most of the methods in table 7.2 are overloaded into the following three method forms:
+Hầu hết các phương thức trong bảng 7.2 được nạp chồng dưới ba dạng phương thức sau:
 
-* One accepts a `String` URL specification with URL parameters specified in a variable argument list.
-* One accepts a `String` URL specification with URL parameters specified in a `Map<String,String>`.
-* One accepts a `java.net.URI` as the URL specification, with no support for parameterized URLs.
+* Một dạng chấp nhận một chuỗi `String` chỉ định URL với các tham số URL được chỉ định trong danh sách đối số biến.
+* Một dạng chấp nhận một chuỗi `String` chỉ định URL với các tham số URL được chỉ định trong một `Map<String,String>`.
+* Một dạng chấp nhận một `java.net.URI` làm chỉ định URL, không hỗ trợ URL có tham số.
 
-Once you get to know the 12 operations provided by RestTemplate and how each of the variant forms works, you’ll be well on your way to writing resource-consuming REST clients.
+Khi bạn đã nắm rõ 12 thao tác được cung cấp bởi RestTemplate và cách mỗi dạng biến thể hoạt động, bạn sẽ sẵn sàng viết các REST client để tiêu thụ tài nguyên.
 
-To use RestTemplate, you’ll either need to create an instance at the point you need it, as follows:
+Để sử dụng RestTemplate, bạn sẽ cần tạo một thể hiện tại điểm bạn cần sử dụng, như sau:
 
 ```java
 RestTemplate rest = new RestTemplate();
 ```
 
-or you can declare it as a bean and inject it where you need it, as shown next:
+hoặc bạn có thể khai báo nó như một bean và tiêm (inject) nó vào nơi bạn cần, như được minh họa bên dưới:
 
 ```java
 @Bean
@@ -64,4 +64,4 @@ public RestTemplate restTemplate() {
 }
 ```
 
-Let’s survey `RestTemplate`’s operations by looking at those that support the four primary HTTP methods: `GET`, `PUT`, `DELETE`, and `POST`. We’ll start with `getForObject()` and `getForEntity()` — the `GET` methods.
+Hãy khảo sát các thao tác của `RestTemplate` bằng cách xem xét những thao tác hỗ trợ bốn phương thức HTTP chính: `GET`, `PUT`, `DELETE`, và `POST`. Chúng ta sẽ bắt đầu với `getForObject()` và `getForEntity()` — các phương thức `GET`.

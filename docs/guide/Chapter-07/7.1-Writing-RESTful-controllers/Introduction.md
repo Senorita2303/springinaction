@@ -1,10 +1,10 @@
-## 7.1 Writing RESTful controllers
+## 7.1 Viết các controller RESTful
 
-In a nutshell, REST APIs aren’t much different from websites. Both involve responding to HTTP requests. But the key difference is that instead of responding to those requests with HTML, as websites do, REST APIs typically respond with a data-oriented format such as JSON or XML.
+Tóm lại, các API REST không khác biệt nhiều so với các trang web. Cả hai đều liên quan đến việc phản hồi các yêu cầu HTTP. Nhưng điểm khác biệt chính là thay vì phản hồi các yêu cầu đó bằng HTML như các trang web, API REST thường phản hồi bằng định dạng dữ liệu như JSON hoặc XML.
 
-In chapter 2 you used @GetMapping and @PostMapping annotations to fetch and post data to the server. Those same annotations will still come in handy as you define your REST API. In addition, Spring MVC supports a handful of other annotations for various types of HTTP requests, as listed in table 7.1.
+Trong chương 2, bạn đã sử dụng các annotation `@GetMapping` và `@PostMapping` để lấy và gửi dữ liệu tới máy chủ. Những annotation này vẫn sẽ rất hữu ích khi bạn định nghĩa API REST của mình. Ngoài ra, Spring MVC còn hỗ trợ một số annotation khác dành cho các loại yêu cầu HTTP khác nhau, như được liệt kê trong bảng 7.1.
 
-**Table 7.1 Spring MVC’s HTTP request-handling annotations**
+**Bảng 7.1 Các annotation xử lý yêu cầu HTTP trong Spring MVC**
 
 | Annotation | HTTP method | Typical use |
 | :--- | :--- | :--- |
@@ -15,6 +15,4 @@ In chapter 2 you used @GetMapping and @PostMapping annotations to fetch and post
 | `@DeleteMapping` | `HTTP DELETE` requests | Deleting a resource |
 | `@RequestMapping` | General-purpose request handling; `HTTP` method specified in the method attribute |  |
 
-To see these annotations in action, you’ll start by creating a simple REST endpoint that fetches a few of the most recently created tacos.
-
-
+Để thấy các annotation này hoạt động như thế nào, bạn sẽ bắt đầu bằng cách tạo một endpoint REST đơn giản để lấy ra một vài taco được tạo gần đây nhất.
