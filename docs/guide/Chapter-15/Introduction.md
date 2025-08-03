@@ -1,15 +1,14 @@
-# Chapter 15. Working with Spring Boot Actuator
+# Chương 15. Làm việc với Spring Boot Actuator
 
-This chapter covers
+Chương này bao gồm:
 
-* Enabling Actuator in Spring Boot projects
-* Exploring Actuator endpoints
-* Customizing Actuator
-* Securing Actuator
+* Kích hoạt Actuator trong các dự án Spring Boot  
+* Khám phá các endpoint của Actuator  
+* Tùy chỉnh Actuator  
+* Bảo mật Actuator  
 
-Have you ever tried to guess what’s inside a wrapped gift? You shake it, weigh it, and measure it. And you might even have a solid idea as to what’s inside. But until you open it up, there’s no way of knowing for sure.
+Bạn đã bao giờ cố gắng đoán xem bên trong một món quà được gói kín là gì chưa? Bạn lắc nó, cân nó, đo nó. Và bạn thậm chí có thể có một ý tưởng khá rõ ràng về những gì bên trong. Nhưng cho đến khi bạn mở nó ra, thì không có cách nào để biết chắc chắn được.
 
-A running application is kind of like a wrapped gift. You can poke at it and make reasonable guesses as to what’s going on under the covers. But how can you know for sure? If only there were some way that you could peek inside a running application, see how it’s behaving, check on its health, and maybe even trigger operations that influence how it runs!
+Một ứng dụng đang chạy cũng giống như một món quà được gói kín. Bạn có thể "chọc ngoáy" vào nó và đưa ra những phỏng đoán hợp lý về những gì đang diễn ra bên trong. Nhưng làm sao để bạn biết chắc chắn? Giá mà có cách nào đó để bạn có thể nhìn vào bên trong một ứng dụng đang chạy, xem nó hoạt động thế nào, kiểm tra tình trạng của nó, và thậm chí là kích hoạt các thao tác ảnh hưởng đến cách nó chạy!
 
-In this chapter, we’re going to explore Spring Boot Actuator. Actuator offers production-ready features such as monitoring and metrics to Spring Boot applications. Actuator’s features are provided by way of several endpoints, which are made available over HTTP as well as through JMX MBeans. This chapter focuses primarily on HTTP endpoints, saving JMX endpoints for chapter 18.
-
+Trong chương này, chúng ta sẽ khám phá Spring Boot Actuator. Actuator cung cấp các tính năng sẵn sàng cho môi trường sản xuất như giám sát và đo lường cho các ứng dụng Spring Boot. Các tính năng của Actuator được cung cấp thông qua nhiều endpoint, được truy cập thông qua HTTP cũng như JMX MBeans. Chương này chủ yếu tập trung vào các endpoint HTTP, còn các endpoint JMX sẽ được đề cập trong chương 18.

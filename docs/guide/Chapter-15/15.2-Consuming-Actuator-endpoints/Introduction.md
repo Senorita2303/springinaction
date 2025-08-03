@@ -1,10 +1,10 @@
-## 15.2 Consuming Actuator endpoints
+## 15.2 Sử dụng các endpoint của Actuator
 
-Actuator can bestow a veritable treasure trove of interesting and useful information about a running application by way of the HTTP endpoints listed in table 15.1. As HTTP endpoints, these can be consumed like any REST API, using whatever HTTP client you wish, including Spring’s `RestTemplate` and `WebClient`, from a JavaScript application, or simply with the `curl` command-line client.
+Actuator có thể cung cấp một kho tàng thông tin thú vị và hữu ích về một ứng dụng đang chạy thông qua các endpoint HTTP được liệt kê trong bảng 15.1. Vì là các endpoint HTTP, chúng có thể được sử dụng giống như bất kỳ API REST nào, bằng bất kỳ client HTTP nào mà bạn muốn, bao gồm `RestTemplate` và `WebClient` của Spring, từ một ứng dụng JavaScript, hoặc đơn giản chỉ bằng công cụ dòng lệnh `curl`.
 
-For the sake of exploring Actuator endpoints, we’ll use the `curl` command-line client in this chapter. In chapter 16, I’ll introduce you to Spring Boot Admin, which layers a user-friendly web application on top of an application’s Actuator endpoints.
+Để khám phá các endpoint của Actuator, trong chương này chúng ta sẽ sử dụng công cụ dòng lệnh `curl`. Trong chương 16, tôi sẽ giới thiệu bạn với Spring Boot Admin, một ứng dụng web thân thiện với người dùng được xây dựng trên nền tảng các endpoint của Actuator.
 
-To get some idea of what endpoints Actuator has to offer, a `GET` request to Actuator’s base path will provide HATEOAS links for each of the endpoints. Using `curl` to make a request to /actuator, you might get a response something like this (abridged to save space):
+Để có cái nhìn tổng quan về các endpoint mà Actuator cung cấp, một yêu cầu `GET` đến đường dẫn gốc của Actuator sẽ trả về các liên kết HATEOAS đến từng endpoint. Khi sử dụng `curl` để gửi yêu cầu đến `/actuator`, bạn có thể nhận được phản hồi giống như sau (đã rút gọn để tiết kiệm không gian):
 
 ```bash
 $ curl localhost:8081/actuator
@@ -31,7 +31,6 @@ $ curl localhost:8081/actuator
 }
 ```
 
-Because different libraries may contribute additional Actuator endpoints of their own, and because some endpoints may be not be exported, the actual results may vary from application to application.
+Vì các thư viện khác nhau có thể tự bổ sung thêm các endpoint Actuator riêng của chúng, và vì một số endpoint có thể không được export, nên kết quả thực tế có thể khác nhau giữa các ứng dụng.
 
-In any event, the set of links returned from Actuator’s base path serve as a map to all that Actuator has to offer. Let’s begin our exploration of the Actuator landscape with the two endpoints that provide essential information about an application: the /health and /info endpoints.
-
+Dù thế nào đi nữa, tập hợp các liên kết được trả về từ đường dẫn gốc của Actuator đóng vai trò như một bản đồ hướng dẫn mọi thứ mà Actuator cung cấp. Hãy bắt đầu hành trình khám phá hệ sinh thái Actuator với hai endpoint cung cấp thông tin thiết yếu về ứng dụng: các endpoint `/health` và `/info`.

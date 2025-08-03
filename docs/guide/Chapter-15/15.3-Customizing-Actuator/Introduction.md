@@ -1,6 +1,5 @@
-## 15.3 Customizing Actuator
+## 15.3 Tùy chỉnh Actuator
 
-One of the greatest features of Actuator is that it can be  customized to meet the specific needs of an application. A few of the endpoints themselves allow for customization. Meanwhile, Actuator itself allows you to create custom endpoints.
+Một trong những tính năng tuyệt vời nhất của Actuator là khả năng tùy chỉnh để đáp ứng nhu cầu cụ thể của một ứng dụng. Một vài endpoint của Actuator cho phép bạn tùy chỉnh trực tiếp. Bên cạnh đó, Actuator còn cho phép bạn tạo các endpoint tùy chỉnh của riêng mình.
 
-Let’s look at a few ways that Actuator can be customized, starting with ways to add information to the /info endpoint.
-
+Hãy cùng xem qua một vài cách mà Actuator có thể được tùy chỉnh, bắt đầu với cách thêm thông tin vào endpoint `/info`.
