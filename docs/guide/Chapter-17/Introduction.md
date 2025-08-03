@@ -1,12 +1,11 @@
-# Chapter 17. Monitoring Spring with JMX
+# Chương 17. Giám sát Spring với JMX
 
-This chapter covers
+Chương này bao gồm
 
-* Working with Actuator endpoint MBeans
-* Exposing Spring beans as MBeans
-* Publishing notifications
+* Làm việc với các MBean của endpoint trong Actuator  
+* Expose các bean của Spring dưới dạng MBean  
+* Gửi (publish) các thông báo (notification)  
 
-For over a decade and a half, Java Management Extensions (JMX) has been the standard means of monitoring and managing Java applications. By exposing managed components known as MBeans (managed beans), an external JMX client can manage an application by invoking operations, inspecting properties, and monitoring events from MBeans.
+Trong hơn một thập kỷ rưỡi qua, Java Management Extensions (JMX) đã là chuẩn chung để giám sát và quản lý các ứng dụng Java. Bằng cách expose các thành phần được quản lý, gọi là MBean (managed bean), một client JMX bên ngoài có thể quản lý ứng dụng bằng cách gọi các thao tác (operations), kiểm tra các thuộc tính (properties) và theo dõi các sự kiện (events) từ MBean.
 
-We’ll start exploring Spring and JMX by looking at how Actuator endpoints are exposed as MBeans.
-
+Chúng ta sẽ bắt đầu khám phá Spring và JMX bằng cách tìm hiểu cách các endpoint của Actuator được expose dưới dạng MBean.

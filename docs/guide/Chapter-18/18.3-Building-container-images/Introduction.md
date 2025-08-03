@@ -1,10 +1,10 @@
-## 18.3 Building container images
+## 18.3 Xây dựng các image container
 
-Docker [https://www.docker.com/](https://www.docker.com/) has become the de facto standard for distributing applications of all kinds for deployment in the cloud. Many different cloud environments, including AWS, Microsoft Azure, and Google Cloud Platform (to name a few) accept Docker containers for deploying applications.
+Docker [https://www.docker.com/](https://www.docker.com/) đã trở thành tiêu chuẩn thực tế để phân phối các ứng dụng thuộc mọi loại nhằm triển khai trên đám mây. Nhiều môi trường đám mây khác nhau, bao gồm AWS, Microsoft Azure và Google Cloud Platform (chỉ kể tên một vài cái), đều chấp nhận các container Docker để triển khai ứng dụng.
 
-The idea of containerized applications, such as those created with Docker, draws analogies from real-world intermodal containers that are used to ship items all over the world. Intermodal containers all have a standard size and format, regardless of their contents. Because of that, intermodal containers are easily stacked on ships, carried on trains, or pulled by trucks. In a similar way, containerized applications share a common container format that can be deployed and run anywhere, regardless of the application inside.
+Ý tưởng về các ứng dụng được container hóa, như những ứng dụng được tạo bằng Docker, được ví như các container liên phương thức trong thế giới thực dùng để vận chuyển hàng hóa trên toàn thế giới. Các container liên phương thức đều có kích thước và định dạng tiêu chuẩn, bất kể bên trong chứa gì. Vì vậy, chúng có thể dễ dàng xếp chồng trên tàu, chở bằng tàu hỏa, hoặc kéo bằng xe tải. Tương tự, các ứng dụng được container hóa có định dạng container chung có thể được triển khai và chạy ở bất cứ đâu, bất kể ứng dụng bên trong là gì.
 
-The most basic way to create an image from your Spring Boot application is to use the docker build command and a Dockerfile that copies the executable JAR file from the project build into the container image. The following extremely simple Dockerfile does exactly that:
+Cách đơn giản nhất để tạo một image từ ứng dụng Spring Boot là sử dụng lệnh `docker build` và một tệp Dockerfile sao chép tệp JAR thực thi từ bản build của dự án vào image container. Dockerfile cực kỳ đơn giản sau đây thực hiện đúng điều đó:
 
 ```bash
 FROM openjdk:11.0.12-jre
@@ -13,73 +13,73 @@ COPY ${JAR_FILE} app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
 ```
 
-The Dockerfile describes how the container image will be created. Because it’s so brief, let’s examine this Dockerfile line by line:
+Dockerfile mô tả cách mà image container sẽ được tạo ra. Vì nó rất ngắn, chúng ta hãy cùng phân tích từng dòng:
 
-* _Line 1_ — Declares that the image we create will be based on a predefined container image that provides (among other things) the Open JDK 11 Java runtime.
-* _Line 2_ — Creates a variable that references all JAR files in the project’s target/ directory. For most Maven builds, there should be only one JAR file in there. By using a wildcard, however, we decouple the Dockerfile definition from the JAR file’s name and version. The path to the JAR file assumes that the Dockerfile is in the root of the Maven project.
-* _Line 3_ — Copies the JAR file from the project’s target/ directory into the container image with a generic name of app.jar.
-* _Line 4_ — Defines an entry point—that is, defines a command to run when a container created from this image starts—to run the JAR file with `java -jar /app.jar`.
+* _Dòng 1_ — Khai báo rằng image chúng ta tạo sẽ được dựa trên một image container đã được định nghĩa sẵn, cung cấp (trong số những thứ khác) môi trường runtime Java Open JDK 11.
+* _Dòng 2_ — Tạo một biến tham chiếu đến tất cả các tệp JAR trong thư mục `target/` của dự án. Với hầu hết các build Maven, sẽ chỉ có một tệp JAR duy nhất ở đó. Tuy nhiên, việc sử dụng ký tự đại diện giúp chúng ta tách biệt định nghĩa Dockerfile khỏi tên và phiên bản cụ thể của tệp JAR. Đường dẫn đến tệp JAR giả định rằng Dockerfile nằm ở thư mục gốc của dự án Maven.
+* _Dòng 3_ — Sao chép tệp JAR từ thư mục `target/` của dự án vào image container với tên chung là `app.jar`.
+* _Dòng 4_ — Định nghĩa điểm vào (entry point) — tức là, định nghĩa lệnh sẽ được chạy khi một container được tạo từ image này bắt đầu — để chạy tệp JAR bằng lệnh `java -jar /app.jar`.
 
-With this Dockerfile in hand, you can create the image using the Docker commandline tool like this:
-
-```bash
-$ docker build . -t habuma/tacocloud:0.0.19-SNAPSHOT
-```
-
-The . in this command references the relative path to the location of the Dockerfile. If you are running `docker build` from a different path, replace the . with the path to the Dockerfile (without the filename). For example, if you are running docker build from the parent of the project, you will use docker build like this:
+Với Dockerfile này, bạn có thể tạo image bằng công cụ dòng lệnh Docker như sau:
 
 ```bash
-$ docker build tacocloud -t habuma/tacocloud:0.0.19-SNAPSHOT
+docker build . -t habuma/tacocloud:0.0.19-SNAPSHOT
 ```
 
-The value given after the -t argument is the image tag, which is made up of a name and version. In this case, the image name is habuma/tacocloud and the version is 0.0.19-SNAPSHOT. If you’d like to try it out, you can use docker run to run this newly created image:
+Dấu `.` trong lệnh này tham chiếu đến đường dẫn tương đối đến vị trí của Dockerfile. Nếu bạn đang chạy `docker build` từ một vị trí khác, hãy thay `.` bằng đường dẫn đến thư mục chứa Dockerfile (không bao gồm tên tệp). Ví dụ, nếu bạn đang chạy `docker build` từ thư mục cha của dự án, bạn sẽ sử dụng `docker build` như sau:
 
 ```bash
-$ docker run -p8080:8080 habuma/tacocloud:0.0.19-SNAPSHOT
+docker build tacocloud -t habuma/tacocloud:0.0.19-SNAPSHOT
 ```
 
-The `-p8080:8080` forwards requests to port 8080 on the host machine (e.g., your machine where you’re running Docker) to the container’s port 8080 (where Tomcat or Netty is listening for requests).
-
-While building a Docker image this way is easy enough if you already have an executable JAR file handy, it’s not the easiest way to create an image from a Spring Boot application. Beginning with Spring Boot 2.3.0, you can build container images without adding any special dependencies or configuration files, or editing your project in any way. That’s because the Spring Boot build plugins for both Maven and Gradle support the building of container images directly. To build your Maven-built Spring project into a container image, you use the `build-image` goal from the Spring Boot Maven plugin like this:
+Giá trị được cung cấp sau đối số `-t` là tag của image, bao gồm tên và phiên bản. Trong ví dụ này, tên image là `habuma/tacocloud` và phiên bản là `0.0.19-SNAPSHOT`. Nếu bạn muốn chạy thử, bạn có thể dùng `docker run` để chạy image vừa tạo:
 
 ```bash
-$ mvnw spring-boot:build-image
+docker run -p8080:8080 habuma/tacocloud:0.0.19-SNAPSHOT
 ```
 
-Likewise, a Gradle-built project can be built into a container image like this:
+Tùy chọn `-p8080:8080` sẽ chuyển tiếp các yêu cầu đến cổng 8080 trên máy chủ (ví dụ: máy bạn đang chạy Docker) đến cổng 8080 của container (nơi Tomcat hoặc Netty đang lắng nghe yêu cầu).
+
+Mặc dù việc tạo một Docker image theo cách này là đủ đơn giản nếu bạn đã có sẵn một tệp JAR thực thi, nhưng đó không phải là cách dễ nhất để tạo image từ ứng dụng Spring Boot. Bắt đầu từ Spring Boot 2.3.0, bạn có thể xây dựng image container mà không cần thêm bất kỳ dependency hay tệp cấu hình đặc biệt nào, hoặc chỉnh sửa dự án theo bất kỳ cách nào. Điều đó là nhờ plugin build của Spring Boot cho cả Maven và Gradle đều hỗ trợ trực tiếp việc tạo image container. Để build dự án Spring dùng Maven thành một image container, bạn sử dụng mục tiêu `build-image` từ plugin Spring Boot Maven như sau:
 
 ```bash
-$ gradlew bootBuildImage
+mvnw spring-boot:build-image
 ```
 
-This builds an image with a default tag based on the `<artifactId>` and `<version>` properties in the pom.xml file. For the Taco Cloud application, this will be something like library/tacocloud:0.0.19-SNAPSHOT. We’ll see in a moment how to specify a custom image tag.
-
-Spring Boot’s build plugins rely on Docker to create images. Therefore, you’ll need to have the Docker runtime installed on the machine building the image. But once the image has been created, you can run it like this:
+Tương tự, một dự án được build bằng Gradle có thể được tạo thành một image container như sau:
 
 ```bash
-$ docker run -p8080:8080 library/tacocloud:0.0.19-SNAPSHOT
+gradlew bootBuildImage
 ```
 
-This runs the image and exposes the image’s port 8080 (which the embedded Tomcat or Netty server is listening on) to the host machine’s port 8080.
+Lệnh này sẽ tạo một image với tag mặc định dựa trên các thuộc tính `<artifactId>` và `<version>` trong tệp `pom.xml`. Đối với ứng dụng Taco Cloud, tag sẽ có dạng `library/tacocloud:0.0.19-SNAPSHOT`. Chúng ta sẽ tìm hiểu ngay sau đây cách chỉ định một tag tùy chỉnh cho image.
 
-The default format of the tag is docker.io/library/ ${project.artifactId}:${project.version}, which explains why the tag began with “library.” That’s fine if you’ll only ever be running the image locally. But you’ll most likely want to push the image to an image registry such as DockerHub and will need the image to be built with a tag that references your image repository’s name.
+Các plugin build của Spring Boot dựa vào Docker để tạo image. Do đó, bạn cần cài đặt Docker runtime trên máy dùng để build image. Nhưng một khi image đã được tạo, bạn có thể chạy nó như sau:
 
-For example, suppose that your organization’s repository name in DockerHub is tacocloud. In that case, you’ll want the image name to be tacocloud/tacocloud:0.0.19-SNAPSHOT, effectively replacing the “library” default prefix with “tacocloud.” To make that happen, you just need to specify a build property when building the image. For Maven, you’ll specify the image name using the `spring-boot.build-image.imageName` JVM system property like this:
+```bash
+docker run -p8080:8080 library/tacocloud:0.0.19-SNAPSHOT
+```
+
+Lệnh này sẽ chạy image và mở cổng 8080 của image (nơi máy chủ nhúng Tomcat hoặc Netty đang lắng nghe) ra cổng 8080 của máy chủ host.
+
+Định dạng mặc định của tag là: `docker.io/library/${project.artifactId}:${project.version}`. Điều này giải thích tại sao tag bắt đầu với “library.” Điều này hoàn toàn ổn nếu bạn chỉ chạy image ở môi trường cục bộ. Nhưng trong hầu hết các trường hợp, bạn sẽ muốn đẩy image đó lên một image registry như DockerHub và cần image được build với tag tham chiếu đến tên repository của bạn.
+
+Ví dụ, giả sử tên repository của tổ chức bạn trên DockerHub là `tacocloud`. Trong trường hợp đó, bạn sẽ muốn tên image là: `tacocloud/tacocloud:0.0.19-SNAPSHOT` tức là thay thế tiền tố mặc định “library” bằng “tacocloud.” Để làm được điều này, bạn chỉ cần chỉ định một thuộc tính khi build image. Đối với Maven, bạn chỉ định tên image bằng cách sử dụng thuộc tính hệ thống JVM `spring-boot.build-image.imageName` như sau:
 
 ```bash
 $ mvnw spring-boot:build-image \
     -Dspring-boot.build-image.imageName=tacocloud/tacocloud:0.0.19-SNAPSHOT
 ```
 
-For a Gradle-built project, it’s slightly simpler. You specify the image name using an `--imageName` parameter like this:
+Đối với một dự án được build bằng Gradle, cách làm còn đơn giản hơn một chút. Bạn chỉ cần chỉ định tên image bằng tham số `--imageName` như sau:
 
 ```bash
-$ gradlew bootBuildImage --imageName=tacocloud/tacocloud:0.0.19-SNAPSHOT
+gradlew bootBuildImage --imageName=tacocloud/tacocloud:0.0.19-SNAPSHOT
 ```
 
-Either of these ways of specifying the image name requires you to remember to do them when building the image and requires that you not make a mistake. To make things even easier, you can specify the image name as part of the build itself.
+Cả hai cách chỉ định tên image này đều yêu cầu bạn phải nhớ thực hiện khi build image, và phải chắc chắn không mắc lỗi. Để đơn giản hơn nữa, bạn có thể cấu hình sẵn tên image trong quá trình build.
 
-In Maven, you specify the image name as a configuration entry in the Spring Boot Maven Plugin. For example, the following snippet from the project’s pom.xml file shows how to specify the image name as a `<configuration>` block:
+Trong Maven, bạn chỉ định tên image dưới dạng một mục cấu hình trong plugin Spring Boot Maven. Ví dụ, đoạn trích sau trong tệp `pom.xml` của dự án cho thấy cách chỉ định tên image bằng một khối `<configuration>`:
 
 ```xml
 <plugin>
@@ -93,7 +93,7 @@ In Maven, you specify the image name as a configuration entry in the Spring Boot
 </plugin>
 ```
 
-Notice, that rather than hardcoding the artifact ID and version, we can leverage build variables to make those values reference what is already specified elsewhere in the build. This removes any need to manually bump the version number in the image name as a project evolves. For a Gradle-built project, the following entry in build.gradle achieves the same effect:
+Lưu ý rằng thay vì gán cứng giá trị artifact ID và version, chúng ta có thể tận dụng các biến trong quá trình build để tham chiếu đến các giá trị đã được khai báo ở nơi khác trong quá trình build. Điều này loại bỏ nhu cầu phải chỉnh tay số phiên bản trong tên image khi dự án thay đổi. Đối với dự án được build bằng Gradle, đoạn cấu hình sau trong `build.gradle` sẽ đạt được hiệu quả tương tự:
 
 ```yaml
 bootBuildImage {
@@ -101,10 +101,10 @@ bootBuildImage {
 }
 ```
 
-With this configuration in place in the project build specification, you can build the image at the command line without specifying the image name, as we did earlier. At this point, you can run the image with docker run as before (referencing the image by its new name) or you can use docker push to push the image to an image registry such as DockerHub, as shown here:
+Với cấu hình này có sẵn trong file build của dự án, bạn có thể tạo image từ dòng lệnh mà không cần chỉ định tên image như lúc trước. Tại thời điểm này, bạn có thể chạy image bằng `docker run` như trước (tham chiếu image theo tên mới) hoặc sử dụng `docker push` để đẩy image lên image registry như DockerHub, như minh họa dưới đây:
 
 ```bash
-$ docker push habuma/tacocloud:0.0.19-SNAPSHOT
+docker push habuma/tacocloud:0.0.19-SNAPSHOT
 ```
 
-Once the image is in an image registry, it can be pulled and run from any environment that has access to that registry. An increasingly common place to run images is in Kubernetes. Let’s take a look at how to run an image in Kubernetes.
+Một khi image đã được đẩy lên image registry, nó có thể được kéo và chạy từ bất kỳ môi trường nào có quyền truy cập đến registry đó. Một nơi ngày càng phổ biến để chạy image là Kubernetes. Hãy cùng tìm hiểu cách chạy image trong Kubernetes.

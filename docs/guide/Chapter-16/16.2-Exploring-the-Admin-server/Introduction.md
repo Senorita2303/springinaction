@@ -1,10 +1,10 @@
-## 16.2 Exploring the Admin server
+## 16.2 Khám phá Admin server
 
-Once you’ve registered all of the Spring Boot applications as Admin server clients, the Admin server makes a wealth of information available for seeing what’s going on inside each application, including the following:
+Khi bạn đã đăng ký tất cả các ứng dụng Spring Boot dưới dạng client của Admin server, Admin server sẽ cung cấp rất nhiều thông tin giúp bạn thấy được những gì đang diễn ra bên trong mỗi ứng dụng, bao gồm:
 
-* General health and information
-* Any metrics published through Micrometer and the /metrics endpoint
-* Environment properties
-* Logging levels for packages and classes
+* Thông tin tổng quát về tình trạng và hệ thống
+* Các số liệu (metrics) được xuất bản thông qua Micrometer và endpoint `/metrics`
+* Các thuộc tính môi trường (environment properties)
+* Mức log cho các package và class
 
-In fact, almost anything that the Actuator exposes can be viewed in the Admin server, albeit in a much more human-friendly format. This includes graphs and filters to help distill the information. The amount of information presented in the Admin server is far richer than the space we’ll have in this chapter to cover it in detail. But let me use the rest of this section to share a few of the highlights of the Admin server.
+Thực tế, hầu như bất cứ thứ gì mà Actuator cung cấp đều có thể được xem trong Admin server, nhưng ở một định dạng thân thiện với con người hơn nhiều. Điều này bao gồm các biểu đồ và bộ lọc giúp chắt lọc thông tin dễ dàng hơn. Lượng thông tin mà Admin server cung cấp phong phú hơn nhiều so với không gian có thể trình bày trong chương này. Tuy nhiên, hãy để tôi sử dụng phần còn lại của mục này để chia sẻ một vài điểm nổi bật của Admin server.

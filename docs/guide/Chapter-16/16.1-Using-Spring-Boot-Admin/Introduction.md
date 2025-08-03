@@ -1,11 +1,11 @@
-## 16.1 Using SpringBoot Admin
+## 16.1 Sử dụng Spring Boot Admin
 
-I’ve been asked several times if it’d make sense and, if so, how hard it’d be to develop a web application that consumes Actuator endpoints and serves them up in an easy-toview UI. I respond that it’s just a REST API, and, therefore, anything is possible. But why bother creating your own UI for the Actuator when the good folks at codecentric AG [https://www.codecentric.de/](https://www.codecentric.de/), a software and consulting company based in Germany, have already done the work for you?
+Tôi đã được hỏi nhiều lần rằng liệu có hợp lý không và nếu có thì việc phát triển một ứng dụng web để tiêu thụ các endpoint của Actuator và hiển thị chúng trong một giao diện người dùng dễ nhìn có khó không. Tôi trả lời rằng đây chỉ là một REST API, vì vậy, mọi thứ đều khả thi. Nhưng tại sao phải tự tạo giao diện người dùng cho Actuator trong khi những người giỏi giang tại codecentric AG [https://www.codecentric.de/](https://www.codecentric.de/), một công ty phần mềm và tư vấn tại Đức, đã làm điều đó thay bạn?
 
-Spring Boot Admin is an administrative frontend web application that makes Actuator endpoints more consumable by humans. It’s split into two primary components: the Spring Boot Admin server and its clients. The Admin server collects and displays Actuator data that’s fed to it from one or more Spring Boot applications, which are identified as Spring Boot Admin clients, as illustrated in figure 16.1.
+Spring Boot Admin là một ứng dụng web giao diện quản trị giúp các endpoint của Actuator dễ tiếp cận hơn đối với con người. Nó được chia thành hai thành phần chính: máy chủ Spring Boot Admin và các client của nó. Máy chủ Admin thu thập và hiển thị dữ liệu Actuator được gửi đến từ một hoặc nhiều ứng dụng Spring Boot, được xác định là các client của Spring Boot Admin, như minh họa trong hình 16.1.
 
-![](../../assets/16.1.png)
+![Hình 16.1](../../assets/16.1.png)
 
-**Figure 16.1 The Spring Boot Admin server consumes Actuator endpoints from one or more Spring Boot applications and presents the data in a web-based UI.** <br/>
+**Hình 16.1 Máy chủ Spring Boot Admin tiêu thụ các endpoint Actuator từ một hoặc nhiều ứng dụng Spring Boot và hiển thị dữ liệu trong một giao diện web.**
 
-You’ll need to register each of your applications with the Spring Boot Admin server, including the Taco Cloud application. But first, you’ll set up the Spring Boot Admin server to receive each client’s Actuator information.
+Bạn sẽ cần đăng ký từng ứng dụng của mình với máy chủ Spring Boot Admin, bao gồm cả ứng dụng Taco Cloud. Nhưng trước tiên, bạn sẽ thiết lập máy chủ Spring Boot Admin để nhận thông tin Actuator từ từng client.

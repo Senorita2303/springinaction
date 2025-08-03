@@ -1,21 +1,20 @@
-# Chapter 11. Introducing Reactor
+# Chương 11. Giới thiệu về Reactor
 
-This chapter covers
+Chương này bao gồm:
 
-* Understanding reactive programming
-* Project Reactor
-* Operating on data reactively
+* Hiểu về lập trình phản ứng (reactive programming)  
+* Dự án Reactor  
+* Xử lý dữ liệu theo kiểu phản ứng  
 
-Have you ever held a subscription for a newspaper or a magazine? The internet has certainly taken a bite out of the subscriber base of traditional publications, but there was a time when a newspaper subscription was one of the best ways to keep up with the events of the day. You could count on a fresh delivery of current events every morning, to read during breakfast or on the way to work.
+Bạn đã từng đăng ký nhận báo hoặc tạp chí chưa? Internet chắc chắn đã làm giảm số lượng người đăng ký các ấn phẩm truyền thống, nhưng đã từng có thời điểm mà việc đăng ký nhận báo là một trong những cách tốt nhất để cập nhật các sự kiện trong ngày. Mỗi sáng, bạn có thể tin tưởng rằng sẽ nhận được một tờ báo mới với những tin tức thời sự, để đọc trong khi ăn sáng hoặc trên đường đi làm.
 
-Now suppose that if, after paying for your subscription, several days go by and no papers have been delivered. A few more days go by, and you call the newspaper sales office to ask why you haven’t yet received your daily paper. Imagine your surprise if they explain, “You paid for a full year of newspapers. The year hasn’t completed yet. You’ll certainly receive them all once the full year of newspapers is ready.”
+Bây giờ, giả sử rằng sau khi bạn đã trả tiền cho đăng ký báo, nhiều ngày trôi qua mà không có tờ báo nào được giao đến. Thêm vài ngày nữa, bạn gọi điện đến văn phòng bán báo để hỏi lý do vì sao mình vẫn chưa nhận được báo hằng ngày. Hãy tưởng tượng sự ngạc nhiên của bạn nếu họ giải thích rằng: “Bạn đã trả tiền cho một năm báo đầy đủ. Năm đó vẫn chưa kết thúc. Bạn chắc chắn sẽ nhận được tất cả báo khi đủ cả năm.”  
 
-Thankfully, that’s not at all how subscriptions work. Newspapers have a certain timeliness to them. They’re delivered as quickly as possible after publication so that they can be read while their content is still fresh. Moreover, as you’re reading the latest issue, newspaper reporters are writing new stories for future editions, and the presses are fired up producing the next edition—all in parallel.
+Thật may, đó không phải là cách các đăng ký hoạt động. Báo chí có tính thời sự. Chúng được giao càng nhanh càng tốt sau khi phát hành, để người đọc có thể tiếp cận thông tin khi nội dung còn mới. Hơn nữa, trong khi bạn đang đọc số báo mới nhất, các phóng viên đã bắt đầu viết các câu chuyện mới cho số tiếp theo, và máy in đang vận hành để sản xuất ấn bản kế tiếp — tất cả đều diễn ra song song.
 
-As we develop application code, we can write two styles of code—imperative and reactive, which are described as follows:
+Khi chúng ta phát triển mã ứng dụng, ta có thể viết theo hai phong cách — mệnh lệnh (imperative) và phản ứng (reactive), được mô tả như sau:
 
-* _Imperative_ code is a lot like that absurd hypothetical newspaper subscription. It’s a serial set of tasks, each running one at a time, each after the previous task. Data is processed in bulk and can’t be handed over to the next task until the previous task has completed its work on the bulk of data.
-* _Reactive_ code is a lot like a real newspaper subscription. A set of tasks is defined to process data, but those tasks can run in parallel. Each task can process subsets of the data, handing it off to the next task in line while it continues to work on another subset of the data.
+* Mã _mệnh lệnh_ thì giống như ví dụ đăng ký báo phi lý bên trên. Đó là một chuỗi các tác vụ tuần tự, mỗi tác vụ chạy sau khi tác vụ trước hoàn thành. Dữ liệu được xử lý theo lô và không thể chuyển sang tác vụ tiếp theo cho đến khi tác vụ hiện tại xử lý xong toàn bộ lô dữ liệu đó.
+* Mã _phản ứng_ thì giống như việc đăng ký báo thực tế. Một loạt các tác vụ được xác định để xử lý dữ liệu, nhưng các tác vụ đó có thể chạy song song. Mỗi tác vụ có thể xử lý một phần dữ liệu, chuyển nó sang tác vụ tiếp theo trong khi tiếp tục làm việc với phần dữ liệu khác.
 
-In this chapter, we’re going to step away from the Taco Cloud application temporarily to explore Project Reactor [https://projectreactor.io/](https://projectreactor.io/). Reactor is a library for reactive programming that’s part of the Spring family of projects. And because it serves as the foundation of Spring’s support for reactive programming, it’s important that you understand Reactor before we look at building reactive controllers and repositories with Spring. Before we start working with Reactor, though, let’s quickly examine the essentials of reactive programming.
-
+Trong chương này, chúng ta sẽ tạm thời rời khỏi ứng dụng Taco Cloud để khám phá Project Reactor [https://projectreactor.io/](https://projectreactor.io/). Reactor là một thư viện lập trình phản ứng thuộc hệ sinh thái của các dự án Spring. Và vì nó đóng vai trò nền tảng cho hỗ trợ lập trình phản ứng trong Spring, nên điều quan trọng là bạn cần hiểu rõ về Reactor trước khi chúng ta tìm hiểu cách xây dựng các controller và repository phản ứng với Spring. Tuy nhiên, trước khi bắt đầu làm việc với Reactor, chúng ta hãy nhanh chóng xem qua các yếu tố cơ bản của lập trình phản ứng.
