@@ -1,8 +1,8 @@
-## 11.2 Getting started with Reactor
+## 11.2 Bắt đầu với Reactor
 
-Reactive programming requires us to think in a very different way from imperative programming. Rather than describe a set of steps to be taken, reactive programming means building a pipeline through which data will flow. As data passes through the pipeline, it can be altered or used in some way.
+Lập trình phản ứng (reactive programming) yêu cầu chúng ta phải suy nghĩ theo một cách rất khác so với lập trình tuần tự (imperative programming). Thay vì mô tả một tập hợp các bước cần thực hiện, lập trình phản ứng nghĩa là xây dựng một pipeline mà dữ liệu sẽ chảy qua. Khi dữ liệu đi qua pipeline, nó có thể được thay đổi hoặc sử dụng theo một cách nào đó.
 
-For example, suppose you want to take a person’s name, change all of the letters to uppercase, use it to create a greeting message, and then finally print it. In an imperative programming model, the code would look something like this:
+Ví dụ, giả sử bạn muốn lấy tên của một người, chuyển tất cả các chữ cái sang chữ hoa, sử dụng nó để tạo một thông điệp chào hỏi, và cuối cùng in nó ra. Trong mô hình lập trình tuần tự, mã sẽ trông như thế này:
 
 ```java
 String name = "Craig";
@@ -11,9 +11,9 @@ String greeting = "Hello, " + capitalName + "!";
 System.out.println(greeting);
 ```
 
-In the imperative model, each line of code performs a step, one right after the other, and definitely in the same thread. Each step blocks the executing thread from moving to the next step until complete.
+Trong mô hình tuần tự, mỗi dòng mã thực hiện một bước, lần lượt theo thứ tự, và chắc chắn là trong cùng một luồng (thread). Mỗi bước sẽ chặn luồng thực thi cho đến khi hoàn tất trước khi chuyển sang bước tiếp theo.
 
-In contrast, functional, reactive code could achieve the same thing like this:
+Ngược lại, mã phản ứng theo hướng hàm (functional reactive code) có thể đạt được điều tương tự như sau:
 
 ```java
 Mono.just("Craig")
@@ -22,16 +22,14 @@ Mono.just("Craig")
     .subscribe(System.out::println);
 ```
 
-Don’t worry too much about the details of this example; we’ll talk all about the `just()`, `map()`, and `subscribe()` operations soon enough. For now, it’s important to understand that although the reactive example still seems to follow a step-by-step model, it’s really a pipeline that data flows through. At each phase of the pipeline, the data is tweaked somehow, but no assumption can be made about which thread any of the operations are performed on. They may be the same thread . . . or they may not be.
+Đừng quá lo lắng về chi tiết của ví dụ này; chúng ta sẽ sớm bàn về các thao tác `just()`, `map()` và `subscribe()`. Hiện tại, điều quan trọng là hiểu rằng mặc dù ví dụ phản ứng vẫn có vẻ như tuân theo mô hình từng bước, nhưng thật ra đó là một pipeline mà dữ liệu sẽ chảy qua. Ở mỗi giai đoạn của pipeline, dữ liệu sẽ được tinh chỉnh theo một cách nào đó, nhưng không thể giả định rằng các thao tác đó sẽ được thực hiện trên luồng nào. Chúng có thể là cùng một luồng... hoặc cũng có thể không.
 
-The `Mono` in the example is one of Reactor’s two core types. `Flux` is the other. Both are implementations of Reactive Streams’ Publisher. A `Flux` represents a pipeline of zero, one, or many (potentially infinite) data items. A `Mono` is a specialized reactive type that’s optimized for when the dataset is known to have no more than one data item.
+`Mono` trong ví dụ là một trong hai kiểu lõi của Reactor. `Flux` là kiểu còn lại. Cả hai đều là các hiện thực của Publisher trong Reactive Streams. Một `Flux` đại diện cho một pipeline với không, một hoặc nhiều (thậm chí vô hạn) phần tử dữ liệu. Một `Mono` là một kiểu phản ứng chuyên biệt, được tối ưu hóa cho các trường hợp mà dữ liệu có nhiều nhất chỉ một phần tử.
 
 > Reactor vs RxJava (ReactiveX)
 >
-> If you’re already familiar with RxJava or ReactiveX, you may be thinking that `Mono` and `Flux` sound a lot like `Observable` and `Single`. In fact, they’re approximately equivalent semantically. They even offer many of the same operations.
+> Nếu bạn đã quen với RxJava hoặc ReactiveX, bạn có thể đang nghĩ rằng `Mono` và `Flux` nghe khá giống với `Observable` và `Single`. Thật ra, chúng gần như tương đương về mặt ngữ nghĩa. Chúng thậm chí còn cung cấp nhiều thao tác giống nhau.
 >
-> Although we focus on Reactor in this book, you may be happy to know that it’s possible to covert between Reactor and RxJava types. Moreover, as you’ll see in the following chapters, Spring can also work with RxJava types.
+> Mặc dù chúng ta tập trung vào Reactor trong cuốn sách này, bạn có thể yên tâm rằng hoàn toàn có thể chuyển đổi giữa các kiểu của Reactor và RxJava. Hơn nữa, như bạn sẽ thấy trong các chương tiếp theo, Spring cũng có thể làm việc với các kiểu dữ liệu của RxJava.
 
-The previous example actually contains three `Mono` objects. The `just()` operation creates the first one. When the `Mono` emits a value, that value is given to the `map()` operation to be capitalized and used to create another `Mono`. When the second `Mono` publishes its data, it’s given to the second `map()` operation to do some `String` concatenation, the results of which are used to create the third `Mono`. Finally, the call to `subscribe()` subscribes to the `Mono`, receives the data, and prints it.
-
-
+Ví dụ trước thực tế chứa ba đối tượng `Mono`. Thao tác `just()` tạo ra đối tượng đầu tiên. Khi `Mono` này phát ra một giá trị, giá trị đó được đưa vào thao tác `map()` để được chuyển thành chữ hoa và dùng để tạo ra một `Mono` thứ hai. Khi `Mono` thứ hai phát ra dữ liệu, nó được đưa vào thao tác `map()` thứ hai để thực hiện nối chuỗi `String`, kết quả được dùng để tạo `Mono` thứ ba. Cuối cùng, lệnh gọi `subscribe()` sẽ đăng ký (subscribe) với `Mono`, nhận dữ liệu và in nó ra.

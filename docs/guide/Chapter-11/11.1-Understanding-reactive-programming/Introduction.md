@@ -1,27 +1,26 @@
-## 11.1 Understanding reactive programming
+## 11.1 Tìm hiểu lập trình phản ứng (reactive programming)
 
-Reactive programming is a paradigm that’s an alternative to imperative programming.
-This alternative exists because reactive programming addresses a limitation in imperative programming. By understanding these limitations, you can better grasp the benefits of the reactive model.
+Lập trình phản ứng là một mô hình lập trình thay thế cho lập trình mệnh lệnh.  
 
-> NOTE：Reactive programming isn’t a silver bullet. In no way should you infer from this chapter or any other discussion of reactive programming that imperative programming is evil and that reactive programming is your savior. Like anything you learn as a developer, reactive programming is a perfect fit in some use cases, and it’s ill-fitted in others. An ounce of pragmatism is advised.
+Sự thay thế này xuất hiện bởi vì lập trình phản ứng giải quyết một số giới hạn trong lập trình mệnh lệnh. Bằng cách hiểu rõ những giới hạn này, bạn sẽ dễ dàng nắm bắt được lợi ích mà mô hình phản ứng mang lại.
 
-If you’re like me and many developers, you cut your programming teeth with imperative programming. There’s a good chance that most (or all) of the code you write today is still imperative in nature. Imperative programming is intuitive enough that young students are learning it with ease in their school’s STEM programs, and it’s powerful enough that it makes up the bulk of code that drives the largest enterprises.
+> LƯU Ý: Lập trình phản ứng không phải là viên đạn bạc. Bạn không nên suy luận từ chương này hay bất kỳ cuộc thảo luận nào khác về lập trình phản ứng rằng lập trình mệnh lệnh là xấu xa và lập trình phản ứng là vị cứu tinh. Giống như bất kỳ kỹ thuật nào bạn học được với tư cách là một lập trình viên, lập trình phản ứng là lựa chọn hoàn hảo trong một số trường hợp, và không phù hợp trong các trường hợp khác. Một chút thực tế và linh hoạt là cần thiết.
 
-The idea is simple: you write code as a list of instructions to be followed, one at a time, in the order that they’re encountered. A task is performed and the program waits for it to complete before moving on to the next task. At each step along the way, the data that’s to be processed must be fully available so that it can be processed as a whole.
+Nếu bạn giống tôi và nhiều lập trình viên khác, bạn bắt đầu học lập trình với lập trình mệnh lệnh. Rất có thể phần lớn (hoặc toàn bộ) mã bạn viết ngày nay vẫn mang tính mệnh lệnh. Lập trình mệnh lệnh đủ trực quan để học sinh có thể tiếp cận dễ dàng trong các chương trình STEM ở trường, và nó cũng đủ mạnh mẽ để chiếm phần lớn mã đang vận hành tại các doanh nghiệp lớn nhất thế giới.
 
-This is fine . . . until it isn’t. While a task is being performed—and especially if it’s an I/O task, such as writing data to a database or fetching data from a remote server — the thread that invoked that task is blocked, unable to do anything else until the task completes. To put it bluntly, blocked threads are wasteful.
+Ý tưởng rất đơn giản: bạn viết mã như một danh sách các chỉ dẫn được thực hiện tuần tự, từng bước một, theo đúng thứ tự xuất hiện. Một tác vụ được thực hiện và chương trình chờ nó hoàn tất trước khi chuyển sang tác vụ tiếp theo. Ở mỗi bước, dữ liệu cần xử lý phải sẵn sàng đầy đủ để có thể xử lý toàn bộ.
 
-Most programming languages, including Java, support concurrent programming. It’s fairly easy to fire up another thread in Java and send it on its way to perform some work while the invoking thread carries on with something else. But although it’s easy to create threads, those threads are likely to end up blocked themselves. Managing concurrency in multiple threads is challenging. More threads mean more complexity.
+Điều này hoàn toàn ổn... cho đến khi nó không còn ổn nữa. Trong khi một tác vụ đang được thực hiện — đặc biệt là tác vụ I/O như ghi dữ liệu vào cơ sở dữ liệu hoặc truy xuất dữ liệu từ máy chủ từ xa — thì luồng thực thi tác vụ đó sẽ bị chặn, không thể làm bất kỳ điều gì khác cho đến khi tác vụ hoàn tất. Nói thẳng ra, các luồng bị chặn là sự lãng phí tài nguyên.
 
-In contrast, reactive programming is functional and declarative in nature. Rather than describe a set of steps that are to be performed sequentially, reactive programming involves describing a pipeline or stream through which data flows. Rather than requiring the data to be available and processed as a whole, a reactive stream processes data as it becomes available. In fact, the incoming data may be endless (a constant stream of a location’s real-time temperature data, for instance).
+Hầu hết các ngôn ngữ lập trình, bao gồm cả Java, đều hỗ trợ lập trình song song. Việc khởi tạo một luồng mới trong Java để thực hiện một công việc trong khi luồng chính tiếp tục thực hiện công việc khác là khá đơn giản. Tuy nhiên, mặc dù dễ tạo luồng, các luồng đó lại rất dễ bị chặn. Việc quản lý sự song song trong nhiều luồng là một thử thách. Càng nhiều luồng, độ phức tạp càng tăng.
 
-> NOTE：If you’re new to functional programming in Java, you may want to have a look at _Functional Programming in Java_ by Pierre-Yves Saumont (Manning, 2017), or _Grokking Functional Programming_ by Michał Płachta (Manning, 2021).
+Ngược lại, lập trình phản ứng mang tính hàm và khai báo. Thay vì mô tả một tập hợp các bước thực hiện tuần tự, lập trình phản ứng mô tả một pipeline hoặc dòng dữ liệu mà dữ liệu sẽ chảy qua. Thay vì yêu cầu dữ liệu phải có đầy đủ để xử lý toàn bộ, một dòng phản ứng xử lý dữ liệu khi nó đến. Trên thực tế, dữ liệu đầu vào có thể là bất tận (ví dụ: luồng dữ liệu nhiệt độ thời gian thực của một địa điểm).
 
-To apply a real-world analogy, consider imperative programming as a water balloon and reactive programming as a garden hose. Both are suitable ways to surprise and soak an unsuspecting friend on a hot summer day. But they differ in their execution style as follows:
+> LƯU Ý：Nếu bạn chưa quen với lập trình hàm trong Java, bạn có thể tham khảo _Functional Programming in Java_ của Pierre-Yves Saumont (Manning, 2017), hoặc _Grokking Functional Programming_ của Michał Płachta (Manning, 2021).
 
-* A water balloon carries its payload all at once, soaking its intended target at the moment of impact. The water balloon has a finite capacity, however, and if you wish to soak more people (or the same person to a greater extent), your only choice is to scale up by increasing the number of water balloons.
-* A garden hose carries its payload as a stream of water that flows from the spigot to the nozzle. The garden hose’s capacity may be finite at any given point in time, but it’s unlimited over the course of a water battle. As long as water is entering the hose from the spigot, it will continue to flow through the hose and spray out of the nozzle. The same garden hose is easily scalable to soak as many friends as you wish.
+Để áp dụng một phép so sánh ngoài đời thực, hãy coi lập trình mệnh lệnh như là một quả bóng nước và lập trình phản ứng như một vòi phun nước. Cả hai đều là cách phù hợp để gây bất ngờ và làm ướt một người bạn không phòng bị trong ngày hè nóng nực. Nhưng chúng khác nhau về cách thức hoạt động như sau:
 
-There’s nothing inherently wrong with water balloons (or imperative programming), but the person holding the garden hose (or applying reactive programming) has an advantage in regard to scalability and performance.
+* Một quả bóng nước mang toàn bộ lượng nước của nó trong một lần, làm ướt mục tiêu vào thời điểm va chạm. Tuy nhiên, quả bóng nước có dung lượng hữu hạn, và nếu bạn muốn làm ướt thêm người khác (hoặc cùng một người nhiều hơn), bạn buộc phải tăng số lượng bóng nước.
+* Một vòi nước mang lượng nước như một dòng chảy liên tục từ vòi đến đầu phun. Mặc dù tại một thời điểm dòng nước là hữu hạn, nhưng tổng thể trong suốt "trận chiến nước", nó là vô hạn. Miễn là nước vẫn chảy từ vòi vào, nó sẽ tiếp tục chảy qua ống và phun ra đầu vòi. Cùng một vòi nước có thể dễ dàng mở rộng để làm ướt bao nhiêu người tùy thích.
 
-
+Không có gì sai với bóng nước (hoặc lập trình mệnh lệnh), nhưng người cầm vòi nước (hoặc sử dụng lập trình phản ứng) có lợi thế về khả năng mở rộng và hiệu năng.
