@@ -1,12 +1,12 @@
-## 12.5 Securing reactive web APIs
+## 12.5 Bảo mật các API web phản ứng
 
-For as long as there has been Spring Security (and even before that, when it was known as Acegi Security), its web security model has been built around servlet filters. After all, it just makes sense. If you need to intercept a request bound for a servletbased web framework to ensure that the requester has proper authority, a servlet filter is an obvious choice. But Spring WebFlux puts a kink into that approach.
+Từ khi Spring Security xuất hiện (và thậm chí trước đó, khi nó còn được gọi là Acegi Security), mô hình bảo mật web của nó đã được xây dựng dựa trên các bộ lọc servlet. Điều này rất hợp lý. Nếu bạn cần chặn một yêu cầu gửi đến một framework web dựa trên servlet để đảm bảo rằng người gửi có quyền phù hợp, thì bộ lọc servlet là một lựa chọn hiển nhiên. Tuy nhiên, Spring WebFlux lại làm thay đổi cách tiếp cận này.
 
-When writing a web application with Spring WebFlux, there’s no guarantee that servlets are even involved. In fact, a reactive web application is debatably more likely to be built on Netty or some other nonservlet server. Does this mean that the servlet filter–based Spring Security can’t be used to secure Spring WebFlux applications?
+Khi viết một ứng dụng web với Spring WebFlux, không có gì đảm bảo rằng servlet sẽ tham gia vào quá trình xử lý. Trên thực tế, một ứng dụng web phản ứng thường có xu hướng được xây dựng trên Netty hoặc một máy chủ phi servlet khác. Điều này có nghĩa là không thể sử dụng Spring Security dựa trên bộ lọc servlet để bảo vệ các ứng dụng Spring WebFlux?
 
-It’s true that using servlet filters isn’t an option when securing a Spring WebFlux application. But Spring Security is still up to the task. Starting with version 5.0.0, you can use Spring Security to secure both servlet-based Spring MVC and reactive Spring WebFlux applications. It does this using Spring’s `WebFilter`, a Spring-specific analog to servlet filters that doesn’t demand dependence on the servlet API.
+Đúng là việc sử dụng các bộ lọc servlet không phải là một lựa chọn khi bảo vệ ứng dụng Spring WebFlux. Nhưng Spring Security vẫn có thể đảm nhiệm công việc này. Bắt đầu từ phiên bản 5.0.0, bạn có thể sử dụng Spring Security để bảo vệ cả hai loại ứng dụng: dựa trên servlet (Spring MVC) và phản ứng (Spring WebFlux). Nó thực hiện điều này thông qua `WebFilter` của Spring, một thành phần tương tự với bộ lọc servlet nhưng không yêu cầu phụ thuộc vào API servlet.
 
-What’s even more remarkable, though, is that the configuration model for reactive Spring Security isn’t much different from what you saw in chapter 4. In fact, unlike Spring WebFlux, which has a separate dependency from Spring MVC, Spring Security comes as the same Spring Boot security starter, regardless of whether you intend to use it to secure a Spring MVC web application or one written with Spring WebFlux. As a reminder, here’s what the security starter looks like:
+Điều đáng chú ý hơn nữa là mô hình cấu hình của Spring Security phản ứng không khác biệt nhiều so với những gì bạn đã thấy trong chương 4. Trên thực tế, không giống như Spring WebFlux – vốn có một phần phụ thuộc riêng biệt với Spring MVC – Spring Security chỉ sử dụng một starter bảo mật duy nhất của Spring Boot, bất kể bạn định sử dụng nó để bảo vệ một ứng dụng web Spring MVC hay một ứng dụng viết bằng Spring WebFlux. Để nhắc lại, đây là cách phần phụ thuộc starter bảo mật được định nghĩa:
 
 ```xml
 <dependency>
@@ -15,6 +15,4 @@ What’s even more remarkable, though, is that the configuration model for react
 </dependency>
 ```
 
-That said, a few small differences exist between Spring Security’s reactive and nonreactive configuration models. It’s worth taking a quick look at how the two configuration models compare.
-
-
+Điều đó nói lên rằng, vẫn có một vài điểm khác biệt nhỏ giữa mô hình cấu hình phản ứng và không phản ứng của Spring Security. Sẽ rất đáng để dành chút thời gian để so sánh nhanh hai mô hình cấu hình này.

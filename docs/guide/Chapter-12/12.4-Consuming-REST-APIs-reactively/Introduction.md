@@ -1,19 +1,17 @@
-## 12.4 Consuming REST APIs reactively
+## 12.4 Tiêu thụ API REST một cách phản ứng (reactively)
 
-In chapter 8, you used `RestTemplate` to make client requests to the Taco Cloud API. `RestTemplate` is an old-timer, having been introduced in Spring version 3.0. In its time, it has been used to make countless requests on behalf of the applications that employ it.
+Trong chương 8, bạn đã sử dụng `RestTemplate` để thực hiện các yêu cầu từ phía client tới API của Taco Cloud. `RestTemplate` là một công cụ lâu đời, được giới thiệu trong Spring phiên bản 3.0. Trong suốt thời gian tồn tại, nó đã được sử dụng để thực hiện vô số yêu cầu cho các ứng dụng sử dụng nó.
 
-But all of the methods provided by `RestTemplate` deal in nonreactive domain types and collections. This means that if you want to work with a response’s data in a reactive way, you’ll need to wrap it with a `Flux` or `Mono`. And if you already have a `Flux` or `Mono` and you want to send it in a `POST` or `PUT` request, then you’ll need to extract the data into a nonreactive type before making the request.
+Tuy nhiên, tất cả các phương thức được cung cấp bởi `RestTemplate` đều xử lý các kiểu dữ liệu và tập hợp không phản ứng. Điều này có nghĩa là nếu bạn muốn làm việc với dữ liệu phản hồi theo cách phản ứng, bạn sẽ cần phải bao bọc nó bằng `Flux` hoặc `Mono`. Và nếu bạn đã có một `Flux` hoặc `Mono` và muốn gửi nó trong một yêu cầu `POST` hoặc `PUT`, thì bạn sẽ cần phải trích xuất dữ liệu thành một kiểu không phản ứng trước khi gửi yêu cầu.
 
-It would be nice if there was a way to use `RestTemplate` natively with reactive types. Fear not. Spring offers `WebClient` as a reactive alternative to `RestTemplate`. `WebClient` lets you both send and receive reactive types when making requests to external APIs.
+Sẽ rất tiện lợi nếu có một cách để sử dụng `RestTemplate` một cách tự nhiên với các kiểu phản ứng. Đừng lo lắng. Spring cung cấp `WebClient` như một lựa chọn thay thế phản ứng cho `RestTemplate`. `WebClient` cho phép bạn cả gửi và nhận các kiểu phản ứng khi thực hiện các yêu cầu tới các API bên ngoài.
 
-Using `WebClient` is quite different from using `RestTemplate`. Rather than having several methods to handle different kinds of requests, `WebClient` has a fluent builderstyle interface that lets you describe and send requests. The general usage pattern for working with `WebClient` follows:
+Việc sử dụng `WebClient` khá khác so với `RestTemplate`. Thay vì có nhiều phương thức để xử lý các loại yêu cầu khác nhau, `WebClient` có giao diện dạng builder theo phong cách chuỗi (fluent builder-style) cho phép bạn mô tả và gửi các yêu cầu. Mô hình sử dụng chung khi làm việc với `WebClient` như sau:
 
-* Create an instance of `WebClient` (or inject a `WebClient` bean)
-* Specify the HTTP method of the request to send
-* Specify the URI and any headers that should be in the request
-* Submit the request
-* Consume the response
+* Tạo một instance của `WebClient` (hoặc inject một bean `WebClient`)
+* Chỉ định phương thức HTTP của yêu cầu cần gửi
+* Chỉ định URI và bất kỳ header nào cần có trong yêu cầu
+* Gửi yêu cầu
+* Xử lý phản hồi
 
-Let’s look at several examples of `WebClient` in action, starting with how to use `WebClient` to send HTTP GET requests.
-
-
+Hãy cùng xem một số ví dụ sử dụng `WebClient`, bắt đầu với cách dùng `WebClient` để gửi các yêu cầu HTTP GET.

@@ -1,3 +1,3 @@
-## 12.3 Testing reactive controllers
+## 12.3 Kiểm thử các controller phản ứng
 
-When it comes to testing reactive controllers, Spring hasn’t left us in the lurch. Indeed, Spring has introduced `WebTestClient`, a new test utility that makes it easy to write tests for reactive controllers written with Spring WebFlux. To see how to write tests with `WebTestClient`, let’s start by using it to test the `recentTacos()` method from the `TacoController` that you wrote in section 12.1.2.
+Khi nói đến việc kiểm thử các controller phản ứng, Spring không hề bỏ rơi chúng ta. Thật vậy, Spring đã giới thiệu `WebTestClient`, một tiện ích kiểm thử mới giúp việc viết các bài kiểm thử cho controller phản ứng được viết bằng Spring WebFlux trở nên dễ dàng hơn. Để xem cách viết các bài kiểm thử với `WebTestClient`, hãy bắt đầu bằng cách sử dụng nó để kiểm thử phương thức `recentTacos()` từ lớp `TacoController` mà bạn đã viết trong mục 12.1.2.
