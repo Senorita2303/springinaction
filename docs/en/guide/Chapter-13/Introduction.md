@@ -3,8 +3,7 @@
 This chapter covers
 
 * Reactive relational persistence with R2DBC
-* Defining reactive repositories for MongoDB and
-Cassandra
+* Defining reactive repositories for MongoDB and Cassandra
 * Testing reactive repositories
 
 If we’ve learned one thing from science fiction, it’s that if you want to improve upon past experiences, all you need is a little time travel. It worked in Back to the Future, several episodes of various Star Trek shows, _Avengers: Endgame, and Stephen King’s 11/22/63_. (OK, well maybe that last one didn’t turn out better. But you get the idea.)

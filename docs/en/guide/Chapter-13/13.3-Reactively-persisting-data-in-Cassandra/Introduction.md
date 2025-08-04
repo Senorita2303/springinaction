@@ -41,5 +41,3 @@ WITH replication = {'class': ’SimpleStrategy', 'replication_factor' : 1};
 ```
 
 Now that you have a Cassandra cluster, a new `tacocloud` keyspace, and the Spring Data Cassandra Reactive starter in your project, you’re ready to start defining the domain classes.
-
-
