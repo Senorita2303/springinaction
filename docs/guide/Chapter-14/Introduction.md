@@ -1,16 +1,17 @@
-# Chapter 14. Working with RSocket
+# Chương 14. Làm việc với RSocket
 
-This chapter covers
-* Reactive network communication with RSocket
-* Working with each of RSocket’s four communication models
-* Transporting RSocket over WebSocket
+Chương này bao gồm:
 
-There was a time, before telephones and modern electronics, when the best way to communicate with friends and family that live far away involved writing a letter and dropping it in the mail. It wasn’t a quick form of communication, taking several days or even weeks before you’d receive a response, but it was effective and truly the only option available.
+* Giao tiếp mạng phản ứng với RSocket  
+* Làm việc với bốn mô hình giao tiếp của RSocket  
+* Truyền RSocket qua WebSocket  
 
-Thanks to Alexander Graham Bell, the telephone offered a new way to talk with distant friends and family, giving near-real-time, synchronous communication The telephone has evolved quite a bit since Mr. Bell’s first invention, but it’s still a popular means of keeping in touch, making letter-writing nearly a lost art.
+Đã từng có thời điểm, trước khi có điện thoại và các thiết bị điện tử hiện đại, cách tốt nhất để liên lạc với bạn bè và gia đình ở xa là viết thư và gửi qua đường bưu điện. Đó không phải là một hình thức liên lạc nhanh chóng — mất vài ngày, thậm chí vài tuần để nhận được phản hồi — nhưng nó hiệu quả và thực sự là lựa chọn duy nhất vào thời điểm đó.
 
-When it comes to communication between applications, the request-response model offered by HTTP and REST services is quite common, but it has limitations. Much like letter-writing, request-response involves sending a message and then waiting for a response. It doesn’t easily allow for asynchronous communication in which a server might respond with a stream of responses or allow for an open bidirectional channel on which a client and server can repeatedly send data to each other.
+Nhờ có Alexander Graham Bell, điện thoại đã mang đến một cách mới để trò chuyện với bạn bè và gia đình ở xa, cung cấp khả năng giao tiếp đồng bộ gần như theo thời gian thực. Điện thoại đã phát triển rất nhiều kể từ phát minh đầu tiên của ông Bell, nhưng nó vẫn là một phương tiện phổ biến để giữ liên lạc, khiến việc viết thư gần như trở thành một nghệ thuật đã mai một.
 
-In this chapter, we’re going to look at RSocket, a relatively new protocol for interapplication communication that allows for more than simple request-response communication. And because it’s reactive in nature, it can be far more efficient than blocking HTTP requests.
+Khi nói đến giao tiếp giữa các ứng dụng, mô hình yêu cầu - phản hồi (request-response) do HTTP và các dịch vụ REST cung cấp là rất phổ biến, nhưng nó có những hạn chế. Cũng giống như viết thư, mô hình request-response liên quan đến việc gửi một tin nhắn và sau đó chờ đợi phản hồi. Nó không dễ dàng hỗ trợ giao tiếp bất đồng bộ, nơi máy chủ có thể phản hồi bằng một luồng các phản hồi hoặc cho phép một kênh hai chiều mở, nơi client và server có thể liên tục gửi dữ liệu qua lại.
 
-Along the way, we’ll see how to develop RSocket communication in Spring. But first, let’s take a high-level look at RSocket to see what makes it different from HTTPbased communication.
+Trong chương này, chúng ta sẽ tìm hiểu RSocket — một giao thức tương đối mới cho việc giao tiếp giữa các ứng dụng, cho phép nhiều hơn việc giao tiếp theo kiểu request-response đơn thuần. Và bởi vì nó mang bản chất phản ứng, nó có thể hiệu quả hơn nhiều so với các yêu cầu HTTP dạng blocking.
+
+Trong quá trình đó, chúng ta cũng sẽ tìm hiểu cách phát triển giao tiếp RSocket trong Spring. Nhưng trước tiên, hãy cùng xem tổng quan về RSocket để hiểu điều gì khiến nó khác biệt so với giao tiếp dựa trên HTTP.

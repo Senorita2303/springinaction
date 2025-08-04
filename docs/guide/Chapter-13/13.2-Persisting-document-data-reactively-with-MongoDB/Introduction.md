@@ -1,8 +1,8 @@
-## 13.2 Persisting document data reactively with MongoDB
+## 13.2 Lưu trữ dữ liệu tài liệu một cách phản ứng với MongoDB
 
-In chapter 4, we used Spring Data MongoDB to define document-based persistence against a MongoDB document database. In this section, we’re going to revisit MongoDB persistence using Spring Data’s reactive support for MongoDB.
+Trong chương 4, chúng ta đã sử dụng Spring Data MongoDB để định nghĩa cách lưu trữ dựa trên tài liệu đối với cơ sở dữ liệu MongoDB. Trong phần này, chúng ta sẽ xem lại cách lưu trữ với MongoDB, sử dụng hỗ trợ phản ứng của Spring Data dành cho MongoDB.
 
-To get started, you’ll need to create a project with the Spring Data Reactive MongoDB starter. That is, in fact, the name of the check box to select when creating the project with the Inita
+Để bắt đầu, bạn cần tạo một dự án với starter **Spring Data Reactive MongoDB**. Thực tế, đây chính là tên của ô chọn khi bạn tạo dự án bằng công cụ **Initializer**.
 
 ```xml
 <dependency>
@@ -11,6 +11,6 @@ To get started, you’ll need to create a project with the Spring Data Reactive 
 </dependency>
 ```
 
-In chapter 4, we also leaned on the Flapdoodle embedded MongoDB database for testing. Unfortunately, Flapdoodle doesn’t behave quite as well when fronted with reactive repositories. When it comes to running the tests, you’ll need to have an actual Mongo database running and listening on port 27017.
+Trong chương 4, chúng ta cũng đã sử dụng cơ sở dữ liệu MongoDB nhúng của Flapdoodle để phục vụ kiểm thử. Đáng tiếc là Flapdoodle không hoạt động ổn định khi kết hợp với các repository phản ứng. Vì vậy, khi chạy kiểm thử, bạn cần có một cơ sở dữ liệu MongoDB thực sự đang chạy và lắng nghe tại cổng 27017.
 
-Now we’re ready to start writing code for reactive MongoDB persistence. We’ll start with the document types that make up our domain.
+Giờ đây, chúng ta đã sẵn sàng bắt đầu viết mã để lưu trữ MongoDB theo cách phản ứng. Chúng ta sẽ bắt đầu với các kiểu tài liệu tạo nên miền nghiệp vụ của ứng dụng.

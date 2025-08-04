@@ -1,6 +1,6 @@
-## 13.3 Reactively persisting data in Cassandra
+## 13.3 Lưu trữ dữ liệu một cách phản ứng trong Cassandra
 
-To get started with reactive persistence against a Cassandra database, you’ll need to add the following starter dependency to your project build. This dependency is in lieu of any Mongo or R2DBC dependencies we’ve used earlier.
+Để bắt đầu với việc lưu trữ phản ứng (reactive persistence) đối với cơ sở dữ liệu Cassandra, bạn sẽ cần thêm phần phụ thuộc starter sau vào cấu hình build của dự án. Phần phụ thuộc này sẽ thay thế cho bất kỳ phần phụ thuộc Mongo hoặc R2DBC nào mà chúng ta đã sử dụng trước đó.
 
 ```xml
 <dependency>
@@ -9,7 +9,7 @@ To get started with reactive persistence against a Cassandra database, you’ll 
 </dependency>
 ```
 
-Then, you’ll need to declare some details about the Cassandra keyspace and how the schema should be managed. In your application.yml file, add the following lines:
+Sau đó, bạn sẽ cần khai báo một số chi tiết về keyspace của Cassandra và cách mà schema sẽ được quản lý. Trong tệp `application.yml`, thêm các dòng sau:
 
 ```yaml
 spring:
@@ -22,9 +22,9 @@ spring:
       local-datacenter: datacenter1
 ```
 
-This is the same YAML configuration we used in chapter 4 when working with nonreactive Cassandra repositories. The key thing to take note of is the `keyspace-name`. It is important that you create a keyspace with that name in your Cassandra cluster.
+Đây là cấu hình YAML giống với cấu hình mà chúng ta đã sử dụng trong chương 4 khi làm việc với các repository Cassandra không phản ứng. Điều quan trọng cần lưu ý là `keyspace-name`. Việc bạn tạo một keyspace với tên đó trong cụm Cassandra của mình là rất cần thiết.
 
-You’ll also need to have a Cassandra cluster running on your local machine listening on port 9042. The easiest way to do that is with Docker, as follows:
+Bạn cũng sẽ cần có một cụm Cassandra đang chạy trên máy cục bộ của mình và lắng nghe tại cổng 9042. Cách dễ nhất để làm điều đó là sử dụng Docker như sau:
 
 ```bash
 $ docker network create cassandra-net
@@ -32,7 +32,7 @@ $ docker run --name my-cassandra --network cassandra-net \
         -p 9042:9042 -d cassandra:latest
 ```
 
-If your Cassandra cluster is on another machine or port, you’ll need to specify the contact points and port in application.yml, as shown in chapter 4. To create the keyspace, run the CQL shell and use the `create keyspace` command like this:
+Nếu cụm Cassandra của bạn nằm trên một máy hoặc cổng khác, bạn sẽ cần chỉ rõ các contact points và cổng trong `application.yml`, như đã trình bày trong chương 4. Để tạo keyspace, chạy CQL shell và sử dụng lệnh `create keyspace` như sau:
 
 ```bash
 $ docker run -it --network cassandra-net --rm cassandra cqlsh my-cassandra
@@ -40,6 +40,4 @@ cqlsh> create keyspace tacocloud
 WITH replication = {'class': ’SimpleStrategy', 'replication_factor' : 1};
 ```
 
-Now that you have a Cassandra cluster, a new `tacocloud` keyspace, and the Spring Data Cassandra Reactive starter in your project, you’re ready to start defining the domain classes.
-
-
+Bây giờ bạn đã có một cụm Cassandra, một keyspace `tacocloud` mới và starter Spring Data Cassandra Reactive trong dự án của mình, bạn đã sẵn sàng bắt đầu định nghĩa các lớp miền (domain classes).

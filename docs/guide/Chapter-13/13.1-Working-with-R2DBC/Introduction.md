@@ -1,11 +1,10 @@
-## 13.1 Working with R2DBC
+## 13.1 Làm việc với R2DBC
 
-Reactive Relational Database Connectivity, or R2DBC [https://r2dbc.io/](https://r2dbc.io/) as it is commonly known, is a relatively new option for working with relational data using reactive types. It is effectively a reactive alternative to JDBC, enabling nonblocking persistence against conventional relational databases such as MySQL, PostgreSQL, H2, and Oracle. Because it’s built on Reactive Streams, it is quite different from JDBC and is a separate specification, unrelated to Java SE.
+Reactive Relational Database Connectivity, hay gọi tắt là R2DBC [https://r2dbc.io/](https://r2dbc.io/), là một lựa chọn tương đối mới để làm việc với dữ liệu quan hệ bằng cách sử dụng các kiểu dữ liệu phản ứng (reactive types). Đây thực chất là một giải pháp thay thế mang tính phản ứng cho JDBC, cho phép lưu trữ dữ liệu không đồng bộ (nonblocking) với các cơ sở dữ liệu quan hệ truyền thống như MySQL, PostgreSQL, H2 và Oracle. Vì được xây dựng trên Reactive Streams, R2DBC khá khác biệt so với JDBC và là một đặc tả riêng biệt, không liên quan đến Java SE.
 
-Spring Data R2DBC is a subproject of Spring Data that offers automatic repository support for R2DBC, much the same as Spring Data JDBC, which we looked at in chapter 3. Unlike Spring Data JDBC, however, Spring Data R2DBC doesn’t require strict adherence to domain-driven design concepts. In fact, as you’ll soon see, attempting to persist data through an aggregate root requires a bit more work with Spring Data
-R2DBC than with Spring Data JDBC.
+Spring Data R2DBC là một tiểu dự án của Spring Data, cung cấp hỗ trợ repository tự động cho R2DBC, tương tự như Spring Data JDBC mà chúng ta đã tìm hiểu ở chương 3. Tuy nhiên, khác với Spring Data JDBC, Spring Data R2DBC không yêu cầu phải tuân thủ chặt chẽ các khái niệm thiết kế hướng miền (domain-driven design). Thực tế, như bạn sắp thấy, việc cố gắng lưu trữ dữ liệu thông qua một aggregate root đòi hỏi phải làm nhiều việc hơn với Spring Data R2DBC so với Spring Data JDBC.
 
-To use Spring Data R2DBC, you’ll need to add a starter dependency to your project’s build. For a Maven-built project, the dependency looks like this:
+Để sử dụng Spring Data R2DBC, bạn cần thêm một dependency starter vào cấu hình build của dự án. Với dự án sử dụng Maven, dependency sẽ như sau:
 
 ```xml
 <dependency>
@@ -14,9 +13,9 @@ To use Spring Data R2DBC, you’ll need to add a starter dependency to your proj
 </dependency>
 ```
 
-Or, if you’re using the Initializr, select the Spring Data R2DBC check box when creating your project.
+Hoặc nếu bạn sử dụng Spring Initializr, hãy chọn vào ô Spring Data R2DBC khi tạo dự án.
 
-You’ll also need a relational database to persist data to, along with a corresponding R2DBC driver. For our project, we’ll be using an in-memory H2 database. Therefore, we need to add two dependencies: the H2 database library itself and the H2 R2DBC driver. The Maven dependencies follow:
+Bạn cũng cần có một cơ sở dữ liệu quan hệ để lưu trữ dữ liệu, cùng với một driver R2DBC tương ứng. Trong dự án của chúng ta, ta sẽ sử dụng cơ sở dữ liệu H2 trong bộ nhớ (in-memory). Do đó, ta cần thêm hai dependency: thư viện cơ sở dữ liệu H2 và driver H2 R2DBC. Các dependency Maven như sau:
 
 ```xml
 <dependency>
@@ -31,6 +30,6 @@ You’ll also need a relational database to persist data to, along with a corres
 </dependency>
 ```
 
-If you’re using a different database, then you’ll need to add the corresponding R2BDC driver dependency for the database of your choice.
+Nếu bạn sử dụng cơ sở dữ liệu khác, thì cần thêm dependency tương ứng với driver R2DBC của cơ sở dữ liệu bạn chọn.
 
-Now that the dependencies are in place, let’s see how Spring Data R2DBC works. Let’s start by defining the domain entities.
+Bây giờ khi các dependency đã được thêm vào, hãy cùng tìm hiểu cách Spring Data R2DBC hoạt động. Trước tiên, chúng ta sẽ định nghĩa các thực thể miền (domain entities).

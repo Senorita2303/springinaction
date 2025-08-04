@@ -1,8 +1,9 @@
-## 14.2 Creating a simple RSocket server and client
+## 14.2 Tạo một máy chủ và máy khách RSocket đơn giản
 
-Spring offers incredible support for messaging with RSocket, including all four communication models. To get started with RSocket, you’ll need to add the Spring Boot RSocket starter to your project’s build. In a Maven POM file, the RSocket starter dependency looks like this the following.
+Spring cung cấp hỗ trợ tuyệt vời cho nhắn tin với RSocket, bao gồm cả bốn mô hình giao tiếp. Để bắt đầu với RSocket, bạn cần thêm starter RSocket của Spring Boot vào phần cấu hình build của dự án. Trong tệp POM của Maven, dependency của RSocket starter sẽ trông như sau.
 
-**Listing 14.1 Spring Boot’s RSocket starter dependency**
+**Liệt kê 14.1 Dependency starter RSocket của Spring Boot**
+
 ```xml
 <dependency>
   <groupId>org.springframework.boot</groupId>
@@ -10,10 +11,10 @@ Spring offers incredible support for messaging with RSocket, including all four 
 </dependency>
 ```
 
-This same dependency is needed for both the server and client applications involved in RSocket communication.
+Dependency này được sử dụng cho cả ứng dụng máy chủ và máy khách trong giao tiếp RSocket.
 
->NOTE When choosing dependencies from the Spring Initializr, you might see a similarly named WebSocket dependency. Although RSocket and WebSocket have similar names and although you can use WebSocket as a transport for RSocket (and we’ll cover that later in this chapter), you do not need to select the WebSocket dependency when working with RSocket.
+>NOTE Khi chọn dependencies từ Spring Initializr, bạn có thể thấy một dependency WebSocket có tên tương tự. Mặc dù RSocket và WebSocket có tên gọi gần giống nhau và bạn có thể sử dụng WebSocket làm phương tiện truyền tải cho RSocket (chúng ta sẽ đề cập đến điều đó ở phần sau trong chương này), nhưng bạn **không cần** chọn dependency WebSocket khi làm việc với RSocket.
 
-Next, you’ll need to decide which communication model is best for your application. There’s no clear answer that fits every situation, so you’ll want to weigh the choice against the desired communication behavior of your application. However, as you’ll see in the next several examples, the development model isn’t much different for each of the communication models, so it’ll be easy to switch if you choose wrong.
+Tiếp theo, bạn cần quyết định mô hình giao tiếp nào là phù hợp nhất với ứng dụng của bạn. Không có một câu trả lời chung cho mọi trường hợp, vì vậy bạn nên cân nhắc lựa chọn dựa trên hành vi giao tiếp mong muốn của ứng dụng. Tuy nhiên, như bạn sẽ thấy trong các ví dụ tiếp theo, mô hình phát triển không khác nhau quá nhiều giữa các mô hình giao tiếp, nên sẽ rất dễ để chuyển đổi nếu bạn chọn nhầm ban đầu.
 
-Let’s see how to create an RSocket server and client in Spring using each of the communication models. Because each of RSocket’s communication models is different and is best suited for specific use-case scenarios, we’ll set the Taco Cloud application aside for now and see how to apply RSocket on different problem domains. We’ll start by seeing how to apply the request-response communication model.
+Hãy cùng tìm hiểu cách tạo một máy chủ và máy khách RSocket trong Spring bằng cách sử dụng từng mô hình giao tiếp. Vì mỗi mô hình giao tiếp của RSocket có đặc điểm riêng và phù hợp với các trường hợp sử dụng cụ thể, chúng ta sẽ tạm gác ứng dụng Taco Cloud lại và tìm hiểu cách áp dụng RSocket trong các miền vấn đề khác nhau. Chúng ta sẽ bắt đầu với cách áp dụng mô hình giao tiếp yêu cầu–phản hồi.
