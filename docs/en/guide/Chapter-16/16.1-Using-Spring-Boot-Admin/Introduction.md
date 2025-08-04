@@ -4,8 +4,7 @@ I’ve been asked several times if it’d make sense and, if so, how hard it’d
 
 Spring Boot Admin is an administrative frontend web application that makes Actuator endpoints more consumable by humans. It’s split into two primary components: the Spring Boot Admin server and its clients. The Admin server collects and displays Actuator data that’s fed to it from one or more Spring Boot applications, which are identified as Spring Boot Admin clients, as illustrated in figure 16.1.
 
-![](../../assets/16.1.png)
-
-**Figure 16.1 The Spring Boot Admin server consumes Actuator endpoints from one or more Spring Boot applications and presents the data in a web-based UI.** <br/>
+![Figure 16.1](../../assets/16.1.png)
+**Figure 16.1 The Spring Boot Admin server consumes Actuator endpoints from one or more Spring Boot applications and presents the data in a web-based UI.**
 
 You’ll need to register each of your applications with the Spring Boot Admin server, including the Taco Cloud application. But first, you’ll set up the Spring Boot Admin server to receive each client’s Actuator information.

@@ -2,8 +2,8 @@
 
 As arguably the most prominent implementation of AMQP, RabbitMQ offers a more advanced message-routing strategy than JMS. Whereas JMS messages are addressed with the name of a destination from which the receiver will retrieve them, AMQP messages are addressed with the name of an exchange and a routing key, which are decoupled from the queue to which the receiver is listening. This relationship between an exchange and queues is illustrated in figure 9.2.
 
-![](../../assets/9.2.png)
-**Figure 9.2 Messages sent to a RabbitMQ exchange are routed to one or more queues, based on routing keys and bindings.** <br/>
+![Figure 9.2](../../assets/9.2.png)
+**Figure 9.2 Messages sent to a RabbitMQ exchange are routed to one or more queues, based on routing keys and bindings.**
 
 When a message arrives at the RabbitMQ broker, it goes to the exchange for which it was addressed. The exchange is responsible for routing it to one or more queues, depending on the type of exchange, the binding between the exchange and queues, and the value of the message’s routing key.
 
@@ -24,5 +24,3 @@ Which exchange type you use and how you define the bindings from exchanges to qu
 
 >**NOTE**
 >For a more detailed discussion on how best to bind queues to exchanges, see RabbitMQ in Depth by Gavin Roy (Manning, 2017) or RabbitMQ in Action by Alvaro Videla and Jason J. W. Williams (Manning, 2012).
-
-

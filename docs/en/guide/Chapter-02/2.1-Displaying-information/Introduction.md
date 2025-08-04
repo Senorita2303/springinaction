@@ -12,11 +12,9 @@ In a Spring web application, it’s a controller’s job to fetch and process da
 
 The relationship between these components is illustrated in figure 2.1.
 
-![](../../assets/2.1.png)
-**Figure 2.1 A typical Spring MVC request flow** <br/>
+![Figure 2.1](../../assets/2.1.png)
+**Figure 2.1 A typical Spring MVC request flow**
 
 Because this chapter focuses on Spring’s web framework, we’ll defer any of the database stuff to chapter 3. For now, the controller is solely responsible for providing the ingredients to the view. In chapter 3, you’ll rework the controller to collaborate with a repository that fetches ingredients data from a database.
 
 Before you write the controller and view, let’s hammer out the domain type that represents an ingredient. This will establish a foundation on which you can develop your web components.
-
-

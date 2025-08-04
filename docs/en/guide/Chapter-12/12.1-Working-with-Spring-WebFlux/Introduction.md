@@ -8,12 +8,11 @@ The clients of those web applications have grown from people occasionally viewin
 
 Asynchronous web frameworks, in contrast, achieve higher scalability with fewer threads—generally one per CPU core. By applying a technique known as _event looping_ (as illustrated in figure 12.1), these frameworks are able to handle many requests per thread, making the per-connection cost more economical.
 
-![](../../assets/12.1.png)
-**Figure 12.1 Asynchronous web frameworks apply event looping to handle more requests with fewer threads.** <br/>
+![Figure 12.1](../../assets/12.1.png)
+**Figure 12.1 Asynchronous web frameworks apply event looping to handle more requests with fewer threads.**
 
 In an event loop, everything is handled as an event, including requests and callbacks from intensive operations like database and network operations. When a costly operation is needed, the event loop registers a callback for that operation to be performed in parallel, while it moves on to handle other events.
 
 When the operation is complete, it’s treated as an event by the event loop, the same as requests. As a result, asynchronous web frameworks are able to scale better under heavy request volume with fewer threads, resulting in reduced overhead for thread management.
 
 Spring offers a nonblocking, asynchronous web framework based largely on its Project Reactor to address the need for greater scalability in web applications and APIs. Let’s take a look at Spring WebFlux—a reactive web framework for Spring.
-
